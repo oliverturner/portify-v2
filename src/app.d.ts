@@ -5,6 +5,10 @@ declare global {
 		interface Locals {
 			auth: import("lucia").AuthRequest;
 		}
+
+		interface PageProps {
+			playlists: unknown[];
+		}
 	}
 }
 

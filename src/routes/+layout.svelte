@@ -13,20 +13,20 @@
 	export let data: PageData;
 </script>
 
-<!-- App Shell -->
 <AppShell>
 	<svelte:fragment slot="header">
-		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
 				<strong class="text-xl uppercase">Portify</strong>
 			</svelte:fragment>
 
 			<svelte:fragment slot="trail">
-				<p>{data.spotifyUsername}</p>
-				<form method="post" action="?/logout" use:enhance>
-					<button class="btn btn-sm variant-ghost-surface">Sign out</button>
-				</form>
+				{#if data.spotifyUsername}
+					<p>{data.spotifyUsername}</p>
+					<form method="post" action="?/logout" use:enhance>
+						<button class="btn btn-sm variant-ghost-surface">Sign out</button>
+					</form>
+				{/if}
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
