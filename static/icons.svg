@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="icon-album" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="2"/>
+      <circle cx="18" cy="9" r="2"/>
+      <path d="M15.318 3.631a9 9 0 1 0 5.368 10.736M20 9V2l2 2"/>
+    </g>
+  </symbol>
+
+  <symbol id="icon-track" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="9" cy="18" r="3"/>
+      <path d="M12 18V3m0 0l6 1v4l-6-1V3Z"/>
+    </g>
+  </symbol>
+
+  <symbol id="icon-playlist" viewBox="0 0 24 24">
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M3 17h2.735a4 4 0 0 0 3.43-1.942l3.67-6.116A4 4 0 0 1 16.265 7H21m0 0l-2-2m2 2l-2 2M3 7h2.735a4 4 0 0 1 2.871 1.215M21 17h-4.735a4 4 0 0 1-2.871-1.215M21 17l-2 2m2-2l-2-2"/>
+  </symbol>
+
+  <symbol id="icon-artist" viewBox="0 0 24 24">
+    <g fill="none">
+      <path stroke-linejoin="round" d="M4 18a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"></path>
+      <circle cx="12" cy="7" r="3"></circle>
+    </g>
+  </symbol>
+</svg>

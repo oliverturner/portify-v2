@@ -8,7 +8,7 @@ export const GET = async ({ cookies, locals }) => {
 		return new Response(null, {
 			status: 302,
 			headers: {
-				Location: "/",
+				Location: "/app",
 			},
 		});
 	}

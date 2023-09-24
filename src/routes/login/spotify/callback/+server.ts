@@ -7,10 +7,11 @@ export const GET = async ({ url, cookies, locals }) => {
 		return new Response(null, {
 			status: 302,
 			headers: {
-				Location: "/",
+				Location: "/app",
 			},
 		});
 	}
+
 	const storedState = cookies.get("spotify_oauth_state");
 	const state = url.searchParams.get("state");
 	const code = url.searchParams.get("code");
@@ -50,7 +51,7 @@ export const GET = async ({ url, cookies, locals }) => {
 		return new Response(null, {
 			status: 302,
 			headers: {
-				Location: "/",
+				Location: "/app",
 			},
 		});
 	} catch (e) {

@@ -7,8 +7,15 @@ declare global {
 		}
 
 		interface PageProps {
+			albums: unknown[];
+			artists: unknown[];
 			playlists: unknown[];
+			tracks: unknown[];
 		}
+	}
+
+	interface Document {
+		startViewTransition: (callback) => Promise<void>;
 	}
 }
 

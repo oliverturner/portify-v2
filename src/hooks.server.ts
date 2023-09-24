@@ -1,10 +1,20 @@
-import type { Handle } from "@sveltejs/kit";
+import { redirect, type Handle } from "@sveltejs/kit";
 
 import { auth } from "$lib/server/lucia";
 
 export const handle: Handle = async ({ event, resolve }) => {
-	// we can pass `event` because we used the SvelteKit middleware
 	event.locals.auth = auth.handleRequest(event);
+	const session = await event.locals.auth.validate();
+
+	if (!session) {
+		if (!event.url.pathname.startsWith("/login")) {
+			throw redirect(303, "/login");
+		}
+	} else {
+		if (!event.url.pathname.startsWith("/app")) {
+			throw redirect(303, "/app");
+		}
+	}
 
 	return await resolve(event);
 };
