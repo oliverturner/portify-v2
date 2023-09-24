@@ -23,14 +23,16 @@
 	];
 
 	onNavigate((navigation) => {
-		if (!document.startViewTransition) return;
+		return;
 
-		return new Promise((resolve) => {
-			document.startViewTransition(async () => {
-				resolve();
-				await navigation.complete;
-			});
-		});
+		// if (!document.startViewTransition) return;
+
+		// return new Promise((resolve) => {
+		// 	document.startViewTransition(async () => {
+		// 		resolve();
+		// 		await navigation.complete;
+		// 	});
+		// });
 	});
 </script>
 

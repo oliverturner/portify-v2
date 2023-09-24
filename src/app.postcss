@@ -8,6 +8,14 @@ body {
 	@apply h-full overflow-hidden;
 }
 
+/* ::view-transition-old(root) {
+	animation-duration: 1s;
+}
+::view-transition-new(root) {
+	animation-delay: 1s;
+  animation-duration: 1s;
+} */
+
 .page {
 	display: grid;
 	grid-template-columns: 1fr 3fr;
@@ -20,18 +28,58 @@ body {
 :is(.page__nav, .page__content) {
 	height: 100%;
 	overflow-y: auto;
-	padding: 1rem;
 }
 
 .page__nav {
 	grid-area: nav;
 
-	display: grid;
-	gap: 0.5rem;
-
 	background-color: rgba(var(--color-secondary-500) / 0.18);
+}
+
+.page__nav__content {
+	padding: 1rem;
+
+	& > ul {
+		display: grid;
+		gap: 1rem;
+	}
 }
 
 .page__content {
 	grid-area: content;
+
+	padding: 1rem;
+}
+
+.nav__item {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-template-rows: auto 1fr;
+	grid-template-areas:
+		"cover title"
+		"cover artists";
+	grid-gap: 0.5rem;
+	align-items: start;
+
+	line-height: 1;
+	background-color: rgba(var(--color-secondary-700) / 0.1);
+}
+
+.nav__item__cover {
+	grid-area: cover;
+	width: 64px;
+	aspect-ratio: 1;
+	object-fit: cover;
+}
+
+.nav__item__title {
+	grid-area: title;
+
+	line-height: 1.5;
+	font-size: 0.9rem;
+}
+
+.nav__item__artists {
+	grid-area: artists;
+	font-size: 0.8rem;
 }

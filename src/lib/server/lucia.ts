@@ -37,7 +37,12 @@ export const spotifyAuth = spotify(auth, {
 	clientId: SPOTIFY_CLIENT_ID,
 	clientSecret: SPOTIFY_CLIENT_SECRET,
 	redirectUri: SPOTIFY_REDIRECT_URI,
-	scope: ["user-top-read", "user-library-read", "user-modify-playback-state", "playlist-read-private"],
+	scope: [
+		"user-top-read",
+		"user-library-read",
+		"user-modify-playback-state",
+		"playlist-read-private",
+	],
 });
 
 export type Auth = typeof auth;
