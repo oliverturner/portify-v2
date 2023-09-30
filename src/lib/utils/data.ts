@@ -1,7 +1,7 @@
 import type { Artist, SimplifiedArtist } from "$lib/typings/spotify";
 import type { AuthRequest } from "lucia";
 
-export function buildUrl(path: string, params: Record<string, unknown> = {}, offset: number = 0) {
+function buildUrl(path: string, params: Record<string, unknown> = {}, offset: number = 0) {
 	const defaultParams = { limit: 50 };
 	const url = new URL(`v1/${path}`, "https://api.spotify.com");
 
@@ -39,8 +39,11 @@ export async function getPagedData<T>(endpoint: string, auth: AuthRequest) {
 		const data = (await res.json()) as T;
 
 		return data;
-	} catch (error) {
-		console.error(error);
+
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	} catch (error: any) {
+		console.log("endpoint", endpoint);
+		console.error(error.message);
 		return null;
 	}
 }
