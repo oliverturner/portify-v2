@@ -1,9 +1,33 @@
 import type { Artist, SimplifiedArtist } from "$lib/typings/spotify";
+import type { AuthRequest } from "lucia";
 
-export async function getData<T>(endpoint: string, accessToken: string) {
+export function buildUrl(path: string, params: Record<string, unknown> = {}, offset: number = 0) {
+	const defaultParams = { limit: 50 };
+	const url = new URL(`v1/${path}`, "https://api.spotify.com");
+
+	for (const [key, value] of Object.entries({ ...defaultParams, ...params, offset })) {
+		url.searchParams.set(key, String(value));
+	}
+
+	return url;
+}
+
+export function getEndpoint(
+	path: string,
+	params: Record<string, unknown> = {},
+	offset: number = 0,
+) {
+	return buildUrl(path, params, offset).toString();
+}
+
+export async function getPagedData<T>(endpoint: string, auth: AuthRequest) {
+	const session = await auth.validate();
+
+	if (!session) return null;
+
 	try {
-		const res = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
-			headers: { Authorization: `Bearer ${accessToken}` },
+		const res = await fetch(endpoint, {
+			headers: { Authorization: `Bearer ${session.user.spotifyAccessToken}` },
 		});
 
 		if (res.ok === false) {
@@ -12,9 +36,9 @@ export async function getData<T>(endpoint: string, accessToken: string) {
 			});
 		}
 
-		const data = await res.json();
+		const data = (await res.json()) as T;
 
-		return data as T;
+		return data;
 	} catch (error) {
 		console.error(error);
 		return null;

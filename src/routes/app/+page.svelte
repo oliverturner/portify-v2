@@ -4,8 +4,6 @@
 	import NavPage from "$lib/components/nav-page.svelte";
 
 	export let data: PageData;
-
-	console.log({ root: data });
 </script>
 
 <NavPage>

@@ -56,11 +56,9 @@ body {
 	display: grid;
 	grid-template-columns: auto 1fr;
 	grid-template-rows: auto 1fr;
-	grid-template-areas:
-		"cover title"
-		"cover artists";
+	grid-template-areas: "cover label";
 	grid-gap: 0.5rem;
-	align-items: start;
+	align-items: center;
 
 	line-height: 1;
 	background-color: rgba(var(--color-secondary-600) / 0.1);
@@ -73,14 +71,27 @@ body {
 	object-fit: cover;
 }
 
-.nav__item__title {
-	grid-area: title;
+.nav__item__label {
+	grid-area: label;
 
 	line-height: 1.5;
 	font-size: 0.9rem;
 }
 
-.nav__item__artists {
-	grid-area: artists;
-	font-size: 0.8rem;
+.content {
+	display: grid;
+
+	overflow: hidden;
+}
+
+.content__item {
+	aspect-ratio: 1;
+}
+
+.content__items {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	grid-gap: 1rem;
+
+	overflow-y: auto;
 }

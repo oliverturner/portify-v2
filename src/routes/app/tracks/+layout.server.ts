@@ -1,17 +1,16 @@
 import type { Page, Track } from "$lib/typings/spotify";
 import type { LayoutServerLoad } from "../$types";
 
-import { getData } from "$lib/utils/data";
+import { getEndpoint, getPagedData } from "$lib/utils/data";
+
+const apiParams = {
+	time_range: "long_term",
+};
 
 export const load: LayoutServerLoad = async ({ locals }) => {
-	const session = await locals.auth.validate();
-
-	if (!session) return;
-
-	const tracks = await getData<Page<Track>>(
-		"me/top/tracks?limit=50",
-		session.user.spotifyAccessToken,
-	);
+	// const endpoint = getEndpoint("me/top/artists", apiParams);
+	const endpoint = getEndpoint("me/top/tracks", apiParams);
+	const tracks = await getPagedData<Page<Track>>(endpoint, locals.auth);
 
 	return {
 		tracks,

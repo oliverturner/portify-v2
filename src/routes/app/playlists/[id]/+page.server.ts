@@ -1,18 +1,23 @@
-import type { Playlist } from "$lib/typings/spotify";
+import type { Page, PlaylistedTrack } from "$lib/typings/spotify";
 import type { PageServerLoad } from "./$types";
 
-import { getData } from "$lib/utils/data";
+import { getEndpoint, getPagedData } from "$lib/utils/data";
 
 export { actions } from "$lib/actions";
 
+const PAGE_FIELDS = "total,previous,next,offset";
+
+const apiParams = {
+	limit: 50,
+	market: "from_token",
+	fields: `${PAGE_FIELDS},items(track(id,name,is_playable,duration_ms,artists(id,name),album(id,name,images)))`,
+};
+
 export const load: PageServerLoad = async ({ locals, params }) => {
-	const session = await locals.auth.validate();
-
-	if (!session) return;
-
-	const playlist = await getData<Playlist>(`playlists/${params.id}?limit=50`, session.user.spotifyAccessToken);
+	const endpoint = getEndpoint(`playlists/${params.id}/tracks`, apiParams);
+	const tracks = await getPagedData<Page<PlaylistedTrack>>(endpoint, locals.auth);
 
 	return {
-		playlist,
+		tracks,
 	};
 };

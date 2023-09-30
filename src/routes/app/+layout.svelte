@@ -44,7 +44,7 @@
 		</svelte:fragment>
 
 		<svelte:fragment slot="trail">
-			<p>{data.spotifyUsername}</p>
+			<p>{data.username}</p>
 			<form method="post" action="?/logout" use:enhance>
 				<button class="btn btn-sm variant-ghost-surface">Sign out</button>
 			</form>

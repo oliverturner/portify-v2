@@ -13,8 +13,10 @@
 			<li>
 				<a class="nav__item" href="/app/tracks/{item.id}">
 					<img class="nav__item__cover" src={item.album.images.at(-1)?.url} alt="Cover art" />
-					<span class="nav__item__title">{item.name}</span>
-					<span class="nav__item__artists">{getArtistNames(item.artists)}</span>
+					<div class="nav__item__label">
+						<span>{item.name}</span>
+						<span>{getArtistNames(item.artists)}</span>
+					</div>
 				</a>
 			</li>
 		{/each}

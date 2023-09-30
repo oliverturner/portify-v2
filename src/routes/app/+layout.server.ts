@@ -6,8 +6,9 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 	if (!session) return;
 
 	return {
-		userId: session.user.userId,
-		spotifyUsername: session.user.spotifyUsername,
-		spotifyAccessToken: session.user.spotifyAccessToken,
+		// foo: "bar",
+		username: session.user.spotifyUsername,
+		// userId: session.user.userId,
+		// spotifyAccessToken: session.user.spotifyAccessToken,
 	};
 };

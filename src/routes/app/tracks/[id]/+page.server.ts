@@ -1,18 +1,13 @@
 import type { PageServerLoad } from "./$types";
-
-import { getData } from "$lib/utils/data";
 import type { Track } from "$lib/typings/spotify";
+
+import { getEndpoint, getPagedData } from "$lib/utils/data";
 
 export { actions } from "$lib/actions";
 
 export const load: PageServerLoad = async ({ locals, params }) => {
-	const session = await locals.auth.validate();
+	const endpoint = getEndpoint(`tracks/${params.id}`);
+	const pageData = await getPagedData<Track>(endpoint, locals.auth);
 
-	if (!session) return;
-
-	const track = await getData<Track>(`tracks/${params.id}`, session.user.spotifyAccessToken);
-
-	return {
-		track,
-	};
+	return pageData;
 };
