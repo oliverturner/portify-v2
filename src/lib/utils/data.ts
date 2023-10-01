@@ -1,5 +1,4 @@
-import type { Artist, SimplifiedArtist } from "$lib/typings/spotify";
-import type { AuthRequest } from "lucia";
+import type { Artist, SimplifiedArtist, TrackItem, Track } from "$lib/typings/spotify";
 
 function buildUrl(path: string, params: Record<string, unknown> = {}, offset: number = 0) {
 	const defaultParams = { limit: 50 };
@@ -20,34 +19,12 @@ export function getEndpoint(
 	return buildUrl(path, params, offset).toString();
 }
 
-export async function getPagedData<T>(endpoint: string, auth: AuthRequest) {
-	const session = await auth.validate();
-
-	if (!session) return null;
-
-	try {
-		const res = await fetch(endpoint, {
-			headers: { Authorization: `Bearer ${session.user.spotifyAccessToken}` },
-		});
-
-		if (res.ok === false) {
-			throw new Error("Failed to fetch data", {
-				cause: res,
-			});
-		}
-
-		const data = (await res.json()) as T;
-
-		return data;
-
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	} catch (error: any) {
-		console.log("endpoint", endpoint);
-		console.error(error.message);
-		return null;
-	}
-}
-
 export function getArtistNames(artists: (Artist | SimplifiedArtist)[] = []) {
 	return artists.map((artist) => artist.name).join(", ");
 }
+
+export const isTrack = (data: TrackItem): data is Track => {
+	console.log(data);
+
+	return data.type === "track";
+};

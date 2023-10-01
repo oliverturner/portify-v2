@@ -55,7 +55,7 @@
 		{#each links as link}
 			<AppRailAnchor href={link.href} selected={$page.url.pathname.startsWith(link.href)}>
 				<svelte:fragment slot="lead">
-					<Icon id={link.icon} />
+					<Icon id={link.icon} size="large" />
 				</svelte:fragment>
 				<span>{link.label}</span>
 			</AppRailAnchor>

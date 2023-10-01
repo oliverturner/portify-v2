@@ -1,7 +1,8 @@
 import type { PageServerLoad } from "./$types";
 import type { Track } from "$lib/typings/spotify";
 
-import { getEndpoint, getPagedData } from "$lib/utils/data";
+import { getEndpoint } from "$lib/utils/data";
+import { getPagedData } from "$lib/server/api";
 
 export { actions } from "$lib/actions";
 

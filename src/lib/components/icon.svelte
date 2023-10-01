@@ -1,15 +1,26 @@
 <script lang="ts">
-	export let id:string;
+	export let id: string;
+	export let size: "small" | "medium" | "large" = "medium";
 </script>
 
-<svg>
+<svg class={size}>
 	<use xlink:href="/icons.svg#icon-{id}"></use>
 </svg>
 
-<style>
+<style lang="postcss">
 	svg {
-		width: 2rem;
-    aspect-ratio: 1;
-    stroke: currentColor;
+		width: 100%;
+		aspect-ratio: 1;
+		stroke: currentColor;
+
+		&.small {
+			width: 1rem;
+		}
+		&.medium {
+			width: 1.5rem;
+		}
+		&.large {
+			width: 2.5rem;
+		}
 	}
 </style>

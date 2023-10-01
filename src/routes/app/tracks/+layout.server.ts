@@ -1,7 +1,8 @@
 import type { Page, Track } from "$lib/typings/spotify";
 import type { LayoutServerLoad } from "../$types";
 
-import { getEndpoint, getPagedData } from "$lib/utils/data";
+import { getEndpoint } from "$lib/utils/data";
+import { getPagedData } from "$lib/server/api";
 
 const apiParams = {
 	time_range: "long_term",
