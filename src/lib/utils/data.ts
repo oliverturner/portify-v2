@@ -24,7 +24,5 @@ export function getArtistNames(artists: (Artist | SimplifiedArtist)[] = []) {
 }
 
 export const isTrack = (data: TrackItem): data is Track => {
-	console.log(data);
-
 	return data.type === "track";
 };

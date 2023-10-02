@@ -5,12 +5,14 @@
 	import { isTrack } from "$lib/utils/data";
 
 	export let data: PageData;
+
+	const { tracks, isGrouped } = data;
 </script>
 
 <ul class="grid">
-	{#each data.tracks?.items ?? [] as item}
+	{#each tracks?.items ?? [] as item}
 		{#if isTrack(item.track)}
-			<li><Track track={item.track} /></li>
+			<li><Track track={item.track} {isGrouped} /></li>
 		{/if}
 	{/each}
 </ul>
