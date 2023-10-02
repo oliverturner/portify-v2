@@ -26,6 +26,8 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 			return isTrack(item.track) && item.track.album.id === albumId;
 		}) || false;
 
+	console.log("isGrouped", { albumId, paramId: params.id, match: albumId === params.id });
+
 	return {
 		isGrouped,
 		tracks,
