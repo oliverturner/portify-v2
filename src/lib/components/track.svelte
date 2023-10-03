@@ -8,7 +8,6 @@
 	export let isGrouped: boolean;
 </script>
 
-<!-- <div class="grid" class:grid--grouped={isGrouped}> -->
 <div class="grid" class:grid--grouped={isGrouped}>
 	{#if !isGrouped}
 		<img class="cover square" src={track.album.images[1].url} alt={track.name} />
