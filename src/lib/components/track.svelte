@@ -4,6 +4,7 @@
 	import Icon from "./icon.svelte";
 	import IconLink from "./icon-link.svelte";
 
+	export let index: number;
 	export let track: Track;
 	export let isGrouped: boolean;
 </script>
@@ -11,6 +12,8 @@
 <div class="grid" class:grid--grouped={isGrouped}>
 	{#if !isGrouped}
 		<img class="cover square" src={track.album.images[1].url} alt={track.name} />
+	{:else}
+		<div class="cover square">{index}</div>
 	{/if}
 
 	<div class="info">
@@ -53,13 +56,18 @@
 		background: rgb(var(--color-surface-600) / 0.2);
 
 		&.grid--grouped {
-			grid-template-columns: 1fr;
-			grid-template-areas: "info";
+			grid-template-columns: 1fr 5fr;
 		}
 	}
 
 	.cover {
 		grid-area: cover;
+
+		display: grid;
+		place-content: center;
+
+		aspect-ratio: 1;
+		background: #0006;
 	}
 
 	.info {
