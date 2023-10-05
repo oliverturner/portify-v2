@@ -2,7 +2,7 @@ import type { Page, PlaylistedTrack, Track, TrackItem } from "$lib/typings/spoti
 import type { PageServerLoad } from "./$types";
 
 import { getEndpoint, isTrack } from "$lib/utils/data";
-import { getPagedData } from "$lib/server/api";
+import { queryApi } from "$lib/server/api";
 
 export { actions } from "$lib/actions";
 
@@ -38,7 +38,7 @@ function tracksAreGrouped(tracks: Page<PlaylistedTrack<TrackItem>> | null) {
 
 export const load: PageServerLoad = async ({ locals, params }) => {
 	const endpoint = getEndpoint(`playlists/${params.id}/tracks`, apiParams);
-	const tracks = await getPagedData<Page<PlaylistedTrack>>(endpoint, locals.auth);
+	const tracks = await queryApi<Page<PlaylistedTrack>>(endpoint, locals.auth);
 	const isGrouped = tracksAreGrouped(tracks);
 
 	return {

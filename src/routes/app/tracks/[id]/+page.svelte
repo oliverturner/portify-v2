@@ -4,4 +4,4 @@
 	export let data: PageData;
 </script>
 
-<h2>{data.track?.name}</h2>
+<h2>{data.name}</h2>
