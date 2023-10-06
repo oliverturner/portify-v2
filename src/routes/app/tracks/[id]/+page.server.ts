@@ -13,9 +13,9 @@ const apiParams = {
 
 export const load: PageServerLoad = async ({ locals, params }) => {
 	const endpoint = getEndpoint(`tracks/${params.id}`, apiParams);
-	const pageData = await queryApi<Track>(endpoint, locals.auth);
+	const track = await queryApi<Track>(endpoint, locals.auth);
 
-	console.log({ pageData });
-
-	return pageData;
+	return {
+		track,
+	};
 };

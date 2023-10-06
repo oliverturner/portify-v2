@@ -1,12 +1,12 @@
-import type { Page, PlaylistedTrack, Track, TrackItem } from "$lib/typings/spotify";
+import type { Page, Playlist, PlaylistedTrack, Track, TrackItem } from "$lib/typings/spotify";
 import type { PageServerLoad } from "./$types";
 
 import { getEndpoint, isTrack } from "$lib/utils/data";
 import { queryApi } from "$lib/server/api";
+import { PAGE_FIELDS } from "$lib/constants";
 
 export { actions } from "$lib/actions";
 
-const PAGE_FIELDS = "total,previous,next,offset";
 const trackFields = [
 	"id",
 	"name",
@@ -15,18 +15,18 @@ const trackFields = [
 	"duration_ms",
 	"artists(id,name)",
 	"album(id,name,images)",
-];
+].join(",");
 
 const apiParams = {
 	limit: 50,
 	market: "from_token",
-	fields: `${PAGE_FIELDS},items(track(${trackFields.join(",")}))`,
+	fields: `name,description,images,tracks(${PAGE_FIELDS},items(track(${trackFields})))`,
 };
 
 /**
  * Are all playlist items part of a group, such as a mix?
  */
-function tracksAreGrouped(tracks: Page<PlaylistedTrack<TrackItem>> | null) {
+function tracksAreGrouped(tracks?: Page<PlaylistedTrack<TrackItem>>) {
 	if (!tracks || !tracks.items.length) return false;
 
 	const testTrack = tracks.items[0].track as Track;
@@ -37,12 +37,12 @@ function tracksAreGrouped(tracks: Page<PlaylistedTrack<TrackItem>> | null) {
 }
 
 export const load: PageServerLoad = async ({ locals, params }) => {
-	const endpoint = getEndpoint(`playlists/${params.id}/tracks`, apiParams);
-	const tracks = await queryApi<Page<PlaylistedTrack>>(endpoint, locals.auth);
-	const isGrouped = tracksAreGrouped(tracks);
+	const endpoint = getEndpoint(`playlists/${params.id}`, apiParams);
+	const playlist = await queryApi<Playlist>(endpoint, locals.auth);
+	const isGrouped = tracksAreGrouped(playlist?.tracks);
 
 	return {
 		isGrouped,
-		tracks,
+		playlist,
 	};
 };
