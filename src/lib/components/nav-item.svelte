@@ -40,6 +40,8 @@
 	.nav__item__label {
 		grid-area: label;
 
+		display: grid;
+
 		line-height: 1.5;
 		font-size: 0.9rem;
 	}

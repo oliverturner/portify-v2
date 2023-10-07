@@ -9,7 +9,13 @@
 
 	export let data: LayoutData;
 
-	const isActive = (item: SavedAlbum) => currentPath === `/app/albums/${item.album.id}`;
+	function getLink(item: SavedAlbum) {
+		const href = `/app/tracks/${item.album.id}`;
+		const isActive = currentPath === href;
+		const imgUrl = item.album.images.at(-1)?.url;
+
+		return { href, isActive, imgUrl };
+	}
 
 	$: currentPath = $page.url.pathname;
 </script>
@@ -17,11 +23,7 @@
 <NavPage>
 	<svelte:fragment slot="nav-items">
 		{#each data.albums?.items ?? [] as item}
-			<NavItem
-				href="/app/albums/{item.album.id}"
-				isActive={isActive(item)}
-				imgUrl={item.album.images.at(-1)?.url}
-			>
+			<NavItem {...getLink(item)}>
 				<svelte:fragment slot="label">
 					<span>{item.album.name}</span>
 					<span>{getArtistNames(item.album.artists)}</span>

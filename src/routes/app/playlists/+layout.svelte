@@ -1,10 +1,20 @@
 <script lang="ts">
+	import type { Playlist } from "$lib/typings/spotify";
 	import type { LayoutData } from "./$types";
 
 	import { page } from "$app/stores";
 	import NavPage from "$lib/components/nav-page.svelte";
+	import NavItem from "$lib/components/nav-item.svelte";
 
 	export let data: LayoutData;
+
+	function getLink(item: Playlist) {
+		const href = `/app/playlists/${item.id}`;
+		const isActive = currentPath === href;
+		const imgUrl = item.images.at(-1)?.url;
+
+		return { href, isActive, imgUrl };
+	}
 
 	$: currentPath = $page.url.pathname;
 </script>
@@ -12,18 +22,9 @@
 <NavPage>
 	<svelte:fragment slot="nav-items">
 		{#each data.playlists?.items ?? [] as item}
-			<li>
-				<a
-					class="nav__item"
-					class:nav__item--active={currentPath === `/app/playlists/${item.id}`}
-					href="/app/playlists/{item.id}"
-				>
-					<img class="nav__item__cover" src={item.images.at(-1)?.url} alt="Cover art" />
-					<div class="nav__item__label">
-						<span>{item.name}</span>
-					</div>
-				</a>
-			</li>
+			<NavItem {...getLink(item)}>
+				<span slot="label">{item.name}</span>
+			</NavItem>
 		{/each}
 	</svelte:fragment>
 
