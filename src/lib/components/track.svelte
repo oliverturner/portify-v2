@@ -4,11 +4,18 @@
 	import Icon from "./icon.svelte";
 	import IconLink from "./icon-link.svelte";
 
+	export let index: number;
 	export let track: Track;
+	export let isGrouped: boolean;
 </script>
 
-<div class="grid">
-	<img class="cover square" src={track.album.images[1].url} alt={track.name} />
+<div class="grid" class:grid--grouped={isGrouped}>
+	{#if !isGrouped}
+		<img class="cover square" src={track.album.images[1].url} alt={track.name} />
+	{:else}
+		<div class="cover square">{index}</div>
+	{/if}
+
 	<div class="info">
 		<div class="artists">
 			<Icon id="artist" />
@@ -23,14 +30,17 @@
 			<span>{track.name}</span>
 		</IconLink>
 
-		<IconLink icon="album" href="/app/albums/{track.album.id}">
-			<span>{track.album.name}</span>
-		</IconLink>
+		{#if !isGrouped}
+			<IconLink icon="album" href="/app/albums/{track.album.id}">
+				<span>{track.album.name}</span>
+			</IconLink>
+		{/if}
 	</div>
 </div>
 
 <style lang="postcss">
-	a, span {
+	a,
+	span {
 		color: rgba(var(--color-primary-400));
 
 		&:hover {
@@ -39,14 +49,25 @@
 	}
 
 	.grid {
-		display: grid;
 		grid-template-columns: 1fr 3fr;
 		grid-template-areas: "cover info";
 		gap: 1rem;
+
+		background: rgb(var(--color-surface-600) / 0.2);
+
+		&.grid--grouped {
+			grid-template-columns: 1fr 5fr;
+		}
 	}
 
 	.cover {
 		grid-area: cover;
+
+		display: grid;
+		place-content: center;
+
+		aspect-ratio: 1;
+		background: #0006;
 	}
 
 	.info {

@@ -1,22 +1,17 @@
 import type { Artist, SimplifiedArtist, TrackItem, Track } from "$lib/typings/spotify";
 
-function buildUrl(path: string, params: Record<string, unknown> = {}, offset: number = 0) {
-	const defaultParams = { limit: 50 };
+function buildUrl(path: string, params: Record<string, unknown> = {}) {
 	const url = new URL(`v1/${path}`, "https://api.spotify.com");
 
-	for (const [key, value] of Object.entries({ ...defaultParams, ...params, offset })) {
+	for (const [key, value] of Object.entries(params)) {
 		url.searchParams.set(key, String(value));
 	}
 
 	return url;
 }
 
-export function getEndpoint(
-	path: string,
-	params: Record<string, unknown> = {},
-	offset: number = 0,
-) {
-	return buildUrl(path, params, offset).toString();
+export function getEndpoint(path: string, params: Record<string, unknown> = {}) {
+	return buildUrl(path, params).toString();
 }
 
 export function getArtistNames(artists: (Artist | SimplifiedArtist)[] = []) {
@@ -24,7 +19,5 @@ export function getArtistNames(artists: (Artist | SimplifiedArtist)[] = []) {
 }
 
 export const isTrack = (data: TrackItem): data is Track => {
-	console.log(data);
-
 	return data.type === "track";
 };

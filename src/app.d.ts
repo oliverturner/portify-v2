@@ -1,4 +1,7 @@
 // See https://kit.svelte.dev/docs/types#app
+
+import type { Album, Artist, Page, Playlist, Track } from "$lib/typings/spotify";
+
 // for information about these interfaces
 declare global {
 	namespace App {
@@ -7,10 +10,15 @@ declare global {
 		}
 
 		interface PageProps {
-			albums: unknown[];
-			artists: unknown[];
-			playlists: unknown[];
-			tracks: unknown[];
+			username: string;
+			albums: Page<Album>;
+			album: Album;
+			artists: Page<Artist>;
+			artist: Artist;
+			playlists: Page<Playlist>;
+			playlist: Playlist;
+			tracks: Page<Track>;
+			track: Track;
 		}
 	}
 

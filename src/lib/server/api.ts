@@ -2,7 +2,7 @@ import type { AuthRequest } from "lucia";
 
 import { auth } from "$lib/server/lucia";
 
-export async function getPagedData<T>(endpoint: string, authRequest: AuthRequest) {
+export async function queryApi<T>(endpoint: string, authRequest: AuthRequest) {
 	const session = await authRequest.validate();
 
 	if (!session) return null;
@@ -39,9 +39,7 @@ export async function getPagedData<T>(endpoint: string, authRequest: AuthRequest
 		const data = (await res.json()) as T;
 
 		return data;
-
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	} catch (error: any) {
+	} catch (error) {
 		console.log(JSON.stringify({ endpoint, error, session }, null, 2));
 
 		return null;
