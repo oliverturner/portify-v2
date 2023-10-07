@@ -3,7 +3,7 @@
 
 	export let data: PageData;
 
-	// console.log({ trackPage: data });
+	console.log({ trackPage: data });
 </script>
 
 <h2>{data.track?.name}</h2>

@@ -6,7 +6,6 @@ import { queryApi } from "$lib/server/api";
 export { actions } from "$lib/actions";
 
 const apiParams = {
-	limit: 50,
 	market: "from_token",
 	// fields: `${PAGE_FIELDS},items(track(${trackFields.join(",")}))`,
 };
@@ -14,6 +13,9 @@ const apiParams = {
 export const load: PageServerLoad = async ({ locals, params }) => {
 	const endpoint = getEndpoint(`tracks/${params.id}`, apiParams);
 	const track = await queryApi<Track>(endpoint, locals.auth);
+
+	console.log("server: track", track);
+
 
 	return {
 		track,
