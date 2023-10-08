@@ -1,11 +1,88 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@tailwind variants;
+/* See https://github.com/argyleink/open-props/tree/main/src for details */
+@import "open-props/aspects";
+@import "open-props/buttons";
+@import "open-props/colors";
+@import "open-props/colors-hsl";
+@import "open-props/fonts";
+@import "open-props/gradients";
+@import "open-props/masks/corner-cuts";
+@import "open-props/masks/edges";
+@import "open-props/media";
+@import "open-props/shadows";
+@import "open-props/sizes";
+@import "open-props/zindex";
+
+:root {
+	&[color-scheme="dark"] {
+		/* --brand: var(--orange-3); */
+		/* --brand: rgba(14 165 233 / 1); */
+		--brand-hsl: var(--blue-10-hsl);
+		--brand: hsla(var(--brand-hsl) / 1);
+		--brand-1: hsla(var(--brand-hsl) / 0.8);
+		--brand-2: hsla(var(--brand-hsl) / 0.6);
+		--brand-3: hsla(var(--brand-hsl) / 0.4);
+		--brand-4: hsla(var(--brand-hsl) / 0.2);
+
+		--text-1: var(--gray-3);
+		--text-2: var(--gray-5);
+
+		--surface-1: #000b;
+		--surface-2: #000a;
+		--surface-3: #0008;
+		--surface-4: #0006;
+		--surface-5: #0005;
+		--surface-6: #0003;
+		--surface-7: #0002;
+
+		--surface-shadow: var(--gray-12-hsl);
+		--shadow-strength: 80%;
+
+		--bg-grad-inner: rgba(14 165 233 / 0.18);
+		--bg-grad-outer: rgba(99 102 241 / 0.18);
+	}
+
+	&[color-scheme="indigo"] {
+	}
+}
 
 html,
 body {
-	@apply h-full overflow-hidden;
+	height: 100dvh;
+	overflow: hidden;
+	margin: 0;
+	font-family: var(--font-sans);
+}
+
+body {
+	--_img1: radial-gradient(at 50% 0%, var(--bg-grad-inner) 0px, transparent 75%);
+	--_img2: radial-gradient(at 50% 100%, var(--bg-grad-outer) 0px, transparent 75%);
+
+	background-color: rgb(17, 24, 39);
+	background-image: var(--_img1), var(--_img2);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	color: var(--text-1);
+}
+
+:where(h1, h2, h3, h4, h5, h6) {
+	margin: 0;
+}
+
+ul,
+ol {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+p {
+	margin: 0;
 }
 
 /* ::view-transition-old(root) {
@@ -31,6 +108,33 @@ body {
 	grid-gap: 1rem;
 }
 
+.uppercase {
+	text-transform: uppercase;
+}
+
+.title {
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+
+	&.title--light {
+		font-weight: 200;
+	}
+}
+
+.app {
+	display: grid;
+
+	@media (min-width: 768px) {
+		grid-template-columns: auto 1fr;
+		grid-template-rows: auto 1fr;
+		grid-template-areas:
+			"header header"
+			"rail content";
+
+		height: 100%;
+	}
+}
+
 .content {
 	display: grid;
 
@@ -38,27 +142,12 @@ body {
 }
 
 .content__items {
+	--min-width: 450px;
+	--min-width: 12rem;
+
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(var(--min-width), 1fr));
 	grid-gap: 1rem;
 
 	overflow-y: auto;
-}
-
-:is(.content__item__cover, .content__item__title) {
-	grid-area: 1 / 1 / -1 / -1;
-}
-
-.content__item__cover {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-
-.content__item__title {
-	align-self: end;
-
-	padding: 0.5rem;
-	font-size: 0.8rem;
-	background: #000b;
 }

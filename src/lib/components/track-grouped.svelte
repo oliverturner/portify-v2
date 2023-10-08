@@ -5,12 +5,12 @@
 	import IconLink from "./icon-link.svelte";
 
 	export let track: Track;
+	export let index: number;
 </script>
 
 <div class="track">
-	<img class="cover square" src={track.album.images[1].url} alt={track.name} />
-
-	<div class="info">
+	<span class="track__index">{index + 1}</span>
+	<div class="track__info">
 		<div class="artists">
 			<Icon id="artist" />
 			<ul>
@@ -19,13 +19,8 @@
 				{/each}
 			</ul>
 		</div>
-
 		<IconLink icon="track" href="/app/tracks/{track.id}">
 			<span>{track.name}</span>
-		</IconLink>
-
-		<IconLink icon="album" href="/app/albums/{track.album.id}">
-			<span>{track.album.name}</span>
 		</IconLink>
 	</div>
 </div>
@@ -33,31 +28,31 @@
 <style lang="postcss">
 	.track {
 		display: grid;
-		grid-template-columns: 1fr 3fr;
-		grid-template-areas: "cover info";
-		align-items: start;
+		grid-template-columns: auto 1fr;
+		grid-template-areas: "index info";
+		gap: 1rem;
+
+		height: 100%;
 	}
 
-	.cover {
-		grid-area: cover;
+	.track__index {
+		grid-area: index;
 
 		display: grid;
 		place-content: center;
 
-		aspect-ratio: 1;
-		max-width: 10rem;
-		background: var(--surface-2);
+		padding: 1.5rem;
+		background: var(--surface-3);
 	}
 
-	.info {
+	.track__info {
 		grid-area: info;
 
 		display: grid;
-		align-content: center;
 		gap: 0.5rem;
 
 		padding: 1rem;
-		font-size: 0.9rem;
+		padding-inline-start: 0;
 
 		& a:hover {
 			text-decoration: underline;

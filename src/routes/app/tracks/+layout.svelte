@@ -9,12 +9,11 @@
 
 	export let data: LayoutData;
 
-	function getLink(item: Track) {
+	function getLink(item: Track, currentPath: string) {
 		const href = `/app/tracks/${item.id}`;
-		const isActive = currentPath === href;
-		const imgUrl = item.album.images.at(-1)?.url;
+		const isActive = currentPath.startsWith(href);
 
-		return { href, isActive, imgUrl };
+		return { href, isActive };
 	}
 
 	$: currentPath = $page.url.pathname;
@@ -22,8 +21,8 @@
 
 <NavPage>
 	<svelte:fragment slot="nav-items">
-		{#each data.tracks?.items ?? [] as item}
-			<NavItem {...getLink(item)}>
+		{#each data.tracks?.items ?? [] as item (item.id)}
+			<NavItem {...getLink(item, currentPath)}>
 				<svelte:fragment slot="label">
 					<span>{item.name}</span>
 					<span>{getArtistNames(item.artists)}</span>

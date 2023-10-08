@@ -1,18 +1,23 @@
 <script lang="ts">
+	import type { Playlist, TrackItem } from "$lib/typings/spotify";
 	import type { LayoutData } from "./$types";
 
+	import ContentItem from "$lib/components/content-item.svelte";
+
 	export let data: LayoutData;
+
+	const getItemProps = (item: Playlist<TrackItem>) => ({
+		href: `/app/playlists/${item.id}`,
+		imgUrl: item.images.at(0)?.url,
+	});
 </script>
 
 <div class="content">
-	<ul class="content__items grid">
-		{#each data.playlists?.items ?? [] as item}
-			<li>
-				<a class="content__item grid square" href="/app/playlists/{item.id}">
-					<img class="content__item__cover" src={item.images.at(0)?.url} alt="Cover art" />
-					<span class="content__item__title">{item.name}</span>
-				</a>
-			</li>
+	<ul class="content__items">
+		{#each data.playlists?.items ?? [] as item (item.id)}
+			<ContentItem {...getItemProps(item)}>
+				<span slot="title">{item.name}</span>
+			</ContentItem>
 		{/each}
 	</ul>
 </div>
