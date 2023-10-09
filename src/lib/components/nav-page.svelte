@@ -1,9 +1,12 @@
 <div class="page">
 	<div class="page__nav">
-		<div class="page__nav__content">
+		<nav class="page__nav__content">
 			<ol>
 				<slot name="nav-items" />
 			</ol>
+		</nav>
+		<div class="page__nav__footer">
+			<slot name="nav-footer" />
 		</div>
 	</div>
 	<div class="page__content">
@@ -14,7 +17,7 @@
 <style lang="postcss">
 	.page {
 		display: grid;
-		grid-template-columns: 1fr 3fr;
+		grid-template-columns: 1fr 5fr;
 		grid-template-areas: "nav content";
 
 		height: 100%;
@@ -22,30 +25,26 @@
 	}
 
 	:is(.page__nav, .page__content) {
-		height: 100%;
 		overflow-y: auto;
+		scrollbar-gutter: auto;
 	}
 
 	.page__nav {
 		grid-area: nav;
 
-		/* background-color: rgba(var(--color-secondary-500) / 0.18); */
-		background-color: rgba(var(--color-secondary-800) / 0.2);
+		background-color: var(--surface-7);
 	}
 
 	.page__nav__content {
-		padding: 1rem;
+	}
 
-		& > ul,
-		& > ol {
-			display: grid;
-			gap: 1rem;
+	.page__nav__footer {
+		&:empty {
+			display: none;
 		}
 	}
 
 	.page__content {
 		grid-area: content;
-
-		padding: 1rem;
 	}
 </style>

@@ -1,48 +1,31 @@
 <script lang="ts">
 	export let href: string;
 	export let isActive: boolean;
-	export let imgUrl: string | undefined;
 </script>
 
 <li>
 	<a class="nav__item" class:nav__item--active={isActive} {href}>
-		{#if imgUrl}
-			<img class="nav__item__cover" src={imgUrl} alt="Cover art" />
-		{:else}
-			<span class="nav__item__cover"></span>
-		{/if}
-		<div class="nav__item__label">
-			<slot name="label" />
-		</div>
+		<slot name="label" />
 	</a>
 </li>
 
 <style lang="postcss">
 	.nav__item {
 		display: grid;
-		grid-template-columns: auto 1fr;
-		grid-template-areas: "cover label";
 		grid-gap: 0.5rem;
-		align-items: center;
 
-		line-height: 1;
-		background: rgba(var(--color-secondary-600) / 0.1);
-		background: rgb(var(--color-surface-600) / 0.2);
-	}
+		transition: background 0.2s ease-in-out;
 
-	.nav__item__cover {
-		grid-area: cover;
-		width: 64px;
-		aspect-ratio: 1;
-		object-fit: cover;
-	}
-
-	.nav__item__label {
-		grid-area: label;
-
-		display: grid;
-
-		line-height: 1.5;
+		padding: 1rem;
 		font-size: 0.9rem;
+
+		&.nav__item:hover:not(:active, .nav__item--active) {
+			background: var(--brand-3);
+		}
+
+		&.nav__item:active,
+		&.nav__item--active {
+			background: var(--brand-2);
+		}
 	}
 </style>

@@ -7,7 +7,7 @@ import { queryApi } from "$lib/server/api";
 export const load: LayoutServerLoad = async ({ locals }) => {
 	// TODO: make endpoints an array?
 	// const endpoint = buildUrl(`me/following?type=artist`).toString();
-	const endpoint = getEndpoint(`me/top/artists`);
+	const endpoint = getEndpoint(`me/top/artists`, { limit: 50 });
 	const artists = await queryApi<Page<Artist>>(endpoint, locals.auth);
 
 	return {
