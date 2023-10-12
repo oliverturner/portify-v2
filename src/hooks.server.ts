@@ -6,13 +6,13 @@ export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.auth = auth.handleRequest(event);
 	const session = await event.locals.auth.validate();
 
-	if (!session) {
-		if (!event.url.pathname.startsWith("/login")) {
-			throw redirect(303, "/login");
+	if (session) {
+		if (event.url.pathname.startsWith("/login")) {
+			throw redirect(303, "/app");
 		}
 	} else {
-		if (!event.url.pathname.startsWith("/app")) {
-			throw redirect(303, "/app");
+		if (event.url.pathname.startsWith("/app")) {
+			throw redirect(303, "/");
 		}
 	}
 

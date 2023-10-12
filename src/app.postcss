@@ -85,12 +85,13 @@ p {
 	margin: 0;
 }
 
-/* ::view-transition-old(root) {
-	animation-duration: 1s;
-}
+::view-transition-old(root),
 ::view-transition-new(root) {
-	animation-delay: 1s;
   animation-duration: 1s;
+}
+/* ::view-transition-old(static),
+::view-transition-old(static) {
+	animation: none;
 } */
 
 .square {
@@ -132,6 +133,22 @@ p {
 			"rail content";
 
 		height: 100%;
+	}
+}
+
+.page__header,
+.app__header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	padding: 0.5rem 1rem;
+
+	& > .title {
+		font-size: var(--font-size-fluid-0);
+		font-weight: 600;
+		letter-spacing: var(--font-letterspacing-4);
+		text-decoration: none;
 	}
 }
 

@@ -1,7 +1,3 @@
-<script lang="ts">
-	import "../../app.postcss";
-</script>
-
 <header class="app__header">
 	<a href="/" class="title">Portify</a>
 
@@ -36,25 +32,14 @@
 
 	.app__header {
 		grid-area: header;
-
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-
-		padding: 0.5rem 1rem;
-
-		& > .title {
-			font-size: var(--font-size-fluid-0);
-			font-weight: 600;
-			letter-spacing: var(--font-letterspacing-4);
-			text-decoration: none;
-		}
 	}
 
 	.app__rail {
 		grid-area: rail;
 
 		display: grid;
+
+		view-transition-name: static;
 
 		@media (min-width: 768px) {
 			overflow-y: auto;
