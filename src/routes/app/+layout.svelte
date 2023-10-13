@@ -62,16 +62,10 @@
 	.header__controls {
 		display: flex;
 		align-items: center;
-		gap: var(--size-1);
+		gap: var(--size-2);
 	}
 
-	.btn {
-		padding: var(--size-2) var(--size-3);
-		border: 1px solid var(--brand);
-		border-radius: 1rem;
-		font-weight: var(--font-weight-0);
-		line-height: 1;
-	}
+
 	.rail__links {
 		display: grid;
 
@@ -86,8 +80,10 @@
 
 			transition: background 0.2s ease-in-out;
 
-			&:hover {
-				background: var(--brand-1);
+			&:hover,
+			&:focus {
+				outline: none;
+				background: var(--brand-3);
 			}
 			&:active,
 			&.active {

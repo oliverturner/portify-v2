@@ -4,18 +4,14 @@
 	import Track from "$lib/components/track.svelte";
 	import GroupedTrack from "$lib/components/track-grouped.svelte";
 	import { isTrack } from "$lib/utils/data";
+	import Cover from "$lib/components/cover.svelte";
 
 	export let data: PageData;
 </script>
 
 {#if data.playlist}
 	<div class="playlist">
-		<figure class="cover">
-			<img class="cover__art square" src={data.playlist.images[0]?.url} alt="Cover art" />
-			<figcaption class="cover__label">
-				<h2 class="title title--light">{data.playlist.name}</h2>
-			</figcaption>
-		</figure>
+		<Cover type="playlist" imgUrl={data.playlist.images[0]?.url} title={data.playlist.name}></Cover>
 
 		<ol class="playlist__items" class:playlist__items--grouped={data.isGrouped}>
 			{#each data.playlist.tracks?.items ?? [] as item, index (item.track.id)}
@@ -36,32 +32,6 @@
 <style lang="postcss">
 	.playlist {
 		display: grid;
-	}
-
-	.cover {
-		display: grid;
-		align-items: end;
-		gap: 1rem;
-
-		margin: 0;
-		background: #0004;
-
-		@media (min-width: 768px) {
-			grid-template-columns: 12rem 1fr;
-		}
-	}
-
-	.cover__art {
-		width: 12rem;
-		aspect-ratio: 1;
-	}
-
-	.cover__label {
-		padding: 0 1rem 1rem;
-
-		@media (min-width: 768px) {
-			padding: 1rem 0;
-		}
 	}
 
 	.playlist__items {

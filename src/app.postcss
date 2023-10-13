@@ -1,4 +1,6 @@
 /* See https://github.com/argyleink/open-props/tree/main/src for details */
+@import "open-props/style";
+@import "open-props/animations";
 @import "open-props/aspects";
 @import "open-props/buttons";
 @import "open-props/colors";
@@ -14,9 +16,7 @@
 
 :root {
 	&[color-scheme="dark"] {
-		/* --brand: var(--orange-3); */
-		/* --brand: rgba(14 165 233 / 1); */
-		--brand-hsl: var(--blue-10-hsl);
+		--brand-hsl: var(--blue-8-hsl);
 		--brand: hsla(var(--brand-hsl) / 1);
 		--brand-1: hsla(var(--brand-hsl) / 0.8);
 		--brand-2: hsla(var(--brand-hsl) / 0.6);
@@ -87,7 +87,7 @@ p {
 
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 1s;
+	animation-duration: 1s;
 }
 /* ::view-transition-old(static),
 ::view-transition-old(static) {
@@ -96,12 +96,12 @@ p {
 
 .square {
 	aspect-ratio: 1;
+}
 
-	&img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
+img.square {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 .grid {
@@ -115,11 +115,31 @@ p {
 
 .title {
 	text-transform: uppercase;
-	letter-spacing: 0.1em;
+	letter-spacing: 0.125em;
 
 	&.title--light {
 		font-weight: 200;
 	}
+}
+
+.label,
+.pill,
+.btn {
+	border: 1px solid var(--brand);
+	border-radius: var(--border-radius);
+	font-weight: var(--font-weight-0);
+	line-height: 1;
+}
+
+.label {
+	--border-radius: 0.25rem;
+	padding: var(--size-2);
+}
+
+.pill,
+.btn {
+	--border-radius: 1rem;
+	padding: var(--size-2) var(--size-3);
 }
 
 .app {

@@ -1,3 +1,4 @@
+<!-- Source: https://icones.js.org/collection/iconamoon -->
 <svg xmlns="http://www.w3.org/2000/svg">
   <symbol id="icon-album" viewBox="0 0 24 24">
     <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
@@ -24,4 +25,47 @@
       <circle cx="12" cy="7" r="3"></circle>
     </g>
   </symbol>
+
+  <!-- Unedited -->
+  <symbol viewBox="0 0 24 24" id="iconamoon-apps-thin">
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M4 4h2v2H4V4Zm0 14h2v2H4v-2ZM18 4h2v2h-2V4Zm0 7h2v2h-2v-2Zm-7 0h2v2h-2v-2Zm-7 0h2v2H4v-2Zm7-7h2v2h-2V4Zm0 14h2v2h-2v-2Zm7 0h2v2h-2v-2Z"></path>
+  </symbol>
+  <symbol viewBox="0 0 24 24" id="iconamoon-badge-thin">
+    <g fill="none" stroke="currentColor" stroke-linejoin="round">
+      <path stroke-linecap="round" d="M12.586 4.586A2 2 0 0 0 11.172 4H4v7.172a2 2 0 0 0 .586 1.414l7 7a2 2 0 0 0 2.828 0l5.172-5.172a2 2 0 0 0 0-2.828l-7-7Z"></path>
+      <path stroke-width="1.5" d="M9 9h.01v.01H9z"></path>
+    </g>
+  </symbol>
+
+  <symbol viewBox="0 0 24 24" id="iconamoon-bookmark-light">
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 3H8a2 2 0 0 0-2 2v16l6-3l6 3V5a2 2 0 0 0-2-2Z"></path>
+  </symbol>
+
+  <symbol viewBox="0 0 24 24" id="iconamoon-menu-burger-vertical-light">
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 3.001v18m-6-18v18m-6-18v18"></path>
+  </symbol>
+
+  <symbol viewBox="0 0 24 24" id="iconamoon-link-external-light">
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 4H4v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5M9 15L20 4m-5 0h5v5"></path>
+  </symbol>
+
+  <symbol viewBox="0 0 24 24" id="iconamoon-star-light">
+    <path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="m12 2l3.104 6.728l7.358.873l-5.44 5.03l1.444 7.268L12 18.28L5.534 21.9l1.444-7.268L1.538 9.6l7.359-.873L12 2Z"></path>
+  </symbol>
+
+  <symbol viewBox="0 0 24 24" id="iconamoon-menu-kebab-vertical-light">
+    <path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2.25" d="M12 12h.01v.01H12zm0-7h.01v.01H12zm0 14h.01v.01H12z"></path>
+  </symbol>
+
+  <symbol viewBox="0 0 24 24" id="iconamoon-close-circle-1-thin">
+    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9"></circle>
+      <path d="m14 10l-4 4m0-4l4 4"></path>
+    </g>
+  </symbol>
+
+  <symbol viewBox="0 0 24 24" id="iconamoon-close-thin">
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m7 7l10 10M7 17L17 7"></path>
+  </symbol>
 </svg>
+

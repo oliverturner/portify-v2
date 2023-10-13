@@ -1,6 +1,6 @@
 import type { AuthRequest } from "lucia";
 
-import { auth } from "$lib/server/lucia";
+// import { auth } from "$lib/server/lucia";
 
 export async function queryApi<T>(endpoint: string, authRequest: AuthRequest) {
 	const session = await authRequest.validate();
@@ -19,8 +19,8 @@ export async function queryApi<T>(endpoint: string, authRequest: AuthRequest) {
 			// Status codes: https://developer.spotify.com/documentation/web-api/concepts/api-calls#response-status-codes
 			if (res.status === 401) {
 				// TODO: Refresh token and re-run request
-				const user = await auth.updateUserAttributes(session.sessionId, null);
-				console.log({ user });
+				// const user = await auth.updateUserAttributes(session.sessionId, null);
+				// console.log({ user });
 			}
 
 			if (res.status === 403) {
