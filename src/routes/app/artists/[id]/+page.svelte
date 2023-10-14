@@ -1,7 +1,12 @@
 <script lang="ts">
+	import type { PageData } from "./$types";
+
+	import { getAlbumItemProps } from "$lib/utils/album";
+	import { getArtistNames, getArtistItemProps } from "$lib/utils/artist";
+
 	import Cover from "$lib/components/cover.svelte";
 	import Track from "$lib/components/track.svelte";
-	import type { PageData } from "./$types";
+	import ContentItem from "$lib/components/content-item.svelte";
 
 	export let data: PageData;
 
@@ -36,23 +41,41 @@
 
 <div class="content">
 	<h3 class="content__title">Albums</h3>
-	{#each albums as album (album.id)}
-		<p>{album.name}</p>
-	{/each}
+	<ol class="content__items content__items--tiled">
+		{#each albums as album (album.id)}
+			<ContentItem {...getAlbumItemProps(album)}>
+				<svelte:fragment slot="title">
+					<span>{album.name}</span>
+					<span class="item__artists">{getArtistNames(album.artists)}</span>
+				</svelte:fragment>
+			</ContentItem>
+		{/each}
+	</ol>
 </div>
 
 <div class="content">
 	<h3 class="content__title">Appears on</h3>
-	{#each appearsOn as album (album.id)}
-		<p>{album.name}</p>
-	{/each}
+	<ol class="content__items content__items--tiled">
+		{#each appearsOn as album (album.id)}
+			<ContentItem {...getAlbumItemProps(album)}>
+				<svelte:fragment slot="title">
+					<span>{album.name}</span>
+					<span class="item__artists">{getArtistNames(album.artists)}</span>
+				</svelte:fragment>
+			</ContentItem>
+		{/each}
+	</ol>
 </div>
 
 <div class="content">
 	<h3 class="content__title">Related artists</h3>
-	{#each relatedArtists as artist (artist.id)}
-		<p>{artist.name}</p>
-	{/each}
+	<ol class="content__items content__items--tiled">
+		{#each relatedArtists as artist (artist.id)}
+			<ContentItem {...getArtistItemProps(artist)}>
+				<span slot="title">{artist.name}</span>
+			</ContentItem>
+		{/each}
+	</ol>
 </div>
 
 <style lang="postcss">

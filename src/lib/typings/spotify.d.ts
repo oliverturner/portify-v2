@@ -1187,3 +1187,18 @@ export interface Queue {
 	currently_playing: TrackItem | null;
 	queue: TrackItem[];
 }
+
+export interface RecommendationSeed {
+	id: string;
+	href: string;
+	type: string;
+
+	initialPoolSize: number;
+	afterFilteringSize: number;
+	afterRelinkingSize: number;
+}
+
+export interface RecommendationsResponse {
+	seeds: RecommendationSeed[];
+	tracks: Track[];
+}

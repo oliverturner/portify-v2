@@ -70,8 +70,7 @@ body {
 	margin: 0;
 }
 
-ul,
-ol {
+:where(ul, ol) {
 	list-style: none;
 	padding: 0;
 	margin: 0;
@@ -91,12 +90,10 @@ p {
 	animation-duration: 0.5s;
 }
 
-.square {
-	aspect-ratio: 1;
-}
-
 img {
 	opacity: 0;
+	background: var(--surface-2);
+
 	transition: 0.5s opacity ease-in-out;
 
 	&.loaded {
@@ -106,8 +103,17 @@ img {
 	&.square {
 		width: 100%;
 		height: 100%;
+		overflow: hidden;
 		object-fit: cover;
 	}
+}
+
+:where(dt, dd) {
+	margin: 0;
+}
+
+.square {
+	aspect-ratio: 1;
 }
 
 .grid {
@@ -145,6 +151,37 @@ img {
 .btn {
 	--border-radius: 1rem;
 	padding: var(--size-2) var(--size-3);
+}
+
+.datatable {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	align-items: center;
+	gap: 0.35rem 0.5rem;
+
+	margin: 0;
+
+	& > * {
+		margin: 0;
+	}
+
+	& > dt {
+		color: var(--text-2);
+	}
+
+	& a:hover {
+		text-decoration: underline;
+	}
+}
+
+.inlineList {
+	& > li {
+		display: inline;
+
+		&:not(:last-child)::after {
+			content: ", ";
+		}
+	}
 }
 
 .app {
@@ -186,26 +223,27 @@ img {
 }
 
 .content__items {
-	--min-col-width: 290px;
+	--min-col-width: 18rem;
 	--_bg: var(--surface-3);
-	--_ink: var(--text-2);
+	--_ink: var(--text-1);
 
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(var(--min-col-width), 1fr));
 	grid-gap: 1rem;
 
 	font-size: 0.9rem;
+	font-size: 0.8rem;
+
+	@media (min-width: 768px) {
+		--min-col-width: 25rem;
+	}
 
 	&.content__items--grouped {
-		--min-col-width: 360px;
+		--min-col-width: 22rem;
 	}
 
 	&.content__items--tiled {
 		--min-col-width: 12rem;
-	}
-
-	@media (min-width: 768px) {
-		--min-col-width: 400px;
 	}
 }
 
@@ -214,7 +252,32 @@ img {
 	color: var(--_ink);
 }
 
+.content__item__title {
+	--_bg: var(--surface-1);
+	--_ink: var(--text-1);
+
+	align-self: end;
+
+	display: grid;
+	gap: 0.35rem;
+
+	/**
+	 * Opacity creates a stacking context, so `position: relative` here prevents
+	 * the title bar of tiled items from being overlayed by the thumbnail as it
+	 * fades up on load
+	 */
+	position: relative;
+	padding: 0.5rem;
+	background: var(--_bg);
+	color: var(--_ink);
+}
+
 .item__artists {
+	color: var(--text-2);
+	font-size: 0.95em;
+}
+
+.muted {
 	color: var(--text-2);
 	font-size: 0.95em;
 }

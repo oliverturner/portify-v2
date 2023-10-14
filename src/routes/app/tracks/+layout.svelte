@@ -3,7 +3,7 @@
 	import type { Track } from "$lib/typings/spotify";
 
 	import { page } from "$app/stores";
-	import { getArtistNames } from "$lib/utils/data";
+	import { getArtistNames } from "$lib/utils/artist";
 	import NavPage from "$lib/components/nav-page.svelte";
 	import NavItem from "$lib/components/nav-item.svelte";
 

@@ -1,4 +1,4 @@
-import type { Artist, SimplifiedArtist, TrackItem, Track } from "$lib/typings/spotify";
+import type { TrackItem, Track } from "$lib/typings/spotify";
 
 function buildUrl(path: string, params: Record<string, unknown> = {}) {
 	const url = new URL(`v1/${path}`, "https://api.spotify.com");
@@ -12,10 +12,6 @@ function buildUrl(path: string, params: Record<string, unknown> = {}) {
 
 export function getEndpoint(path: string, params: Record<string, unknown> = {}) {
 	return buildUrl(path, params).toString();
-}
-
-export function getArtistNames(artists: (Artist | SimplifiedArtist)[] = []) {
-	return artists.map((artist) => artist.name).join(", ");
 }
 
 export const isTrack = (data: TrackItem): data is Track => {

@@ -7,20 +7,37 @@
 	import Cover from "$lib/components/cover.svelte";
 
 	export let data: PageData;
+
+	$: playlist = data.playlist;
+	$: tracks = playlist?.tracks?.items ?? [];
+	$: description = playlist?.description;
+	$: imgUrl = playlist?.images[0]?.url;
+	$: title = playlist?.name;
 </script>
 
 {#if data.playlist}
-	<Cover type="playlist" imgUrl={data.playlist.images[0]?.url} title={data.playlist.name}></Cover>
+	<Cover type="playlist" {imgUrl} {title}>
+		<svelte:fragment slot="description">
+			{#if description}
+				<div>{@html description}</div>
+			{/if}
+
+			<dl class="datatable">
+				<dt aria-label="Count">Track count:</dt>
+				<dd>{data.playlist.tracks.total}</dd>
+			</dl>
+		</svelte:fragment>
+	</Cover>
 
 	<div class="content">
 		<ol class="content__items" class:content__items--grouped={data.isGrouped}>
-			{#each data.playlist.tracks?.items ?? [] as item, index (item.track.id)}
-				{#if isTrack(item.track)}
+			{#each tracks as { track }, index (track.id)}
+				{#if isTrack(track)}
 					<li class="content__item">
 						{#if data.isGrouped}
-							<GroupedTrack {index} track={item.track} />
+							<GroupedTrack index={index + 1} {track} />
 						{:else}
-							<Track track={item.track} />
+							<Track {track} />
 						{/if}
 					</li>
 				{/if}

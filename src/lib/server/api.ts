@@ -44,6 +44,7 @@ export async function queryApi<T>(endpoint: string, authRequest: AuthRequest) {
 
 		return data;
 	} catch (error) {
+		controller.abort();
 		console.log(JSON.stringify({ endpoint, error, session }, null, 2));
 
 		return null;
@@ -55,8 +56,9 @@ export async function queryApiFn(authRequest: AuthRequest) {
 
 	if (!session) return null;
 
-	return async function queryApi<T>(endpoint: string) {
+	return async function queryApi<T>(endpoint: string, options: RequestInit = {}) {
 		const res = await fetch(endpoint, {
+			...options,
 			headers: { Authorization: `Bearer ${session.user.spotifyAccessToken}` },
 			signal,
 		});
@@ -70,4 +72,21 @@ export async function queryApiFn(authRequest: AuthRequest) {
 
 		return data;
 	};
+}
+
+export async function requestPlayback(
+	authRequest: AuthRequest,
+	endpoint: string,
+	options: RequestInit = {},
+) {
+	const session = await authRequest.validate();
+
+	if (!session) return 401;
+
+	const res = await fetch(endpoint, {
+		...options,
+		headers: { Authorization: `Bearer ${session.user.spotifyAccessToken}` },
+	});
+
+	return res.status;
 }
