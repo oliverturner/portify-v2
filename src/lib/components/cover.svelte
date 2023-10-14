@@ -1,13 +1,9 @@
 <script lang="ts">
+	import { onLoad } from "$lib/utils/image";
+
 	export let type: "artist" | "album" | "playlist" | "track";
 	export let imgUrl: string | undefined;
 	export let title: string | undefined;
-
-	function onLoad(event: Event) {
-		if (event.target instanceof HTMLImageElement) {
-			event.target.classList.add("loaded");
-		}
-	}
 
 	$: src = imgUrl ?? "/img/placeholder.svg";
 </script>
@@ -48,12 +44,6 @@
 
 	.cover__art {
 		width: 12rem;
-		opacity: 0;
-		transition: 1s opacity ease-in-out;
-
-		&.loaded {
-			opacity: 1;
-		}
 	}
 
 	.cover__label {

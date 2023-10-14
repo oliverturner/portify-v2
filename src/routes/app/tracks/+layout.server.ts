@@ -5,7 +5,7 @@ import { getEndpoint } from "$lib/utils/data";
 import { queryApi } from "$lib/server/api";
 
 const apiParams = {
-	time_range: "long_term",
+	time_range: "short_term",
 };
 
 export const load: LayoutServerLoad = async ({ locals }) => {

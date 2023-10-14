@@ -70,6 +70,8 @@
 		display: grid;
 
 		& a {
+			--font-weight: 400;
+
 			display: grid;
 			place-items: center;
 

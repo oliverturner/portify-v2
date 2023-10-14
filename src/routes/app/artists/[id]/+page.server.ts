@@ -1,42 +1,53 @@
-import type { Artist, Track, Albums, Page } from "$lib/typings/spotify";
+import type { Artist, Track, Album, Page } from "$lib/typings/spotify";
 import type { PageServerLoad } from "./$types";
 
 import { getEndpoint } from "$lib/utils/data";
-import { queryApi } from "$lib/server/api";
+import { queryApiFn } from "$lib/server/api";
 
 export { actions } from "$lib/actions";
 
 function getEndpoints(artistId: string) {
-	const sharedParams = { market: "from_token", limit: 10 };
-	const sharedUrl = `artists/${artistId}`;
+	const baseUrl = `artists/${artistId}`;
+	const baseParams = { market: "from_token", limit: 10 };
 
 	return {
-		artist: getEndpoint(sharedUrl),
-		topTracks: getEndpoint(`${sharedUrl}/top-tracks`, sharedParams),
-		albums: getEndpoint(`${sharedUrl}/albums`, sharedParams),
-		appearsOn: getEndpoint(`${sharedUrl}/albums`, {
-			...sharedParams,
-			include_groups: "appears_on",
-		}),
-		relatedArtists: getEndpoint(`${sharedUrl}/related-artists`),
+		artist: getEndpoint(baseUrl),
+		topTracks: getEndpoint(`${baseUrl}/top-tracks`, baseParams),
+		albums: getEndpoint(`${baseUrl}/albums`, baseParams),
+		appearsOn: getEndpoint(`${baseUrl}/albums`, { ...baseParams, include_groups: "appears_on" }),
+		related: getEndpoint(`${baseUrl}/related-artists`),
 	};
 }
 
 export const load: PageServerLoad = async ({ locals, params }) => {
 	const endpoints = getEndpoints(params.id);
-	const [artist, topTracks, albums, appearsOn, relatedArtists] = await Promise.all([
-		queryApi<Artist>(endpoints.artist, locals.auth),
-		queryApi<Track[]>(endpoints.topTracks, locals.auth),
-		queryApi<Page<Albums>>(endpoints.albums, locals.auth),
-		queryApi<Page<Albums>>(endpoints.appearsOn, locals.auth),
-		queryApi<Artist[]>(endpoints.relatedArtists, locals.auth),
-	]);
+	const queryApi = await queryApiFn(locals.auth);
 
-	return {
-		artist,
-		topTracks,
-		albums,
-		appearsOn,
-		relatedArtists,
-	};
+	if (queryApi) {
+		const requests = [
+			queryApi<Artist>(endpoints.artist),
+			queryApi<{ tracks: Track[] }>(endpoints.topTracks),
+			queryApi<Page<Album>>(endpoints.albums),
+			queryApi<Page<Album>>(endpoints.appearsOn),
+			queryApi<{ artists: Artist[] }>(endpoints.related),
+		] as const;
+
+		try {
+			const [artist, topTracks, albums, appearsOn, related] = await Promise.all(requests);
+
+			return {
+				artist,
+				topTracks,
+				albums,
+				appearsOn,
+				related,
+			};
+		} catch (error) {
+			// TODO: If error is 401, abort signal, refresh token and retry requests up to 3 times before redirecting to login
+			// TODO: Can we use streaming to notify the client of progress?
+			// TODO: Can we use a state machine to handle the transitions between active and refreshing states?
+			console.log(JSON.stringify({ error }, null, 2));
+			// TODO find a way to safely handle next and prev URLs, decorating with headers
+		}
+	}
 };

@@ -10,13 +10,13 @@
 </script>
 
 {#if data.playlist}
-	<div class="playlist">
-		<Cover type="playlist" imgUrl={data.playlist.images[0]?.url} title={data.playlist.name}></Cover>
+	<Cover type="playlist" imgUrl={data.playlist.images[0]?.url} title={data.playlist.name}></Cover>
 
-		<ol class="playlist__items" class:playlist__items--grouped={data.isGrouped}>
+	<div class="content">
+		<ol class="content__items" class:content__items--grouped={data.isGrouped}>
 			{#each data.playlist.tracks?.items ?? [] as item, index (item.track.id)}
 				{#if isTrack(item.track)}
-					<li>
+					<li class="content__item">
 						{#if data.isGrouped}
 							<GroupedTrack {index} track={item.track} />
 						{:else}
@@ -28,32 +28,3 @@
 		</ol>
 	</div>
 {/if}
-
-<style lang="postcss">
-	.playlist {
-		display: grid;
-	}
-
-	.playlist__items {
-		--_col-width: 450px;
-		--_bg: var(--surface-3);
-		--_ink: var(--text-2);
-
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(var(--_col-width), 1fr));
-		gap: 1rem;
-
-		padding: 1rem;
-		font-size: 0.9rem;
-
-		&.playlist__items--grouped {
-			--_col-width: 350px;
-			--_bg: var(--surface-5);
-		}
-
-		& li {
-			background: var(--_bg);
-			color: var(--_ink);
-		}
-	}
-</style>

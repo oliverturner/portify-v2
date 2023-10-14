@@ -1,27 +1,27 @@
 <script lang="ts">
-	import type { SavedAlbum } from "$lib/typings/spotify";
-	import type { LayoutData } from "./$types";
+	import type { Album } from "$lib/typings/spotify";
+	import type { PageData } from "./$types";
 
 	import { getArtistNames } from "$lib/utils/data";
 	import ContentItem from "$lib/components/content-item.svelte";
 
-	export let data: LayoutData;
+	export let data: PageData;
 
-	const getItemProps = (item: SavedAlbum) => ({
-		href: `/app/albums/${item.album.id}`,
-		imgUrl: item.album.images.at(0)?.url,
+	const getItemProps = (album: Album) => ({
+		href: `/app/albums/${album.id}`,
+		imgUrl: album.images.at(0)?.url,
 	});
+
+	$: savedAlbums = data.albums?.items ?? [];
 </script>
 
-<h2>Albums</h2>
-
 <div class="content">
-	<ol class="content__items">
-		{#each data.albums?.items ?? [] as item (item.album.id)}
-			<ContentItem {...getItemProps(item)}>
+	<ol class="content__items content__items--tiled">
+		{#each savedAlbums as { album } (album.id)}
+			<ContentItem {...getItemProps(album)}>
 				<svelte:fragment slot="title">
-					<span>{item.album.name}</span>
-					<span>{getArtistNames(item.album.artists)}</span>
+					<span>{album.name}</span>
+					<span class="item__artists">{getArtistNames(album.artists)}</span>
 				</svelte:fragment>
 			</ContentItem>
 		{/each}

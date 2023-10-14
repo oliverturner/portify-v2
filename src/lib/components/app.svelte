@@ -35,22 +35,27 @@
 	}
 
 	.app__rail {
+		--_bg: var(--surface-0);
+
 		grid-area: rail;
 
 		display: grid;
 
+		position: relative;
+		z-index: 2;
+
 		view-transition-name: static;
 
-		@media (min-width: 768px) {
-			overflow-y: auto;
+		@media (min-width: 1024px) {
+			--_bg: var(--surface-2);
 		}
 	}
 
 	.app__content {
 		grid-area: content;
 
-		@media (min-width: 768px) {
-			overflow-y: auto;
-		}
+		position: relative;
+		z-index: 1;
+		overflow-y: auto;
 	}
 </style>

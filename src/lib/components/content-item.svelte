@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onLoad } from "$lib/utils/image";
+
 	export let href: string;
 	export let imgUrl: string | undefined;
 </script>
@@ -6,7 +8,7 @@
 <li>
 	<a class="content__item" {href}>
 		{#if imgUrl}
-			<img class="content__item__cover" src={imgUrl} alt="Cover art" />
+			<img class="content__item__cover" src={imgUrl} alt="Cover art" on:load={onLoad} />
 		{:else}
 			<span class="nav__item__cover"></span>
 		{/if}
@@ -43,13 +45,13 @@
 
 		align-self: end;
 
+		display: grid;
+		gap: 0.35rem;
+
+		position: relative;
 		padding: 0.5rem;
 		font-size: 0.8rem;
 		background: var(--_bg);
 		color: var(--_ink);
-	}
-
-	.content__item__title {
-		display: grid;
 	}
 </style>

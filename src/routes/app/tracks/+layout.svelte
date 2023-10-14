@@ -25,7 +25,7 @@
 			<NavItem {...getLink(item, currentPath)}>
 				<svelte:fragment slot="label">
 					<span>{item.name}</span>
-					<span>{getArtistNames(item.artists)}</span>
+					<span class="item__artists">{getArtistNames(item.artists)}</span>
 				</svelte:fragment>
 			</NavItem>
 		{/each}
