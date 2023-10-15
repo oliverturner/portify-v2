@@ -2,7 +2,7 @@ import type { Album } from "$lib/typings/spotify";
 import type { PageServerLoad } from "./$types";
 
 import { getEndpoint } from "$lib/utils/data";
-import { queryApi } from "$lib/server/api";
+import { queryApiFn } from "$lib/server/api";
 
 export { actions } from "$lib/actions";
 
@@ -17,8 +17,12 @@ const options = {
 };
 
 export const load: PageServerLoad = async ({ locals, params }) => {
+	const queryApi = await queryApiFn(locals.auth);
+
+	if (!queryApi) return { album: null };
+
 	const endpoint = getEndpoint(`albums/${params.id}`, options);
-	const album = await queryApi<Album>(endpoint, locals.auth);
+	const album = await queryApi<Album>(endpoint);
 
 	return {
 		album,

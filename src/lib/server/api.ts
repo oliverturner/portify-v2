@@ -1,54 +1,40 @@
 import type { AuthRequest } from "lucia";
 
-// import { auth } from "$lib/server/lucia";
+let controller = new AbortController();
+let signal = controller.signal;
 
-const controller = new AbortController();
-const signal = controller.signal;
+/**
+ * TODO: Refresh token and re-run request
+ *
+ * If the cause was that the token expired call refreshSession:
+ * - Request an updated accessToken
+ * - Update the user record with it
+ * - Add it to the session, issue a new signal and re-run the request
+ *
+ * If cause was that the refreshToken was revoked or expired, log out user
+ *
+ * If cause was that the signal was aborted, *somehow* wait for the new token to
+ * be fetched and re-run request
+ */
+async function refreshAccessToken(refreshToken: string) {
+	controller.abort();
 
-export async function queryApi<T>(endpoint: string, authRequest: AuthRequest) {
-	const session = await authRequest.validate();
+	const res = await fetch("/api/refresh", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ refreshToken }),
+	});
 
-	if (!session) return null;
-
-	try {
-		const res = await fetch(endpoint, {
-			headers: { Authorization: `Bearer ${session.user.spotifyAccessToken}` },
-			signal,
-		});
-
-		if (res.ok === false) {
-			// Status codes: https://developer.spotify.com/documentation/web-api/concepts/api-calls#response-status-codes
-			if (res.status === 401) {
-				// TODO: Refresh token and re-run request
-				// const user = await auth.updateUserAttributes(session.sessionId, null);
-				// console.log({ user });
-				console.log(401, res.statusText);
-			}
-
-			if (res.status === 403) {
-				// Need to extend scope: https://developer.spotify.com/documentation/web-api/concepts/scopes
-				console.log(403, res.statusText);
-			}
-
-			if (res.status === 429) {
-				// Rate limit exceeded: https://developer.spotify.com/documentation/web-api/concepts/rate-limits
-				console.log(429, res.statusText);
-			}
-
-			throw new Error("Failed to fetch data", {
-				cause: res,
-			});
-		}
-
-		const data = (await res.json()) as T;
-
-		return data;
-	} catch (error) {
-		controller.abort();
-		console.log(JSON.stringify({ endpoint, error, session }, null, 2));
-
-		return null;
+	if (res.ok === false) {
+		throw new Error("Failed to refresh session", { cause: res });
 	}
+
+	const data = (await res.json()) as { accessToken: string };
+
+	controller = new AbortController();
+	signal = controller.signal;
+
+	return data;
 }
 
 export async function queryApiFn(authRequest: AuthRequest) {
@@ -57,20 +43,53 @@ export async function queryApiFn(authRequest: AuthRequest) {
 	if (!session) return null;
 
 	return async function queryApi<T>(endpoint: string, options: RequestInit = {}) {
-		const res = await fetch(endpoint, {
+		const req = new Request(endpoint, {
 			...options,
-			headers: { Authorization: `Bearer ${session.user.spotifyAccessToken}` },
 			signal,
+			headers: { Authorization: `Bearer ${session.user.spotifyAccessToken}` },
 		});
 
-		if (res.ok === false) {
-			controller.abort();
-			throw new Error("Failed to fetch data", { cause: res });
+		let res = await fetch(req);
+
+		try {
+			if (res.ok === false) {
+				throw new Error("Failed to fetch data", { cause: res });
+			}
+
+			const data = (await res.json()) as T;
+
+			return data;
+		} catch (error) {
+			console.log(error);
+
+			/**
+			 * TODO: Refresh token and re-run request
+			 *
+			 * If the cause was that the token expired call refreshSession
+			 * If cause was that the refreshToken was revoked or expired, log out user
+			 * If cause was that the signal was aborted, *somehow* wait for the new token to be fetched
+			 * Re-run request
+			 */
+			if (res.status === 401) {
+				console.log(401, res.statusText);
+				const accessToken = await refreshAccessToken(session.user.spotifyRefreshToken);
+				req.headers.set("Authorization", `Bearer ${accessToken}`);
+
+				res = await fetch(req);
+
+				if (res.ok === false) {
+					console.log("Failed to fetch data after refreshing token", { cause: res });
+
+					return null;
+				}
+
+				const data = (await res.json()) as T;
+
+				return data;
+			}
+
+			return null;
 		}
-
-		const data = (await res.json()) as T;
-
-		return data;
 	};
 }
 
