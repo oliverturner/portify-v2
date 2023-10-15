@@ -29,6 +29,7 @@ export const auth = lucia({
 			spotifyUsername: data.username,
 			spotifyAccessToken: data.access_token,
 			spotifyRefreshToken: data.refresh_token,
+			spotifyTokenExpiresAt: data.expires_at,
 		};
 	},
 });
@@ -45,5 +46,7 @@ export const spotifyAuth = spotify(auth, {
 		"playlist-read-private",
 	],
 });
+
+console.log(Object.keys(spotifyAuth));
 
 export type Auth = typeof auth;
