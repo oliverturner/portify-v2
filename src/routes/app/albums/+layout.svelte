@@ -3,7 +3,7 @@
 	import type { LayoutData } from "./$types";
 
 	import { page } from "$app/stores";
-	import { getArtistNames } from "$lib/utils/data";
+	import { getArtistNames } from "$lib/utils/artist";
 	import NavPage from "$lib/components/nav-page.svelte";
 	import NavItem from "$lib/components/nav-item.svelte";
 
@@ -25,7 +25,7 @@
 			<NavItem {...getLink(item, currentPath)}>
 				<svelte:fragment slot="label">
 					<span>{item.album.name}</span>
-					<span>{getArtistNames(item.album.artists)}</span>
+					<span class="item__artists">{getArtistNames(item.album.artists)}</span>
 				</svelte:fragment>
 			</NavItem>
 		{/each}

@@ -40,7 +40,7 @@
 	<div class="header__controls" slot="header-trail">
 		<p>{data.username}</p>
 		<form method="post" action="?/logout" use:enhance>
-			<button class="btn btn-sm variant-ghost-surface">Sign out</button>
+			<button class="btn">Sign out</button>
 		</form>
 	</div>
 
@@ -62,12 +62,16 @@
 	.header__controls {
 		display: flex;
 		align-items: center;
-		gap: var(--size-1);
+		gap: var(--size-2);
 	}
+
+
 	.rail__links {
 		display: grid;
 
 		& a {
+			--font-weight: 400;
+
 			display: grid;
 			place-items: center;
 
@@ -79,9 +83,13 @@
 			transition: background 0.2s ease-in-out;
 
 			&:hover,
+			&:focus {
+				outline: none;
+				background: var(--brand-3);
+			}
+			&:active,
 			&.active {
-				background: #fff3;
-				background: var(--brand-1);
+				background: var(--brand);
 			}
 		}
 	}

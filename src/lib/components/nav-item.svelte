@@ -12,7 +12,7 @@
 <style lang="postcss">
 	.nav__item {
 		display: grid;
-		grid-gap: 0.5rem;
+		grid-gap: 0.35rem;
 
 		transition: background 0.2s ease-in-out;
 

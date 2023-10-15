@@ -1,7 +1,86 @@
 <script lang="ts">
 	import type { PageData } from "./$types";
 
+	import { getAlbumItemProps } from "$lib/utils/album";
+	import { getArtistNames, getArtistItemProps } from "$lib/utils/artist";
+
+	import Cover from "$lib/components/cover.svelte";
+	import Track from "$lib/components/track.svelte";
+	import ContentItem from "$lib/components/content-item.svelte";
+
 	export let data: PageData;
+
+	$: artist = data.artist;
+	$: genres = (artist?.genres ?? []).join(", ");
+	$: topTracks = data.topTracks?.tracks ?? [];
+	$: albums = data.albums?.items ?? [];
+	$: appearsOn = data.appearsOn?.items ?? [];
+	$: relatedArtists = data.related?.artists ?? [];
 </script>
 
-<h2>{data.artist?.name}</h2>
+{#if artist}
+	<Cover type="artist" imgUrl={artist.images[0]?.url} title={artist.name}>
+		<svelte:fragment slot="description">
+			{#if genres.length > 0}
+				<p class="artist__genres"><span class="label">Genres</span> {genres}</p>
+			{/if}
+		</svelte:fragment>
+	</Cover>
+{/if}
+
+<div class="content">
+	<h3 class="content__title">Top {topTracks.length} Tracks</h3>
+	<ol class="content__items">
+		{#each topTracks as track (track.id)}
+			<li class="content__item">
+				<Track {track} />
+			</li>
+		{/each}
+	</ol>
+</div>
+
+<div class="content">
+	<h3 class="content__title">Albums</h3>
+	<ol class="content__items content__items--tiled">
+		{#each albums as album (album.id)}
+			<ContentItem {...getAlbumItemProps(album)}>
+				<svelte:fragment slot="title">
+					<span>{album.name}</span>
+					<span class="item__artists">{getArtistNames(album.artists)}</span>
+				</svelte:fragment>
+			</ContentItem>
+		{/each}
+	</ol>
+</div>
+
+<div class="content">
+	<h3 class="content__title">Appears on</h3>
+	<ol class="content__items content__items--tiled">
+		{#each appearsOn as album (album.id)}
+			<ContentItem {...getAlbumItemProps(album)}>
+				<svelte:fragment slot="title">
+					<span>{album.name}</span>
+					<span class="item__artists">{getArtistNames(album.artists)}</span>
+				</svelte:fragment>
+			</ContentItem>
+		{/each}
+	</ol>
+</div>
+
+<div class="content">
+	<h3 class="content__title">Related artists</h3>
+	<ol class="content__items content__items--tiled">
+		{#each relatedArtists as artist (artist.id)}
+			<ContentItem {...getArtistItemProps(artist)}>
+				<span slot="title">{artist.name}</span>
+			</ContentItem>
+		{/each}
+	</ol>
+</div>
+
+<style lang="postcss">
+	.artist__genres {
+		white-space: nowrap;
+		text-transform: capitalize;
+	}
+</style>

@@ -3,7 +3,7 @@
 	import type { Track } from "$lib/typings/spotify";
 
 	import { page } from "$app/stores";
-	import { getArtistNames } from "$lib/utils/data";
+	import { getArtistNames } from "$lib/utils/artist";
 	import NavPage from "$lib/components/nav-page.svelte";
 	import NavItem from "$lib/components/nav-item.svelte";
 
@@ -25,7 +25,7 @@
 			<NavItem {...getLink(item, currentPath)}>
 				<svelte:fragment slot="label">
 					<span>{item.name}</span>
-					<span>{getArtistNames(item.artists)}</span>
+					<span class="item__artists">{getArtistNames(item.artists)}</span>
 				</svelte:fragment>
 			</NavItem>
 		{/each}

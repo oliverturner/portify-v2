@@ -39,6 +39,7 @@ export const spotifyAuth = spotify(auth, {
 	redirectUri: SPOTIFY_REDIRECT_URI,
 	scope: [
 		"user-top-read",
+		"user-follow-read",
 		"user-library-read",
 		"user-modify-playback-state",
 		"playlist-read-private",

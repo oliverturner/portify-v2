@@ -1,24 +1,27 @@
 <script lang="ts">
-	import type { Track } from "$lib/typings/spotify";
+	import type { Track, SimplifiedTrack } from "$lib/typings/spotify";
 
 	import Icon from "./icon.svelte";
 	import IconLink from "./icon-link.svelte";
 
-	export let track: Track;
+	export let track: Track | SimplifiedTrack;
 	export let index: number;
+	export let showTrackArtists: boolean = true;
 </script>
 
 <div class="track">
-	<span class="track__index">{index + 1}</span>
+	<span class="track__index">{index}</span>
 	<div class="track__info">
-		<div class="artists">
-			<Icon id="artist" />
-			<ul>
-				{#each track.artists as artist}
-					<li><a href="/app/artists/{artist.id}">{artist.name}</a></li>
-				{/each}
-			</ul>
-		</div>
+		{#if showTrackArtists}
+			<div class="artists">
+				<Icon id="artist" />
+				<ul>
+					{#each track.artists as artist}
+						<li><a href="/app/artists/{artist.id}">{artist.name}</a></li>
+					{/each}
+				</ul>
+			</div>
+		{/if}
 		<IconLink icon="track" href="/app/tracks/{track.id}">
 			<span>{track.name}</span>
 		</IconLink>

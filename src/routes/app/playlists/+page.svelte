@@ -13,7 +13,7 @@
 </script>
 
 <div class="content">
-	<ul class="content__items">
+	<ul class="content__items content__items--tiled">
 		{#each data.playlists?.items ?? [] as item (item.id)}
 			<ContentItem {...getItemProps(item)}>
 				<span slot="title">{item.name}</span>
