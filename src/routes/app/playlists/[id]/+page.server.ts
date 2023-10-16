@@ -2,7 +2,7 @@ import type { Page, Playlist, PlaylistedTrack, Track, TrackItem } from "$lib/typ
 import type { PageServerLoad } from "./$types";
 
 import { getEndpoint, isTrack } from "$lib/utils/data";
-import { queryApi } from "$lib/server/api";
+import { queryApiFn } from "$lib/server/api";
 import { PAGE_FIELDS } from "$lib/constants";
 
 export { actions } from "$lib/actions";
@@ -37,8 +37,12 @@ function tracksAreGrouped(tracks?: Page<PlaylistedTrack<TrackItem>>) {
 }
 
 export const load: PageServerLoad = async ({ locals, params }) => {
+	const queryApi = await queryApiFn(locals.auth);
+
+	if (!queryApi) return { playlist: null };
+
 	const endpoint = getEndpoint(`playlists/${params.id}`, apiParams);
-	const playlist = await queryApi<Playlist>(endpoint, locals.auth);
+	const playlist = await queryApi<Playlist>(endpoint);
 	const isGrouped = tracksAreGrouped(playlist?.tracks);
 
 	return {

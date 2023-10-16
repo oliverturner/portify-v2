@@ -36,6 +36,7 @@ export const GET = async ({ url, cookies, locals }) => {
 					username: spotifyUser.display_name!,
 					access_token: spotifyTokens.accessToken,
 					refresh_token: spotifyTokens.refreshToken,
+					expires_at: Date.now() + spotifyTokens.accessTokenExpiresIn * 1000,
 				},
 			});
 
