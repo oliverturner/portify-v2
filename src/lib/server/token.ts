@@ -13,7 +13,8 @@ const TOKEN_REFRESH_BUFFER = 3000;
  * - Request an updated accessToken
  * - Update the user record with it (which automatically adds it to the session)
  */
-async function refreshUserAccessToken({ userId, spotifyRefreshToken }: Session["user"]) {
+async function refreshUserAccessToken(session: Session) {
+	const { userId, spotifyRefreshToken } = session.user;
 	const authToken = Buffer.from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`).toString("base64");
 	const body = new URLSearchParams();
 	body.set("grant_type", "refresh_token");
@@ -41,7 +42,7 @@ async function refreshUserAccessToken({ userId, spotifyRefreshToken }: Session["
 	return user.spotifyAccessToken;
 }
 
-function validateUserAccessToken(user: Session["user"]) {
+function validateUserAccessToken({ user }: Session) {
 	const timeLeft = Math.floor(user.spotifyTokenExpiresAt - Date.now());
 	const tokenIsValid = timeLeft > 0;
 
@@ -50,11 +51,32 @@ function validateUserAccessToken(user: Session["user"]) {
 	return tokenIsValid;
 }
 
+/**
+ * If `session.tokenRefresh` exists, return it: it's a promise that resolves to a new access token
+ * Otherwise, invoke `refreshUserAccessToken` & store the resulting promise in `session.tokenRefresh`
+ * Delete `session.tokenRefresh` on completion
+ */
 export async function getAccessToken(session: Session | null) {
 	if (!session) {
 		throw new Error("No session provided");
 	}
 
-	const { user } = session;
-	return validateUserAccessToken(user) ? user.spotifyAccessToken : refreshUserAccessToken(user);
+	let accessToken = session.user.spotifyAccessToken;
+
+	if (validateUserAccessToken(session)) {
+		return accessToken;
+	}
+
+	if (session.tokenRefresh) {
+		return session.tokenRefresh;
+	}
+
+	session.tokenRefresh = refreshUserAccessToken(session);
+	accessToken = await session.tokenRefresh;
+
+	console.log("Token refreshed", { tokenRefresh: session.tokenRefresh });
+
+	delete session.tokenRefresh;
+
+	return accessToken;
 }
