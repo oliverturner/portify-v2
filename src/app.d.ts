@@ -28,6 +28,9 @@ declare global {
 			expires_at: number;
 		};
 		type DatabaseSessionAttributes = Record<string, never>;
+		type SessionSchema = {
+			tokenRefresh?: Promise<string>
+		}
 	}
 }
 

@@ -7,8 +7,6 @@ import { auth } from "./lucia";
 
 const TOKEN_REFRESH_BUFFER = 3000;
 
-// TODO How to prevent double invocation if requests overlap?
-
 /**
  * - Request an updated accessToken
  * - Update the user record with it (which automatically adds it to the session)
@@ -53,8 +51,8 @@ function validateUserAccessToken({ user }: Session) {
 
 /**
  * If `session.tokenRefresh` exists, return it: it's a promise that resolves to a new access token
- * Otherwise, invoke `refreshUserAccessToken` & store the resulting promise in `session.tokenRefresh`
- * Delete `session.tokenRefresh` on completion
+ * Otherwise, invoke `refreshUserAccessToken` & store the returned promise in `session.tokenRefresh`
+ * Delete `session.tokenRefresh` on completion and return the new access token
  */
 export async function getAccessToken(session: Session | null) {
 	if (!session) {
@@ -67,16 +65,13 @@ export async function getAccessToken(session: Session | null) {
 		return accessToken;
 	}
 
-	if (session.tokenRefresh) {
-		return session.tokenRefresh;
+	if (session.tokenRefreshing) {
+		return session.tokenRefreshing;
 	}
 
-	session.tokenRefresh = refreshUserAccessToken(session);
-	accessToken = await session.tokenRefresh;
-
-	console.log("Token refreshed", { tokenRefresh: session.tokenRefresh });
-
-	delete session.tokenRefresh;
+	session.tokenRefreshing = refreshUserAccessToken(session);
+	accessToken = await session.tokenRefreshing;
+	delete session.tokenRefreshing;
 
 	return accessToken;
 }

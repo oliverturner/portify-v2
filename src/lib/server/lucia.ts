@@ -32,11 +32,7 @@ export const auth = lucia({
 			spotifyTokenExpiresAt: data.expires_at,
 		};
 	},
-	getSessionAttributes: (): { tokenRefresh?: Promise<string> } => {
-		return {
-			tokenRefresh: Promise.resolve(""),
-		};
-	},
+	getSessionAttributes: (): { tokenRefreshing?: Promise<string> } => ({}),
 });
 
 export const spotifyAuth = spotify(auth, {
@@ -51,7 +47,5 @@ export const spotifyAuth = spotify(auth, {
 		"playlist-read-private",
 	],
 });
-
-console.log(Object.keys(spotifyAuth));
 
 export type Auth = typeof auth;
