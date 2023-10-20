@@ -12,8 +12,6 @@ import {
 
 import { libSqlClient, tableNames } from "./turso.ts";
 
-console.log({ tableNames });
-
 export const auth = lucia({
 	adapter: libsql(libSqlClient, tableNames),
 	middleware: sveltekit(),
