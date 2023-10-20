@@ -1,10 +1,7 @@
-import fs from "fs";
-
-import sqlite from "better-sqlite3";
 import { lucia } from "lucia";
-import { betterSqlite3 } from "@lucia-auth/adapter-sqlite";
 import { sveltekit } from "lucia/middleware";
 import { spotify } from "@lucia-auth/oauth/providers";
+import { libsql } from "@lucia-auth/adapter-sqlite";
 
 import { dev } from "$app/environment";
 import {
@@ -13,15 +10,12 @@ import {
 	SPOTIFY_REDIRECT_URI,
 } from "$env/static/private";
 
-const db = sqlite(":memory:");
-db.exec(fs.readFileSync("schema.sql", "utf8"));
+import { libSqlClient, tableNames } from "./turso.ts";
+
+console.log({ tableNames });
 
 export const auth = lucia({
-	adapter: betterSqlite3(db, {
-		user: "user",
-		session: "user_session",
-		key: "user_key",
-	}),
+	adapter: libsql(libSqlClient, tableNames),
 	middleware: sveltekit(),
 	env: dev ? "DEV" : "PROD",
 	getUserAttributes: (data) => {
@@ -29,7 +23,7 @@ export const auth = lucia({
 			spotifyUsername: data.username,
 			spotifyAccessToken: data.access_token,
 			spotifyRefreshToken: data.refresh_token,
-			spotifyTokenExpiresAt: data.expires_at,
+			spotifyAccessExpiresAt: data.access_expires_at,
 		};
 	},
 	getSessionAttributes: (): { tokenRefreshing?: Promise<string> } => ({}),

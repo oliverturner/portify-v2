@@ -36,7 +36,7 @@ export const GET = async ({ url, cookies, locals }) => {
 					username: spotifyUser.display_name!,
 					access_token: spotifyTokens.accessToken,
 					refresh_token: spotifyTokens.refreshToken,
-					expires_at: Date.now() + spotifyTokens.accessTokenExpiresIn * 1000,
+					access_expires_at: Date.now() + spotifyTokens.accessTokenExpiresIn * 1000,
 				},
 			});
 
@@ -48,6 +48,7 @@ export const GET = async ({ url, cookies, locals }) => {
 			userId: user.userId,
 			attributes: {},
 		});
+
 		locals.auth.setSession(session);
 
 		return new Response(null, {
@@ -56,13 +57,14 @@ export const GET = async ({ url, cookies, locals }) => {
 				Location: "/app",
 			},
 		});
-	} catch (e) {
-		if (e instanceof OAuthRequestError) {
+	} catch (err) {
+		if (err instanceof OAuthRequestError) {
 			// invalid code
 			return new Response(null, {
 				status: 400,
 			});
 		}
+
 		return new Response(null, {
 			status: 500,
 		});
