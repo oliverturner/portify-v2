@@ -34,14 +34,14 @@ async function refreshUserAccessToken(session: Session) {
 	const data = await res.json();
 	const user = await auth.updateUserAttributes(userId, {
 		access_token: data.access_token,
-		expires_at: Date.now() + data.expires_in * 1000 - TOKEN_REFRESH_BUFFER,
+		access_expires_at: Date.now() + data.expires_in * 1000 - TOKEN_REFRESH_BUFFER,
 	});
 
 	return user.spotifyAccessToken;
 }
 
 function validateUserAccessToken({ user }: Session) {
-	const timeLeft = Math.floor(user.spotifyTokenExpiresAt - Date.now());
+	const timeLeft = Math.floor(user.spotifyAccessExpiresAt - Date.now());
 	const tokenIsValid = timeLeft > 0;
 
 	console.log(`Token refreshing in ${prettyMS(timeLeft)}`);
