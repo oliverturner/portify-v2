@@ -28,6 +28,7 @@
 		"eslint": "^8.51.0",
 		"eslint-config-prettier": "^9.0.0",
 		"eslint-plugin-svelte": "^2.34.0",
+		"npm-run-all": "4.1.5",
 		"postcss": "8.4.31",
 		"prettier": "^3.0.3",
 		"prettier-plugin-svelte": "^3.0.3",
@@ -48,11 +49,11 @@
 		"format": "prettier --plugin-search-dir . --write .",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"preview": "vite preview",
-		"test": "npm run test:integration && npm run test:unit",
-		"test:integration": "playwright test",
 		"test:unit": "vitest",
-		"drizzle:generate": "drizzle-kit generate:sqlite --out ./drizzle/migrations --breakpoints --schema=./drizzle/schema.ts",
-		"drizzle:migrate": "tsx ./drizzle/migrate.ts",
+		"test:integration": "playwright test",
+		"test": "run-s test:*",
+		"drizzle:generate": "drizzle-kit generate:sqlite --out ./drizzle/migrations --breakpoints --schema=./src/lib/db/schema.ts",
+		"drizzle:migrate": "tsx ./src/lib/db/migrate.ts",
 		"drizzle:studio": "drizzle-kit studio --port 3333",
 		"turso:local": "turso dev --db-file portify.db --port 5555"
 	}
