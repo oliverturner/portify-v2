@@ -6,7 +6,7 @@ import { createClient } from "@libsql/client";
 import { getTableName } from "drizzle-orm";
 
 import { TURSO_DB_URL, TURSO_DB_AUTH_TOKEN } from "$env/static/private";
-import * as schema from "../../../drizzle/schema.ts";
+import * as schema from "$lib/db/schema.ts";
 
 function getTableNames(schema: Record<TableKey, SQLiteTable>) {
 	const tableNames = {} as Record<TableKey, string>;

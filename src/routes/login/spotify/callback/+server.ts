@@ -1,5 +1,27 @@
 import { auth, spotifyAuth } from "$lib/server/lucia.js";
 import { OAuthRequestError } from "@lucia-auth/oauth";
+import type { SpotifyUserAuth } from "@lucia-auth/oauth/providers";
+
+async function getUser({
+	getExistingUser,
+	spotifyUser,
+	createUser,
+	spotifyTokens,
+}: SpotifyUserAuth) {
+	const existingUser = await getExistingUser();
+	if (existingUser) return existingUser;
+
+	const user = await createUser({
+		attributes: {
+			username: spotifyUser.display_name!,
+			access_token: spotifyTokens.accessToken,
+			refresh_token: spotifyTokens.refreshToken,
+			access_expires_at: Date.now() + spotifyTokens.accessTokenExpiresIn * 1000,
+		},
+	});
+
+	return user;
+}
 
 export const GET = async ({ url, cookies, locals }) => {
 	const session = await locals.auth.validate();
@@ -24,26 +46,8 @@ export const GET = async ({ url, cookies, locals }) => {
 	}
 
 	try {
-		const { getExistingUser, spotifyUser, createUser, spotifyTokens } =
-			await spotifyAuth.validateCallback(code);
-
-		const getUser = async () => {
-			const existingUser = await getExistingUser();
-			if (existingUser) return existingUser;
-
-			const user = await createUser({
-				attributes: {
-					username: spotifyUser.display_name!,
-					access_token: spotifyTokens.accessToken,
-					refresh_token: spotifyTokens.refreshToken,
-					access_expires_at: Date.now() + spotifyTokens.accessTokenExpiresIn * 1000,
-				},
-			});
-
-			return user;
-		};
-
-		const user = await getUser();
+		const userAuth = await spotifyAuth.validateCallback(code);
+		const user = await getUser(userAuth);
 		const session = await auth.createSession({
 			userId: user.userId,
 			attributes: {},
