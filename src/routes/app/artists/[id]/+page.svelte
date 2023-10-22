@@ -28,15 +28,6 @@
 	</Cover>
 {/if}
 
-<!--
-<nav class="features">
-	<a class="btn" href="#top-tracks">Top Tracks</a>
-	<a class="btn" href="#albums">Albums</a>
-	<a class="btn" href="#appears-on">Appears on</a>
-	<a class="btn" href="#related-artists">Related artists</a>
-</nav>
--->
-
 {#if topTracks.length > 0}
 	<div class="content" id="top-tracks">
 		<h3 class="content__title">Top {topTracks.length} Tracks</h3>
@@ -96,15 +87,6 @@
 {/if}
 
 <style lang="postcss">
-	.features {
-		position: sticky;
-		top: 0;
-
-		display: flex;
-		justify-content: center;
-		gap: var(--size-2);
-	}
-
 	.content {
 		box-sizing: border-box;
 	}
