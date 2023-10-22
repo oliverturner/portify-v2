@@ -28,57 +28,69 @@
 	</Cover>
 {/if}
 
-<div class="content">
-	<h3 class="content__title">Top {topTracks.length} Tracks</h3>
-	<ol class="content__items">
-		{#each topTracks as track (track.id)}
-			<li class="content__item">
-				<Track {track} />
-			</li>
-		{/each}
-	</ol>
-</div>
+{#if topTracks.length > 0}
+	<div class="content" id="top-tracks">
+		<h3 class="content__title">Top {topTracks.length} Tracks</h3>
+		<ol class="content__items">
+			{#each topTracks as track (track.id)}
+				<li class="content__item">
+					<Track {track} />
+				</li>
+			{/each}
+		</ol>
+	</div>
+{/if}
 
-<div class="content">
-	<h3 class="content__title">Albums</h3>
-	<ol class="content__items content__items--tiled">
-		{#each albums as album (album.id)}
-			<ContentItem {...getAlbumItemProps(album)}>
-				<svelte:fragment slot="title">
-					<span>{album.name}</span>
-					<span class="item__artists">{getArtistNames(album.artists)}</span>
-				</svelte:fragment>
-			</ContentItem>
-		{/each}
-	</ol>
-</div>
+{#if albums.length > 0}
+	<div class="content" id="albums">
+		<h3 class="content__title">Albums</h3>
+		<ol class="content__items content__items--tiled">
+			{#each albums as album (album.id)}
+				<ContentItem {...getAlbumItemProps(album)}>
+					<svelte:fragment slot="title">
+						<span>{album.name}</span>
+						<span class="item__artists">{getArtistNames(album.artists)}</span>
+					</svelte:fragment>
+				</ContentItem>
+			{/each}
+		</ol>
+	</div>
+{/if}
 
-<div class="content">
-	<h3 class="content__title">Appears on</h3>
-	<ol class="content__items content__items--tiled">
-		{#each appearsOn as album (album.id)}
-			<ContentItem {...getAlbumItemProps(album)}>
-				<svelte:fragment slot="title">
-					<span>{album.name}</span>
-					<span class="item__artists">{getArtistNames(album.artists)}</span>
-				</svelte:fragment>
-			</ContentItem>
-		{/each}
-	</ol>
-</div>
+{#if appearsOn.length > 0}
+	<div class="content">
+		<h3 class="content__title" id="appears-on">Appears on</h3>
+		<ol class="content__items content__items--tiled">
+			{#each appearsOn as album (album.id)}
+				<ContentItem {...getAlbumItemProps(album)}>
+					<svelte:fragment slot="title">
+						<span>{album.name}</span>
+						<span class="item__artists">{getArtistNames(album.artists)}</span>
+					</svelte:fragment>
+				</ContentItem>
+			{/each}
+		</ol>
+	</div>
+{/if}
 
-<div class="content">
-	<h3 class="content__title">Related artists</h3>
-	<ol class="content__items content__items--tiled">
-		{#each relatedArtists as artist (artist.id)}
-			<ContentItem {...getArtistItemProps(artist)}>
-				<span slot="title">{artist.name}</span>
-			</ContentItem>
-		{/each}
-	</ol>
-</div>
+{#if relatedArtists.length > 0}
+	<div class="content">
+		<h3 class="content__title" id="related-artists">Related artists</h3>
+		<ol class="content__items content__items--tiled">
+			{#each relatedArtists as artist (artist.id)}
+				<ContentItem {...getArtistItemProps(artist)}>
+					<span slot="title">{artist.name}</span>
+				</ContentItem>
+			{/each}
+		</ol>
+	</div>
+{/if}
 
 <style lang="postcss">
+	.content {
+		box-sizing: border-box;
+	}
+
 	.artist__genres {
 		white-space: nowrap;
 		text-transform: capitalize;
