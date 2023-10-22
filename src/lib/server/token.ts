@@ -4,6 +4,7 @@ type Secrets = typeof import("$env/static/private");
 import prettyMS from "pretty-ms";
 
 import * as secrets from "$env/static/private";
+import { encodeBase64 } from "$lib/utils/encode";
 import { auth } from "./lucia";
 
 const TOKEN_REFRESH_BUFFER = 3000;
@@ -14,15 +15,8 @@ const TOKEN_REFRESH_BUFFER = 3000;
  */
 async function refreshUserAccessToken(secrets: Secrets, session: Session) {
 	const { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } = secrets;
-
-	console.log("refreshUserAccessToken", {
-		sessionUser: session.user,
-		SPOTIFY_CLIENT_ID,
-		SPOTIFY_CLIENT_SECRET,
-	});
-
 	const { userId, spotifyRefreshToken } = session.user;
-	const authToken = Buffer.from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`).toString("base64");
+	const authToken = encodeBase64(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`);
 	const body = new URLSearchParams();
 	body.set("grant_type", "refresh_token");
 	body.set("refresh_token", spotifyRefreshToken);
