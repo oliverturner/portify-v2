@@ -1,6 +1,7 @@
 import type { Session } from "lucia";
 type Secrets = typeof import("$env/static/private");
 
+import { Buffer } from "node:buffer";
 import prettyMS from "pretty-ms";
 
 import * as secrets from "$env/static/private";
@@ -14,13 +15,6 @@ const TOKEN_REFRESH_BUFFER = 3000;
  */
 async function refreshUserAccessToken(secrets: Secrets, session: Session) {
 	const { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } = secrets;
-
-	console.log("refreshUserAccessToken", {
-		sessionUser: session.user,
-		SPOTIFY_CLIENT_ID,
-		SPOTIFY_CLIENT_SECRET,
-	});
-
 	const { userId, spotifyRefreshToken } = session.user;
 	const authToken = Buffer.from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`).toString("base64");
 	const body = new URLSearchParams();
@@ -84,3 +78,5 @@ export async function getAccessToken(session: Session | null) {
 
 	return accessToken;
 }
+
+
