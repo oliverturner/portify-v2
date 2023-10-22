@@ -36,6 +36,7 @@
 		gap: 1rem;
 
 		height: 100%;
+		background: var(--surface-5);
 	}
 
 	.track__index {

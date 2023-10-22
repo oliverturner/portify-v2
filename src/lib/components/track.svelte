@@ -38,9 +38,11 @@
 <style lang="postcss">
 	.track {
 		display: grid;
-		grid-template-columns: 1fr 3fr;
+		grid-template-columns: auto 1fr;
 		grid-template-areas: "cover info";
 		align-items: start;
+
+		background: var(--surface-5);
 	}
 
 	.cover {
@@ -62,7 +64,7 @@
 		gap: 0.5rem;
 
 		padding: 1rem;
-		font-size: 0.9rem;
+		font-size: 0.8rem;
 
 		& a:hover {
 			text-decoration: underline;

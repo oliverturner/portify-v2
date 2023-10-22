@@ -45,7 +45,6 @@
 		z-index: 2;
 
 		view-transition-name: static;
-
 		@media (min-width: 1024px) {
 			--_bg: var(--surface-2);
 		}
