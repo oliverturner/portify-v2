@@ -1,5 +1,5 @@
 <header class="app__header">
-	<a href="/" class="title">Portify</a>
+	<a href="/app/playlists" class="title">Portify</a>
 
 	<div class="app__header__trail">
 		<slot name="header-trail" />
