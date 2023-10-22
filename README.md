@@ -4,6 +4,17 @@
 
 ## Developing
 
+You will need to create a `.env` file in the root directory of the project with the following variables:
+
+```bash
+SPOTIFY_CLIENT_ID="..."
+SPOTIFY_CLIENT_SECRET="..."
+SPOTIFY_REDIRECT_URI="..."
+
+TURSO_DB_AUTH_TOKEN="..."
+TURSO_DB_URL="libsql://<app>-<username>.turso.io"
+```
+
 ```bash
 npm run dev
 
