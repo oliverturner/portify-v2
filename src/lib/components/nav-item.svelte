@@ -10,7 +10,7 @@
 </li>
 
 <style lang="postcss">
-	.nav__item {
+	a {
 		display: grid;
 		grid-gap: 0.35rem;
 

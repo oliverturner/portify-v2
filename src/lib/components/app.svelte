@@ -1,5 +1,5 @@
 <header class="app__header">
-	<a href="/" class="title">Portify</a>
+	<a href="/app/playlists" class="title">Portify</a>
 
 	<div class="app__header__trail">
 		<slot name="header-trail" />
@@ -45,7 +45,6 @@
 		z-index: 2;
 
 		view-transition-name: static;
-
 		@media (min-width: 1024px) {
 			--_bg: var(--surface-2);
 		}

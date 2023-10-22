@@ -35,6 +35,15 @@
 		--surface-6: #0003;
 		--surface-7: #0002;
 
+		--border-7: #fffe;
+		--border-6: #fffb;
+		--border-5: #fffa;
+		--border-4: #fff8;
+		--border-3: #fff6;
+		--border-2: #fff5;
+		--border-1: #fff3;
+		--border-0: #fff2;
+
 		--surface-shadow: var(--gray-12-hsl);
 		--shadow-strength: 80%;
 
@@ -186,14 +195,21 @@ img {
 
 .app {
 	display: grid;
-
-	grid-template-columns: 92px 1fr;
-	grid-template-rows: 50px 1fr;
+	grid-template-rows: 50px 1fr auto;
 	grid-template-areas:
-		"header header"
-		"rail content";
+		"header"
+		"content"
+		"rail";
 
-	height: 100%;
+	height: 100dvh;
+
+	@media (min-width: 768px) {
+		grid-template-columns: 92px 1fr;
+		grid-template-rows: 50px 1fr;
+		grid-template-areas:
+			"header header"
+			"rail content";
+	}
 }
 
 .page__header,
@@ -224,15 +240,12 @@ img {
 
 .content__items {
 	--min-col-width: 18rem;
-	--_bg: var(--surface-3);
-	--_ink: var(--text-1);
 
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(var(--min-col-width), 1fr));
 	grid-gap: 1rem;
 
 	font-size: 0.9rem;
-	font-size: 0.8rem;
 
 	@media (min-width: 768px) {
 		--min-col-width: 25rem;
@@ -247,34 +260,10 @@ img {
 	}
 }
 
-.content__item {
-	background: var(--_bg);
-	color: var(--_ink);
-}
-
-.content__item__title {
-	--_bg: var(--surface-1);
-	--_ink: var(--text-1);
-
-	align-self: end;
-
-	display: grid;
-	gap: 0.35rem;
-
-	/**
-	 * Opacity creates a stacking context, so `position: relative` here prevents
-	 * the title bar of tiled items from being overlayed by the thumbnail as it
-	 * fades up on load
-	 */
-	position: relative;
-	padding: 0.5rem;
-	background: var(--_bg);
-	color: var(--_ink);
-}
-
 .item__artists {
-	color: var(--text-2);
+	display: block;
 	font-size: 0.95em;
+	color: var(--text-2);
 }
 
 .muted {
