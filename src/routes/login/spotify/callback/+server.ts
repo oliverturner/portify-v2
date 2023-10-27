@@ -1,6 +1,8 @@
-import { auth, spotifyAuth } from "$lib/server/lucia.js";
-import { OAuthRequestError } from "@lucia-auth/oauth";
 import type { SpotifyUserAuth } from "@lucia-auth/oauth/providers";
+
+import { OAuthRequestError } from "@lucia-auth/oauth";
+
+import { auth, spotifyAuth } from "$lib/server/lucia.js";
 
 async function getUser({
 	getExistingUser,
@@ -11,9 +13,12 @@ async function getUser({
 	const existingUser = await getExistingUser();
 	if (existingUser) return existingUser;
 
+	console.log({ spotifyUser: JSON.stringify(spotifyUser, null, 2) });
+
 	const user = await createUser({
 		attributes: {
 			username: spotifyUser.display_name!,
+			avatar: spotifyUser.images[0]?.url ?? "",
 			access_token: spotifyTokens.accessToken,
 			refresh_token: spotifyTokens.refreshToken,
 			access_expires_at: Date.now() + spotifyTokens.accessTokenExpiresIn * 1000,
@@ -48,6 +53,7 @@ export const GET = async ({ url, cookies, locals }) => {
 	try {
 		const userAuth = await spotifyAuth.validateCallback(code);
 		const user = await getUser(userAuth);
+
 		const session = await auth.createSession({
 			userId: user.userId,
 			attributes: {},
@@ -62,6 +68,10 @@ export const GET = async ({ url, cookies, locals }) => {
 			},
 		});
 	} catch (err) {
+		if (err instanceof Error) {
+			console.log(err.message);
+		}
+
 		if (err instanceof OAuthRequestError) {
 			// invalid code
 			return new Response(null, {

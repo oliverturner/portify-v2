@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { Track } from "$lib/typings/spotify";
 
-	import { onLoad } from "$lib/utils/image";
 	import { playTrack } from "$lib/utils/player";
 
 	import Icon from "./icon.svelte";
@@ -12,7 +11,7 @@
 
 <div class="track">
 	<a href={track.href} on:click|preventDefault={() => playTrack(track.id)}>
-		<img class="cover square" src={track.album.images[1].url} alt={track.name} on:load={onLoad} />
+		<img class="cover square" src={track.album.images[1].url} alt={track.name} />
 	</a>
 
 	<div class="info">

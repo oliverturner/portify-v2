@@ -11,7 +11,7 @@
 	export let data: PageData;
 
 	$: artist = data.artist;
-	$: genres = (artist?.genres ?? []).join(", ");
+	$: genres = artist?.genres ?? [];
 	$: topTracks = data.topTracks?.tracks ?? [];
 	$: albums = data.albums?.items ?? [];
 	$: appearsOn = data.appearsOn?.items ?? [];
@@ -22,7 +22,11 @@
 	<Cover type="artist" imgUrl={artist.images[0]?.url} title={artist.name}>
 		<svelte:fragment slot="description">
 			{#if genres.length > 0}
-				<p class="artist__genres"><span class="label">Genres</span> {genres}</p>
+				<p class="artist__genres">
+					{#each genres as genre}
+						<a href="#"><span>{genre}</span></a>
+					{/each}
+				</p>
 			{/if}
 		</svelte:fragment>
 	</Cover>
@@ -92,7 +96,23 @@
 	}
 
 	.artist__genres {
-		white-space: nowrap;
-		text-transform: capitalize;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.25rem;
+
+		& a {
+			white-space: nowrap;
+			text-transform: capitalize;
+
+			&:hover {
+				& > span {
+					text-decoration: underline;
+				}
+			}
+
+			&:not(:last-child)::after {
+				content: ",";
+			}
+		}
 	}
 </style>

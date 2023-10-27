@@ -12,6 +12,8 @@ import {
 
 import { libSqlClient, tableNames } from "./turso.ts";
 
+export type Auth = typeof auth;
+
 export const auth = lucia({
 	adapter: libsql(libSqlClient, tableNames),
 	middleware: sveltekit(),
@@ -19,6 +21,7 @@ export const auth = lucia({
 	getUserAttributes: (data) => {
 		return {
 			spotifyUsername: data.username,
+			spotifyAvatar: data.avatar,
 			spotifyAccessToken: data.access_token,
 			spotifyRefreshToken: data.refresh_token,
 			spotifyAccessExpiresAt: data.access_expires_at,
@@ -39,5 +42,3 @@ export const spotifyAuth = spotify(auth, {
 		"playlist-read-private",
 	],
 });
-
-export type Auth = typeof auth;

@@ -20,7 +20,7 @@
 			<dl class="datatable">
 				<dt aria-label="Artists"><Icon id="artist" /></dt>
 				<dd>
-					<ul class="inlineList">
+					<ul class="list--inline">
 						{#each album.artists as artist}
 							<li><a href="/app/artists/{artist.id}">{artist.name}</a></li>
 						{/each}
