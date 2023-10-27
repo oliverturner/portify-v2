@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { onLoad } from "$lib/utils/image";
-
 	export let href: string;
 	export let imgUrl: string | undefined;
 </script>
@@ -8,7 +6,7 @@
 <li>
 	<a class="content__item" {href}>
 		{#if imgUrl}
-			<img class="content__item__cover square" src={imgUrl} alt="Cover art" on:load={onLoad} />
+			<img class="content__item__cover square" src={imgUrl} alt="Cover art" />
 		{:else}
 			<span class="nav__item__cover"></span>
 		{/if}

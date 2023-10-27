@@ -100,14 +100,7 @@ p {
 }
 
 img {
-	opacity: 0;
 	background: var(--surface-2);
-
-	transition: 0.5s opacity ease-in-out;
-
-	&.loaded {
-		opacity: 1;
-	}
 
 	&.square {
 		width: 100%;
@@ -183,7 +176,7 @@ img {
 	}
 }
 
-.inlineList {
+.list--inline {
 	& > li {
 		display: inline;
 
@@ -191,6 +184,16 @@ img {
 			content: ", ";
 		}
 	}
+}
+
+.sr-only:not(:focus):not(:active) {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
 }
 
 .app {

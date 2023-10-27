@@ -1,13 +1,15 @@
 <script lang="ts">
 	import type { LayoutData } from "./$types";
 
+	import { offset, flip, shift } from "svelte-floating-ui/dom";
+	import { createFloatingActions } from "svelte-floating-ui";
+
 	import { onNavigate } from "$app/navigation";
 	import { enhance } from "$app/forms";
 	import { page } from "$app/stores";
 
 	import Icon from "$lib/components/icon.svelte";
 	import App from "$lib/components/app.svelte";
-	import { onLoad } from "$lib/utils/image";
 
 	import "../../app.postcss";
 
@@ -31,6 +33,16 @@
 		});
 	});
 
+	const [floatingRef, floatingContent] = createFloatingActions({
+		strategy: "absolute",
+		placement: "top",
+		middleware: [offset(6), flip(), shift()],
+	});
+
+	let showTooltip: boolean = false;
+
+	const togglePrefs = () => (showTooltip = !showTooltip);
+
 	$: currentPath = $page.url.pathname;
 	$: isActive = (href: string) => currentPath.startsWith(href);
 </script>
@@ -39,15 +51,18 @@
 
 <App>
 	<div class="header__controls" slot="header-trail">
-		<button id="user-prefs-btn">
-			<img class="square avatar" src={data.avatar} alt="User avatar" on:load={onLoad} />
+		<button class="prefs-btn" on:click={togglePrefs} use:floatingRef>
+			<img class="square avatar" src={data.avatar} alt="User avatar" />
+			<span class="sr-only">Preferences</span>
 		</button>
 
-		<div id="user-prefs-panel">
-			<form method="post" action="?/logout" use:enhance>
-				<button class="btn">Sign out</button>
-			</form>
-		</div>
+		{#if showTooltip}
+			<div class="prefs-panel" use:floatingContent>
+				<form method="post" action="?/logout" use:enhance>
+					<button class="btn">Sign out</button>
+				</form>
+			</div>
+		{/if}
 	</div>
 
 	<svelte:fragment slot="rail-lead">
@@ -71,6 +86,7 @@
 		gap: var(--size-2);
 
 		position: relative;
+		z-index: 2;
 	}
 
 	.avatar {
@@ -79,6 +95,22 @@
 		width: var(--size);
 		height: var(--size);
 		border-radius: var(--size);
+	}
+
+	.prefs-btn {
+		all: unset;
+
+		aspect-ratio: 1;
+		overflow: hidden;
+	}
+
+	.prefs-panel {
+		position: absolute;
+
+		width: 200px;
+		padding: 1rem;
+		border-radius: 0.5rem;
+		background: var(--surface-0);
 	}
 
 	.rail__links {

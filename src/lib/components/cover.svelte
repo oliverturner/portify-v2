@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { onLoad } from "$lib/utils/image";
-
 	export let type: "artist" | "album" | "playlist" | "track";
 	export let imgUrl: string | undefined;
 	export let title: string | undefined;
@@ -10,7 +8,7 @@
 
 <div class="topper cover--{type}">
 	<figure class="cover">
-		<img class="cover__art square" {src} alt="Cover art" on:load={onLoad} />
+		<img class="cover__art square" {src} alt="Cover art" />
 		<figcaption class="cover__label">
 			<h2 class="title title--light">{title}</h2>
 			<slot name="description" />
@@ -23,11 +21,13 @@
 
 <style lang="postcss">
 	.topper {
-		display: grid;
-		grid-template-columns: 1fr auto;
-		gap: 1rem;
-
 		background: #0004;
+
+		@media (min-width: 768px) {
+			display: grid;
+			gap: 1rem;
+			grid-template-columns: 1fr auto;
+		}
 	}
 
 	.cover {

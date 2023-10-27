@@ -46,6 +46,7 @@
 		height: calc(100dvh - 50px);
 		transform: translateX(var(--_translate-x));
 		transition: transform 0.25s ease-in-out;
+		background: var(--_bg);
 		z-index: 1;
 
 		@media (min-width: 1024px) {
@@ -64,12 +65,6 @@
 	}
 
 	.page__nav__items {
-		display: grid;
-		gap: 2px;
-
-		& li {
-			background: var(--_bg);
-		}
 	}
 
 	.page__nav__footer {
