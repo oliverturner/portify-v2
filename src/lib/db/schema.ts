@@ -8,6 +8,7 @@ const userPreferences = {
 export const user = sqliteTable("users", {
 	id: text("id").primaryKey(),
 	username: text("username").notNull(),
+	avatar: text("avatar"),
 	accessToken: text("access_token").notNull(),
 	refreshToken: text("refresh_token").notNull(),
 	accessExpiresAt: blob("access_expires_at", { mode: "bigint" }).notNull(),

@@ -7,6 +7,7 @@
 
 	import Icon from "$lib/components/icon.svelte";
 	import App from "$lib/components/app.svelte";
+	import { onLoad } from "$lib/utils/image";
 
 	import "../../app.postcss";
 
@@ -38,10 +39,15 @@
 
 <App>
 	<div class="header__controls" slot="header-trail">
-		<p>{data.username}</p>
-		<form method="post" action="?/logout" use:enhance>
-			<button class="btn">Sign out</button>
-		</form>
+		<button id="user-prefs-btn">
+			<img class="square avatar" src={data.avatar} alt="User avatar" on:load={onLoad} />
+		</button>
+
+		<div id="user-prefs-panel">
+			<form method="post" action="?/logout" use:enhance>
+				<button class="btn">Sign out</button>
+			</form>
+		</div>
 	</div>
 
 	<svelte:fragment slot="rail-lead">
@@ -63,6 +69,16 @@
 		display: flex;
 		align-items: center;
 		gap: var(--size-2);
+
+		position: relative;
+	}
+
+	.avatar {
+		--size: 40px;
+
+		width: var(--size);
+		height: var(--size);
+		border-radius: var(--size);
 	}
 
 	.rail__links {

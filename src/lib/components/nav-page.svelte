@@ -1,7 +1,7 @@
 <div class="page">
 	<div class="page__nav">
 		<nav class="page__nav__content">
-			<ol>
+			<ol class="page__nav__items">
 				<slot name="nav-items" />
 			</ol>
 		</nav>
@@ -32,7 +32,7 @@
 
 	:is(.page__nav, .page__content) {
 		overflow-y: auto;
-		scrollbar-gutter: auto;
+		scrollbar-gutter: stable;
 	}
 
 	.page__nav {
@@ -48,8 +48,6 @@
 		transition: transform 0.25s ease-in-out;
 		z-index: 1;
 
-		background: var(--_bg);
-
 		@media (min-width: 1024px) {
 			grid-area: nav;
 
@@ -62,6 +60,15 @@
 
 		&.is-open {
 			--_translate-x: 92px;
+		}
+	}
+
+	.page__nav__items {
+		display: grid;
+		gap: 2px;
+
+		& li {
+			background: var(--_bg);
 		}
 	}
 

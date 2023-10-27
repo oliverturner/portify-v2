@@ -5,10 +5,10 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 
 	if (!session) return;
 
+	console.log({ session });
+
 	return {
-		// foo: "bar",
 		username: session.user.spotifyUsername,
-		// userId: session.user.userId,
-		// spotifyAccessToken: session.user.spotifyAccessToken,
+		avatar: session.user.spotifyAvatar,
 	};
 };

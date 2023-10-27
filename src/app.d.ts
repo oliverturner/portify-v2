@@ -23,14 +23,15 @@ declare global {
 		type Auth = import("$lib/server/lucia").Auth;
 		type DatabaseUserAttributes = {
 			username: string;
+			avatar: string;
 			access_token: string;
 			refresh_token: string;
 			access_expires_at: number;
 		};
 		type DatabaseSessionAttributes = Record<string, never>;
 		type SessionSchema = {
-			tokenRefresh?: Promise<string>
-		}
+			tokenRefresh?: Promise<string>;
+		};
 	}
 }
 
