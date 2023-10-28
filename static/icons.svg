@@ -1,5 +1,25 @@
-<!-- Source: https://icones.js.org/collection/iconamoon -->
 <svg xmlns="http://www.w3.org/2000/svg">
+  <!-- Source: https://github.com/edent/SuperTinyIcons -->
+  <symbol id="logo-github" viewBox="0 0 512 512">
+    <path d="m0 0H512V512H0" fill="#181717"/>
+    <path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-44c-71 16-86-34-86-34-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/>
+  </symbol>
+
+  <symbol id="logo-bandcamp" viewBox="0 0 512 512">
+    <path d="m0 0H512V512H0" fill="#fff"/>
+    <path fill="#1DA0C3" d="M99 349h215l99-186H198"/>
+  </symbol>
+
+  <symbol id="logo-apple" viewBox="0 0 512 512">
+    <path d="m0 0H512V512H0" fill="#fff"/>
+    <path d="m406 335s-9 30-26 54-31 47-60 47c-23 0-35-15-61-15s-42 15-64 15-33-15-50-35c-44-55-62-146-38-194s59-58 84-58 48 16 63 16 38-17 68-17 59 13 74 38c-49 27-64 115 10 149M327 56c5 36-27 89-76 88-5-42 32-85 76-88"/>
+  </symbol>
+
+  <symbol id="logo-beatport" viewBox="0 0 24 24">
+    <path stroke="none" fill="#01ff95" d="M14.668 24c-3.857 0-6.935-3.039-6.935-6.974a6.98 6.98 0 0 1 1.812-4.714l-4.714 4.714-2.474-2.474 5.319-5.26c.72-.72 1.09-1.656 1.09-2.688V0h3.487v6.604c0 2.026-.72 3.74-2.123 5.143l-.156.156a6.945 6.945 0 0 1 4.694-1.812c3.955 0 6.975 3.136 6.975 6.935A6.943 6.943 0 0 1 14.668 24zm0-10.714c-2.123 0-3.779 1.753-3.779 3.74 0 2.045 1.675 3.78 3.78 3.78a3.804 3.804 0 0 0 3.818-3.78c0-2.065-1.715-3.74-3.819-3.74z"/>
+  </symbol>
+
+  <!-- Source: https://icones.js.org/collection/iconamoon -->
   <symbol id="icon-album" viewBox="0 0 24 24">
     <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="12" cy="12" r="2"/>
@@ -30,50 +50,20 @@
     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M4 4h16v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4Zm0 4h16m-4-5v2M8 3v2"></path>
   </symbol>
 
-  <!-- Unedited -->
-  <symbol viewBox="0 0 24 24" id="iconamoon-apps-thin">
-    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M4 4h2v2H4V4Zm0 14h2v2H4v-2ZM18 4h2v2h-2V4Zm0 7h2v2h-2v-2Zm-7 0h2v2h-2v-2Zm-7 0h2v2H4v-2Zm7-7h2v2h-2V4Zm0 14h2v2h-2v-2Zm7 0h2v2h-2v-2Z"></path>
+  <!-- Menu -->
+  <symbol viewBox="0 0 24 24" id="icon-menu">
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M3 6.001h18m-18 6h18m-18 6h18"></path>
   </symbol>
 
-  <symbol viewBox="0 0 24 24" id="iconamoon-badge-thin">
-    <g fill="none" stroke="currentColor" stroke-linejoin="round">
-      <path stroke-linecap="round" d="M12.586 4.586A2 2 0 0 0 11.172 4H4v7.172a2 2 0 0 0 .586 1.414l7 7a2 2 0 0 0 2.828 0l5.172-5.172a2 2 0 0 0 0-2.828l-7-7Z"></path>
-      <path stroke-width="1.5" d="M9 9h.01v.01H9z"></path>
-    </g>
-  </symbol>
-
-  <symbol viewBox="0 0 24 24" id="iconamoon-bookmark-thin">
-    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M16 3H8a2 2 0 0 0-2 2v16l6-3l6 3V5a2 2 0 0 0-2-2Z"></path>
-  </symbol>
-
-  <symbol viewBox="0 0 24 24" id="iconamoon-link-external-thin">
-    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M11 4H4v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5M9 15L20 4m-5 0h5v5"></path>
-  </symbol>
-
-  <symbol viewBox="0 0 24 24" id="iconamoon-star-thin">
-    <path fill="none" stroke="currentColor" stroke-linejoin="round" d="m12 2l3.104 6.728l7.358.873l-5.44 5.03l1.444 7.268L12 18.28L5.534 21.9l1.444-7.268L1.538 9.6l7.359-.873L12 2Z"></path>
-  </symbol>
-
-  <symbol viewBox="0 0 24 24" id="iconamoon-menu-kebab-vertical-thin">
-    <path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M12 12h.01v.01H12zm0-7h.01v.01H12zm0 14h.01v.01H12z"></path>
-  </symbol>
-
-  <symbol viewBox="0 0 24 24" id="iconamoon-menu-kebab-vertical-circle-thin">
-    <g fill="none" stroke="currentColor" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="9" stroke-linecap="round"></circle>
-      <path stroke-width="1.5" d="M12 12h.01v.01H12zm0-4.5h.01v.01H12zm0 9h.01v.01H12z"></path>
-    </g>
-  </symbol>
-
-  <symbol viewBox="0 0 24 24" id="iconamoon-close-circle-1-thin">
-    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="9"></circle>
-      <path d="m14 10l-4 4m0-4l4 4"></path>
-    </g>
-  </symbol>
-
-  <symbol viewBox="0 0 24 24" id="iconamoon-close-thin">
+  <symbol viewBox="0 0 24 24" id="icon-close">
     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m7 7l10 10M7 17L17 7"></path>
+  </symbol>
+
+  <symbol viewBox="0 0 24 24" id="icon-shopping-bag">
+    <g fill="none" stroke="currentColor">
+      <path stroke-linejoin="round" d="M4 9h16l-.835 9.181A2 2 0 0 1 17.174 20H6.826a2 2 0 0 1-1.991-1.819L4 9Z"></path>
+      <path stroke-linecap="round" d="M8 11V8a4 4 0 1 1 8 0v3"></path>
+    </g>
   </symbol>
 </svg>
 

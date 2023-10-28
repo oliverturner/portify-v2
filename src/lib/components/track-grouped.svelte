@@ -14,7 +14,7 @@
 	<div class="track__info">
 		{#if showTrackArtists}
 			<div class="artists">
-				<Icon id="artist" />
+				<Icon id="icon-artist" />
 				<ul>
 					{#each track.artists as artist}
 						<li><a href="/app/artists/{artist.id}">{artist.name}</a></li>
@@ -22,7 +22,7 @@
 				</ul>
 			</div>
 		{/if}
-		<IconLink icon="track" href="/app/tracks/{track.id}">
+		<IconLink icon="icon-track" href="/app/tracks/{track.id}">
 			<span>{track.name}</span>
 		</IconLink>
 	</div>

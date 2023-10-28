@@ -6,13 +6,14 @@
 	export let data: PageData;
 
 	$: tracks = data.tracks?.items ?? [];
+	$: metadata = data.metadata ?? {};
 </script>
 
 <div class="content">
 	<ol class="content__items">
 		{#each tracks as track (track.id)}
 			<li class="content__item">
-				<Track {track} />
+				<Track {track} metadata={metadata[track.id]} />
 			</li>
 		{/each}
 	</ol>

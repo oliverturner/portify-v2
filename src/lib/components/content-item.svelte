@@ -6,7 +6,7 @@
 <li>
 	<a class="content__item" {href}>
 		{#if imgUrl}
-			<img class="content__item__cover square" src={imgUrl} alt="Cover art" />
+			<img class="content__item__cover square" src={imgUrl} alt="Cover art" loading="lazy" />
 		{:else}
 			<span class="nav__item__cover"></span>
 		{/if}

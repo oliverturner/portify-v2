@@ -5,8 +5,6 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 
 	if (!session) return;
 
-	console.log({ session });
-
 	return {
 		username: session.user.spotifyUsername,
 		avatar: session.user.spotifyAvatar,

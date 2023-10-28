@@ -4,7 +4,7 @@
 	import { getAlbumItemProps } from "$lib/utils/album";
 	import { getArtistNames, getArtistItemProps } from "$lib/utils/artist";
 
-	import Cover from "$lib/components/cover.svelte";
+	import Topper from "$lib/components/topper.svelte";
 	import Track from "$lib/components/track.svelte";
 	import ContentItem from "$lib/components/content-item.svelte";
 
@@ -19,7 +19,7 @@
 </script>
 
 {#if artist}
-	<Cover type="artist" imgUrl={artist.images[0]?.url} title={artist.name}>
+	<Topper type="artist" imgUrl={artist.images[0]?.url} title={artist.name}>
 		<svelte:fragment slot="description">
 			{#if genres.length > 0}
 				<p class="artist__genres">
@@ -29,7 +29,7 @@
 				</p>
 			{/if}
 		</svelte:fragment>
-	</Cover>
+	</Topper>
 {/if}
 
 {#if topTracks.length > 0}

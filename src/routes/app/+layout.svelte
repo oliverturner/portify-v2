@@ -1,25 +1,22 @@
 <script lang="ts">
 	import type { LayoutData } from "./$types";
 
-	import { offset, flip, shift } from "svelte-floating-ui/dom";
-	import { createFloatingActions } from "svelte-floating-ui";
-
 	import { onNavigate } from "$app/navigation";
-	import { enhance } from "$app/forms";
 	import { page } from "$app/stores";
 
 	import Icon from "$lib/components/icon.svelte";
 	import App from "$lib/components/app.svelte";
+	import { displayPrefs } from "$lib/stores/ui";
 
 	import "../../app.postcss";
 
 	export let data: LayoutData;
 
 	const links = [
-		{ icon: "playlist", href: "/app/playlists", label: "Playlists" },
-		{ icon: "artist", href: "/app/artists", label: "Artists" },
-		{ icon: "album", href: "/app/albums", label: "Albums" },
-		{ icon: "track", href: "/app/tracks", label: "Tracks" },
+		{ icon: "icon-playlist", href: "/app/playlists", label: "Playlists" },
+		{ icon: "icon-artist", href: "/app/artists", label: "Artists" },
+		{ icon: "icon-album", href: "/app/albums", label: "Albums" },
+		{ icon: "icon-track", href: "/app/tracks", label: "Tracks" },
 	];
 
 	onNavigate((navigation) => {
@@ -33,15 +30,9 @@
 		});
 	});
 
-	const [floatingRef, floatingContent] = createFloatingActions({
-		strategy: "absolute",
-		placement: "top",
-		middleware: [offset(6), flip(), shift()],
-	});
-
-	let showTooltip: boolean = false;
-
-	const togglePrefs = () => (showTooltip = !showTooltip);
+	const togglePrefs = () => {
+		displayPrefs.update(() => !$displayPrefs);
+	};
 
 	$: currentPath = $page.url.pathname;
 	$: isActive = (href: string) => currentPath.startsWith(href);
@@ -51,18 +42,10 @@
 
 <App>
 	<div class="header__controls" slot="header-trail">
-		<button class="prefs-btn" on:click={togglePrefs} use:floatingRef>
-			<img class="square avatar" src={data.avatar} alt="User avatar" />
+		<button class="prefs-btn" title="Preferences" on:click={togglePrefs}>
+			<img class="square avatar" src={data.avatar} alt="User avatar" loading="lazy" />
 			<span class="sr-only">Preferences</span>
 		</button>
-
-		{#if showTooltip}
-			<div class="prefs-panel" use:floatingContent>
-				<form method="post" action="?/logout" use:enhance>
-					<button class="btn">Sign out</button>
-				</form>
-			</div>
-		{/if}
 	</div>
 
 	<svelte:fragment slot="rail-lead">
@@ -89,28 +72,17 @@
 		z-index: 2;
 	}
 
-	.avatar {
+	.prefs-btn {
 		--size: 40px;
 
-		width: var(--size);
-		height: var(--size);
-		border-radius: var(--size);
-	}
-
-	.prefs-btn {
 		all: unset;
 
 		aspect-ratio: 1;
 		overflow: hidden;
-	}
 
-	.prefs-panel {
-		position: absolute;
-
-		width: 200px;
-		padding: 1rem;
-		border-radius: 0.5rem;
-		background: var(--surface-0);
+		width: var(--size);
+		height: var(--size);
+		border-radius: var(--size);
 	}
 
 	.rail__links {
