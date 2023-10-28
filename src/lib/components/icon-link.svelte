@@ -3,10 +3,14 @@
 
 	export let icon: string;
 	export let href: string;
+	export let title: string = "";
 	export let stacked: boolean = false;
+	export let external: boolean = false;
+
+	$: target = external ? "_blank" : "_self";
 </script>
 
-<a {href} class:stacked>
+<a class:stacked {href} {target} {title}>
 	<Icon id={icon} />
 	<slot />
 </a>

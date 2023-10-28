@@ -3,6 +3,7 @@ import type { PageServerLoad } from "./$types";
 
 import { getEndpoint } from "$lib/utils/data";
 import { queryApiFn } from "$lib/server/api";
+import { getTrackMetadata } from "$lib/utils/track";
 
 export { actions } from "$lib/actions";
 
@@ -34,10 +35,12 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 
 		try {
 			const [artist, topTracks, albums, appearsOn, related] = await Promise.all(requests);
+			const topTracksMetadata = await getTrackMetadata({ tracks: topTracks.tracks, queryApi });
 
 			return {
 				artist,
 				topTracks,
+				topTracksMetadata,
 				albums,
 				appearsOn,
 				related,

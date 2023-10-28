@@ -8,7 +8,7 @@
 
 <div class="topper cover--{type}">
 	<figure class="cover">
-		<img class="cover__art square" {src} alt="Cover art" />
+		<img class="cover__art square" {src} alt="Cover art" loading="lazy" />
 		<figcaption class="cover__label">
 			<h2 class="title title--light">{title}</h2>
 			<slot name="description" />

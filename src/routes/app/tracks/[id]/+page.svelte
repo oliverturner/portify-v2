@@ -1,26 +1,26 @@
 <script lang="ts">
 	import type { PageData } from "./$types";
 
-	import Cover from "$lib/components/cover.svelte";
+	import Topper from "$lib/components/topper.svelte";
 	import Icon from "$lib/components/icon.svelte";
 	import Track from "$lib/components/track.svelte";
 
 	export let data: PageData;
 
 	$: track = data.track;
+	$: metadata = data.metadata;
 	$: artists = track?.artists ?? [];
 	$: album = track?.album;
 	$: imgUrl = album?.images[0]?.url;
 	$: tracksViaArtist = data.recommendedArtists?.tracks ?? [];
 	$: tracksViaTrack = data.recommendedTracks?.tracks ?? [];
-	$: console.log({ imgUrl });
 </script>
 
 {#if track}
-	<Cover type="track" {imgUrl} title={track.name}>
+	<Topper type="track" {imgUrl} title={track.name}>
 		<svelte:fragment slot="description">
 			<dl class="datatable">
-				<dt aria-label="Artists"><Icon id="artist" /></dt>
+				<dt aria-label="Artists"><Icon id="icon-artist" /></dt>
 				<dd>
 					<ul class="list--inline">
 						{#each artists as artist}
@@ -28,13 +28,13 @@
 						{/each}
 					</ul>
 				</dd>
-				<dt aria-label="Appears on"><Icon id="album" /></dt>
+				<dt aria-label="Appears on"><Icon id="icon-album" /></dt>
 				<dd><a href="/app/albums/{album?.id}">{album?.name}</a></dd>
-				<dt aria-label="Release date"><Icon id="calendar" /></dt>
+				<dt aria-label="Release date"><Icon id="icon-calendar" /></dt>
 				<dd>{album?.release_date}</dd>
 			</dl>
 		</svelte:fragment>
-	</Cover>
+	</Topper>
 
 	<div class="content">
 		<h3 class="content__title">Artist-based Recommendations</h3>

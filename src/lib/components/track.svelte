@@ -1,22 +1,35 @@
 <script lang="ts">
 	import type { Track } from "$lib/typings/spotify";
+	import type { TrackMetadata } from "$lib/typings/app";
 
+	import BandcampLink from "$lib/components/vendor-links/bandcamp.svelte";
+	import BeatportLink from "$lib/components/vendor-links/beatport.svelte";
 	import { playTrack } from "$lib/utils/player";
 
 	import Icon from "./icon.svelte";
 	import IconLink from "./icon-link.svelte";
 
 	export let track: Track;
+	export let metadata = {} as TrackMetadata;
+
+	$: key = metadata.key ?? "N/A";
+	$: tempo = metadata.tempo ?? "N/A";
 </script>
 
 <div class="track">
-	<a href={track.href} on:click|preventDefault={() => playTrack(track.id)}>
-		<img class="cover square" src={track.album.images[1].url} alt={track.name} />
+	<a class="track__btn" href={track.href} on:click|preventDefault={() => playTrack(track.id)}>
+		<figure class="track__cover">
+			<img class="square" src={track.album.images[1].url} alt={track.name} loading="lazy" />
+			<figcaption>
+				<span>{key} </span>
+				<span>{tempo} BPM</span>
+			</figcaption>
+		</figure>
 	</a>
 
 	<div class="info">
 		<div class="artists">
-			<Icon id="artist" />
+			<Icon id="icon-artist" />
 			<ul>
 				{#each track.artists as artist}
 					<li><a href="/app/artists/{artist.id}">{artist.name}</a></li>
@@ -24,13 +37,19 @@
 			</ul>
 		</div>
 
-		<IconLink icon="track" href="/app/tracks/{track.id}">
+		<IconLink icon="icon-track" href="/app/tracks/{track.id}" title="Track">
 			<span>{track.name}</span>
 		</IconLink>
 
-		<IconLink icon="album" href="/app/albums/{track.album.id}">
+		<IconLink icon="icon-album" href="/app/albums/{track.album.id}" title="Release">
 			<span>{track.album.name}</span>
 		</IconLink>
+
+		<div class="links">
+			<Icon id="icon-shopping-bag" />
+			<BandcampLink {track} />
+			<BeatportLink {track} />
+		</div>
 	</div>
 </div>
 
@@ -44,15 +63,43 @@
 		background: var(--surface-5);
 	}
 
-	.cover {
+	.track__btn {
+		--_wh: 10rem;
+
 		grid-area: cover;
 
-		display: grid;
-		place-content: center;
+		width: var(--_wh);
+		height: var(--_wh);
+		background: var(--surface-5);
+	}
 
-		aspect-ratio: 1;
-		max-width: 10rem;
-		background: var(--surface-2);
+	.track__cover {
+		display: grid;
+		grid-template-rows: 1fr auto;
+		grid-template-areas:
+			"."
+			"metadata";
+
+		width: 100%;
+		height: 100%;
+
+		& img {
+			grid-area: 1 / 1 / -1 / -1;
+		}
+
+		& figcaption {
+			grid-area: metadata;
+
+			display: flex;
+			background: var(--surface-1);
+		}
+
+		& span {
+			flex: 1;
+
+			padding: 0.5rem;
+			text-align: center;
+		}
 	}
 
 	.info {
@@ -83,5 +130,11 @@
 				content: ", ";
 			}
 		}
+	}
+
+	.links {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
 	}
 </style>

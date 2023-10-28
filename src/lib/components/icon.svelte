@@ -4,7 +4,7 @@
 </script>
 
 <svg class={size}>
-	<use xlink:href="/icons.svg#icon-{id}"></use>
+	<use xlink:href="/icons.svg#{id}"></use>
 </svg>
 
 <style lang="postcss">

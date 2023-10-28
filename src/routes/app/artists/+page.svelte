@@ -9,7 +9,7 @@
 
 	$: topArtists = data.artists?.items ?? [];
 	$: followedArtists = data.following?.artists.items ?? [];
-	$: console.log({ data });
+	// $: console.log({ data });
 </script>
 
 <div class="content">

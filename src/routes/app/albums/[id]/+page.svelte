@@ -1,11 +1,10 @@
 <script lang="ts">
 	import type { PageData } from "./$types";
 
-	import Cover from "$lib/components/cover.svelte";
+	import Topper from "$lib/components/topper.svelte";
 	import GroupedTrack from "$lib/components/track-grouped.svelte";
-	import { tracksShareArtist } from "$lib/utils/album";
-
 	import Icon from "$lib/components/icon.svelte";
+	import { tracksShareArtist } from "$lib/utils/album";
 
 	export let data: PageData;
 
@@ -15,10 +14,10 @@
 </script>
 
 {#if album}
-	<Cover type="album" imgUrl={album.images[0]?.url} title={album.name}>
+	<Topper type="album" imgUrl={album.images[0]?.url} title={album.name}>
 		<svelte:fragment slot="description">
 			<dl class="datatable">
-				<dt aria-label="Artists"><Icon id="artist" /></dt>
+				<dt aria-label="Artists"><Icon id="icon-artist" /></dt>
 				<dd>
 					<ul class="list--inline">
 						{#each album.artists as artist}
@@ -26,13 +25,13 @@
 						{/each}
 					</ul>
 				</dd>
-				<dt aria-label="Appears on"><Icon id="album" /></dt>
+				<dt aria-label="Appears on"><Icon id="icon-album" /></dt>
 				<dd><a href="/app/albums/{album?.id}">{album?.name}</a></dd>
-				<dt aria-label="Release date"><Icon id="calendar" /></dt>
+				<dt aria-label="Release date"><Icon id="icon-calendar" /></dt>
 				<dd>{album?.release_date}</dd>
 			</dl>
 		</svelte:fragment>
-	</Cover>
+	</Topper>
 
 	<div class="content">
 		<ol class="content__items content__items--grouped">
