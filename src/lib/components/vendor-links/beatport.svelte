@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { Track } from "$lib/typings/spotify";
+	import type { SimplifiedTrack, Track } from "$lib/typings/spotify";
 
 	import Icon from "../icon.svelte";
 
-	export let track: Track;
+	export let track: Track | SimplifiedTrack;
 
-	function getLink(track: Track) {
+	function getLink(track: Track | SimplifiedTrack) {
 		const artists = track.artists.map((artist) => artist.name).join(",");
 		const url = new URL("https://www.beatport.com/search");
 		url.searchParams.set("q", `${artists} ${track.name}`);

@@ -19,18 +19,23 @@
 	$: console.log({ playlist: { data } });
 </script>
 
-{#if data.playlist}
-	<Topper type="playlist" {imgUrl} {title}>
-		<svelte:fragment slot="description">
+<svelte:head>
+	<title>Playlists: {playlist?.name} | Portify</title>
+</svelte:head>
+
+{#if playlist}
+	<Topper type="playlist" {imgUrl}>
+		<div class="stack">
+			<h2>{title}</h2>
 			{#if description}
 				<div>{@html description}</div>
 			{/if}
 
 			<dl class="datatable">
 				<dt aria-label="Count">Track count:</dt>
-				<dd>{data.playlist.tracks.total}</dd>
+				<dd>{playlist.tracks.total}</dd>
 			</dl>
-		</svelte:fragment>
+		</div>
 	</Topper>
 
 	<div class="content">
@@ -39,7 +44,7 @@
 				{#if isTrack(track)}
 					<li class="content__item">
 						{#if data.isGrouped}
-							<GroupedTrack index={index + 1} {track} />
+							<GroupedTrack index={index + 1} {track} metadata={metadata[track.id]} />
 						{:else}
 							<Track {track} metadata={metadata[track.id]} />
 						{/if}

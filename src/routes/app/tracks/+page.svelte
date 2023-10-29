@@ -9,6 +9,10 @@
 	$: metadata = data.metadata ?? {};
 </script>
 
+<svelte:head>
+	<title>Tracks | Portify</title>
+</svelte:head>
+
 <div class="content">
 	<ol class="content__items">
 		{#each tracks as track (track.id)}

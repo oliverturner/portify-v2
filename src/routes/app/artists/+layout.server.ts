@@ -21,6 +21,6 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 
 	return {
 		artists,
-		following,
+		following
 	};
 };

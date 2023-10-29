@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>Log in | Portify</title>
+</svelte:head>
+
 <div class="page">
 	<header class="page__header">
 		<a href="/" class="title">Portify</a>

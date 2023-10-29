@@ -36,8 +36,8 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 				queryApi<RecommendationsResponse>(endpoints.recommendedTracks),
 			]);
 
-			const recommendedTracksMetadata = await getTrackMetadata({
-				tracks: recommendedTracks?.tracks ?? [],
+			const relatedMetadata = await getTrackMetadata({
+				tracks: [...(recommendedTracks?.tracks ?? []), ...(recommendedArtists?.tracks ?? [])],
 				queryApi,
 			});
 
@@ -47,7 +47,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 				recommendedTracks,
 				metadata: {
 					...trackMetadata,
-					...recommendedTracksMetadata,
+					...relatedMetadata,
 				},
 			};
 		} catch (error) {

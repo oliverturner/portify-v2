@@ -12,6 +12,10 @@
 	// $: console.log({ data });
 </script>
 
+<svelte:head>
+	<title>Artists | Portify</title>
+</svelte:head>
+
 <div class="content">
 	<h2 class="content__title">Top Artists</h2>
 	<ol class="content__items content__items--tiled">

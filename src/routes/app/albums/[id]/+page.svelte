@@ -5,17 +5,24 @@
 	import GroupedTrack from "$lib/components/track-grouped.svelte";
 	import Icon from "$lib/components/icon.svelte";
 	import { tracksShareArtist } from "$lib/utils/album";
+	import AlbumLinks from "$lib/components/album-links.svelte";
 
 	export let data: PageData;
 
 	$: album = data.album;
+	$: metadata = data.metadata ?? {};
 	$: tracks = album?.tracks?.items ?? [];
 	$: showTrackArtists = tracksShareArtist(album) === false;
 </script>
 
+<svelte:head>
+	<title>Album: {album?.name} | Portify</title>
+</svelte:head>
+
 {#if album}
-	<Topper type="album" imgUrl={album.images[0]?.url} title={album.name}>
-		<svelte:fragment slot="description">
+	<Topper type="album" imgUrl={album.images[0]?.url}>
+		<div class="stack">
+			<h2>{album.name}</h2>
 			<dl class="datatable">
 				<dt aria-label="Artists"><Icon id="icon-artist" /></dt>
 				<dd>
@@ -30,14 +37,21 @@
 				<dt aria-label="Release date"><Icon id="icon-calendar" /></dt>
 				<dd>{album?.release_date}</dd>
 			</dl>
-		</svelte:fragment>
+
+			<AlbumLinks {album} />
+		</div>
 	</Topper>
 
 	<div class="content">
 		<ol class="content__items content__items--grouped">
 			{#each tracks as track (track.id)}
 				<li class="content__item">
-					<GroupedTrack index={track.track_number} {track} {showTrackArtists} />
+					<GroupedTrack
+						index={track.track_number}
+						{track}
+						{showTrackArtists}
+						metadata={metadata[track.id]}
+					/>
 				</li>
 			{/each}
 		</ol>

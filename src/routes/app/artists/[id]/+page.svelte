@@ -7,28 +7,37 @@
 	import Topper from "$lib/components/topper.svelte";
 	import Track from "$lib/components/track.svelte";
 	import ContentItem from "$lib/components/content-item.svelte";
+	import ArtistLinks from "$lib/components/artist-links.svelte";
+	import AlbumLinks from "$lib/components/album-links.svelte";
 
 	export let data: PageData;
 
 	$: artist = data.artist;
 	$: genres = artist?.genres ?? [];
 	$: topTracks = data.topTracks?.tracks ?? [];
+	$: topTracksMetadata = data.topTracksMetadata ?? {};
 	$: albums = data.albums?.items ?? [];
 	$: appearsOn = data.appearsOn?.items ?? [];
 	$: relatedArtists = data.related?.artists ?? [];
 </script>
 
+<svelte:head>
+	<title>Artist: {artist?.name} | Portify</title>
+</svelte:head>
+
 {#if artist}
-	<Topper type="artist" imgUrl={artist.images[0]?.url} title={artist.name}>
-		<svelte:fragment slot="description">
+	<Topper type="artist" imgUrl={artist.images[0]?.url}>
+		<div class="stack">
+			<h2>{artist.name}</h2>
+			<ArtistLinks {artist} />
 			{#if genres.length > 0}
 				<p class="artist__genres">
 					{#each genres as genre}
-						<a href="#"><span>{genre}</span></a>
+						<a href="/app/genres/{genre}"><span>{genre}</span></a>
 					{/each}
 				</p>
 			{/if}
-		</svelte:fragment>
+		</div>
 	</Topper>
 {/if}
 
@@ -38,7 +47,7 @@
 		<ol class="content__items">
 			{#each topTracks as track (track.id)}
 				<li class="content__item">
-					<Track {track} />
+					<Track {track} metadata={topTracksMetadata[track.id]} />
 				</li>
 			{/each}
 		</ol>
