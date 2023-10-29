@@ -18,6 +18,10 @@
 	$: currentPath = $page.url.pathname;
 </script>
 
+<svelte:head>
+	<title>Tracks | Portify</title>
+</svelte:head>
+
 <NavPage>
 	<svelte:fragment slot="nav-items">
 		{#each data.playlists?.items ?? [] as item (item.id)}

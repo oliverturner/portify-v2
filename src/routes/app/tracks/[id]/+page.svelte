@@ -4,6 +4,9 @@
 	import Topper from "$lib/components/topper.svelte";
 	import Icon from "$lib/components/icon.svelte";
 	import Track from "$lib/components/track.svelte";
+	import TrackArtists from "$lib/components/track-artists.svelte";
+	import TrackLinks from "$lib/components/track-links.svelte";
+	import TrackCover from "$lib/components/track-cover.svelte";
 
 	export let data: PageData;
 
@@ -16,24 +19,27 @@
 	$: tracksViaTrack = data.recommendedTracks?.tracks ?? [];
 </script>
 
+<svelte:head>
+	<title>Track: {track?.name} | Portify</title>
+</svelte:head>
+
 {#if track}
-	<Topper type="track" {imgUrl} title={track.name}>
-		<svelte:fragment slot="description">
+	<Topper type="track">
+		<TrackCover {track} metadata={metadata[track.id]} slot="cover">
+			<img class="square" src={track.album.images[1].url} alt={track.name} loading="lazy" />
+		</TrackCover>
+
+		<div class="stack">
+			<h2 class="title title--light">{track.name}</h2>
+			<TrackArtists {artists} />
 			<dl class="datatable">
-				<dt aria-label="Artists"><Icon id="icon-artist" /></dt>
-				<dd>
-					<ul class="list--inline">
-						{#each artists as artist}
-							<li><a href="/app/artists/{artist.id}">{artist.name}</a></li>
-						{/each}
-					</ul>
-				</dd>
 				<dt aria-label="Appears on"><Icon id="icon-album" /></dt>
 				<dd><a href="/app/albums/{album?.id}">{album?.name}</a></dd>
 				<dt aria-label="Release date"><Icon id="icon-calendar" /></dt>
 				<dd>{album?.release_date}</dd>
 			</dl>
-		</svelte:fragment>
+			<TrackLinks {track} />
+		</div>
 	</Topper>
 
 	<div class="content">

@@ -11,6 +11,10 @@
 	$: savedAlbums = data.albums?.items ?? [];
 </script>
 
+<svelte:head>
+	<title>Saved albums | Portify</title>
+</svelte:head>
+
 <div class="content">
 	<ol class="content__items content__items--tiled">
 		{#each savedAlbums as { album } (album.id)}

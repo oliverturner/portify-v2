@@ -12,6 +12,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Playlists | Portify</title>
+</svelte:head>
+
 <div class="content">
 	<ul class="content__items content__items--tiled">
 		{#each data.playlists?.items ?? [] as item (item.id)}
