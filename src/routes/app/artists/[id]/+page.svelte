@@ -33,7 +33,7 @@
 			{#if genres.length > 0}
 				<p class="artist__genres">
 					{#each genres as genre}
-						<a href="#"><span>{genre}</span></a>
+						<a href="/app/genres/{genre}"><span>{genre}</span></a>
 					{/each}
 				</p>
 			{/if}

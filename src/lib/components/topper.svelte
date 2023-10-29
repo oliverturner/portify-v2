@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let type: "artist" | "album" | "playlist" | "track";
-	export let imgUrl: string | undefined;
+	export let imgUrl: string | undefined = undefined;
 
 	$: src = imgUrl ?? "/img/placeholder.svg";
 </script>
