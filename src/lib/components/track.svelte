@@ -2,6 +2,7 @@
 	import type { Track } from "$lib/typings/spotify";
 	import type { TrackMetadata } from "$lib/typings/app";
 
+	import Image from "./image.svelte";
 	import IconLink from "./icon-link.svelte";
 	import TrackCover from "./track-cover.svelte";
 	import TrackArtists from "./track-artists.svelte";
@@ -14,7 +15,7 @@
 <article class="track">
 	<div class="track__cover">
 		<TrackCover {track} {metadata}>
-			<img class="square" src={track.album.images[1].url} alt={track.name} loading="lazy" />
+			<Image src={track.album.images[1].url} alt={track.name} />
 		</TrackCover>
 	</div>
 

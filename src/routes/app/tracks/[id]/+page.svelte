@@ -2,6 +2,7 @@
 	import type { PageData } from "./$types";
 
 	import Topper from "$lib/components/topper.svelte";
+	import Image from "$lib/components/image.svelte";
 	import Icon from "$lib/components/icon.svelte";
 	import Track from "$lib/components/track.svelte";
 	import TrackArtists from "$lib/components/track-artists.svelte";
@@ -26,7 +27,7 @@
 {#if track}
 	<Topper type="track">
 		<TrackCover {track} metadata={metadata[track.id]} slot="cover">
-			<img class="square" src={track.album.images[1].url} alt={track.name} loading="lazy" />
+			<Image src={track.album.images[1].url} alt={track.name} />
 		</TrackCover>
 
 		<div class="stack">

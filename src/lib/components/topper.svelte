@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Image from "./image.svelte";
+
 	export let type: "artist" | "album" | "playlist" | "track";
 	export let imgUrl: string | undefined = undefined;
 
@@ -8,7 +10,7 @@
 <div class="topper class:{type}">
 	<div class="cover">
 		<slot name="cover">
-			<img class="cover__art square" {src} alt="Cover art" loading="lazy" />
+			<Image {src} alt="Cover art" />
 		</slot>
 	</div>
 
@@ -23,12 +25,12 @@
 
 		display: grid;
 		align-items: end;
-		gap: 1rem;
 
 		margin: 0;
 		background: #0004;
 
 		@media (min-width: 768px) {
+			gap: 1rem;
 			grid-template-columns: 12rem 1fr;
 			grid-template-areas: "cover content";
 		}
@@ -40,5 +42,12 @@
 
 	.content {
 		grid-area: content;
+
+		position: relative;
+		background: var(--surface-1);
+
+		@media (min-width: 768px) {
+			background: none;
+		}
 	}
 </style>

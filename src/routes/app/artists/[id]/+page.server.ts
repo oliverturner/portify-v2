@@ -12,11 +12,11 @@ function getEndpoints(artistId: string) {
 	const baseParams = { market: "from_token", limit: 10 };
 
 	return {
-		artist: getEndpoint(baseUrl),
-		topTracks: getEndpoint(`${baseUrl}/top-tracks`, baseParams),
+		artist: getEndpoint(baseUrl, { ...baseParams, is_playable: true, is_local: false }),
 		albums: getEndpoint(`${baseUrl}/albums`, baseParams),
+		topTracks: getEndpoint(`${baseUrl}/top-tracks`, baseParams),
 		appearsOn: getEndpoint(`${baseUrl}/albums`, { ...baseParams, include_groups: "appears_on" }),
-		related: getEndpoint(`${baseUrl}/related-artists`),
+		relatedArtists: getEndpoint(`${baseUrl}/related-artists`),
 	};
 }
 
@@ -30,11 +30,11 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 			queryApi<{ tracks: Track[] }>(endpoints.topTracks),
 			queryApi<Page<Album>>(endpoints.albums),
 			queryApi<Page<Album>>(endpoints.appearsOn),
-			queryApi<{ artists: Artist[] }>(endpoints.related),
+			queryApi<{ artists: Artist[] }>(endpoints.relatedArtists),
 		] as const;
 
 		try {
-			const [artist, topTracks, albums, appearsOn, related] = await Promise.all(requests);
+			const [artist, topTracks, albums, appearsOn, relatedArtists] = await Promise.all(requests);
 			const topTracksMetadata = await getTrackMetadata({ tracks: topTracks.tracks, queryApi });
 
 			return {
@@ -43,7 +43,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 				topTracksMetadata,
 				albums,
 				appearsOn,
-				related,
+				relatedArtists,
 			};
 		} catch (error) {
 			// TODO: If error is 401, abort signal, refresh token and retry requests up to 3 times before redirecting to login

@@ -74,6 +74,8 @@
 		display: flex;
 		align-items: center;
 
+		position: relative;
+
 		& > * {
 			padding: 0.5rem;
 		}

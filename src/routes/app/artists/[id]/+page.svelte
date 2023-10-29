@@ -18,7 +18,7 @@
 	$: topTracksMetadata = data.topTracksMetadata ?? {};
 	$: albums = data.albums?.items ?? [];
 	$: appearsOn = data.appearsOn?.items ?? [];
-	$: relatedArtists = data.related?.artists ?? [];
+	$: relatedArtists = data.relatedArtists?.artists ?? [];
 </script>
 
 <svelte:head>

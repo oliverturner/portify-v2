@@ -1,12 +1,14 @@
 <script lang="ts">
+	import Image from "./image.svelte";
+
 	export let href: string;
-	export let imgUrl: string | undefined;
+	export let imgUrl: string | undefined = undefined;
 </script>
 
 <li>
 	<a class="content__item" {href}>
 		{#if imgUrl}
-			<img class="content__item__cover square" src={imgUrl} alt="Cover art" loading="lazy" />
+			<Image src={imgUrl} alt="Cover art" />
 		{:else}
 			<span class="nav__item__cover"></span>
 		{/if}

@@ -4,8 +4,9 @@
 	import { onNavigate } from "$app/navigation";
 	import { page } from "$app/stores";
 
-	import Icon from "$lib/components/icon.svelte";
 	import App from "$lib/components/app.svelte";
+	import Icon from "$lib/components/icon.svelte";
+	import Image from "$lib/components/image.svelte";
 	import { displayPrefs } from "$lib/stores/ui";
 
 	import "../../app.postcss";
@@ -43,7 +44,7 @@
 <App>
 	<div class="header__controls" slot="header-trail">
 		<button class="prefs-btn" title="Preferences" on:click={togglePrefs}>
-			<img class="square avatar" src={data.avatar} alt="User avatar" loading="lazy" />
+			<Image src={data.avatar} alt="User avatar" />
 			<span class="sr-only">Preferences</span>
 		</button>
 	</div>
