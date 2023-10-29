@@ -2,9 +2,11 @@
 	import type { Track } from "$lib/typings/spotify";
 	import type { TrackMetadata } from "$lib/typings/app";
 
-	import BandcampLink from "$lib/components/vendor-links/bandcamp.svelte";
-	import BeatportLink from "$lib/components/vendor-links/beatport.svelte";
 	import { playTrack } from "$lib/utils/player";
+	import { getTrackKey } from "$lib/utils/track";
+	import { keyNotation } from "$lib/stores/prefs";
+	import BandcampLink from "./vendor-links/bandcamp.svelte";
+	import BeatportLink from "./vendor-links/beatport.svelte";
 
 	import Icon from "./icon.svelte";
 	import IconLink from "./icon-link.svelte";
@@ -12,20 +14,33 @@
 	export let track: Track;
 	export let metadata = {} as TrackMetadata;
 
-	$: key = metadata.key ?? "N/A";
+	// TODO: Export this from the store
+	function onTrackKeyChange() {
+		keyNotation.update(() => ($keyNotation === "camelot" ? "musical" : "camelot"));
+	}
+
+	$: trackKey = getTrackKey($keyNotation, metadata) ?? "N/A";
 	$: tempo = metadata.tempo ?? "N/A";
 </script>
 
-<div class="track">
-	<a class="track__btn" href={track.href} on:click|preventDefault={() => playTrack(track.id)}>
-		<figure class="track__cover">
-			<img class="square" src={track.album.images[1].url} alt={track.name} loading="lazy" />
-			<figcaption>
-				<span>{key} </span>
-				<span>{tempo} BPM</span>
-			</figcaption>
-		</figure>
-	</a>
+<article class="track">
+	<figure class="track__cover">
+		<img class="square" src={track.album.images[1].url} alt={track.name} loading="lazy" />
+		<a class="track__playbtn" href={track.href} on:click|preventDefault={() => playTrack(track.id)}>
+			<Icon id="icon-play" />
+			<span class="sr-only">Play</span>
+		</a>
+		<figcaption class="track__meta">
+			<p class="track__meta__key">
+				<button style="--bg: {trackKey.hsl}" on:click={onTrackKeyChange}>
+					<span>
+						{trackKey.key}
+					</span>
+				</button>
+			</p>
+			<p class="track__meta__bpm">{tempo} <span>bpm</span></p>
+		</figcaption>
+	</figure>
 
 	<div class="info">
 		<div class="artists">
@@ -51,7 +66,7 @@
 			<BeatportLink {track} />
 		</div>
 	</div>
-</div>
+</article>
 
 <style lang="postcss">
 	.track {
@@ -63,42 +78,63 @@
 		background: var(--surface-5);
 	}
 
-	.track__btn {
+	.track__cover {
 		--_wh: 10rem;
 
 		grid-area: cover;
 
-		width: var(--_wh);
-		height: var(--_wh);
-		background: var(--surface-5);
-	}
-
-	.track__cover {
 		display: grid;
 		grid-template-rows: 1fr auto;
 		grid-template-areas:
-			"."
-			"metadata";
+			"btn"
+			"meta";
 
-		width: 100%;
-		height: 100%;
+		width: var(--_wh);
+		height: var(--_wh);
+		background: var(--surface-5);
 
 		& img {
 			grid-area: 1 / 1 / -1 / -1;
 		}
+	}
 
-		& figcaption {
-			grid-area: metadata;
+	.track__playbtn {
+		grid-area: btn;
+	}
 
-			display: flex;
-			background: var(--surface-1);
+	.track__meta {
+		grid-area: meta;
+
+		display: flex;
+		align-items: center;
+
+		& > * {
+			padding: 0.5rem;
+		}
+	}
+
+	.track__meta__key {
+		flex: 1;
+
+		& > button {
+			/* padding: 0.75ch; */
+			border: none;
+			white-space: nowrap;
+			font-weight: 400;
+			background-color: var(--bg);
 		}
 
 		& span {
-			flex: 1;
+			mix-blend-mode: difference;
+		}
+	}
 
-			padding: 0.5rem;
-			text-align: center;
+	.track__meta__bpm {
+		border-radius: 0.5rem 0 0 0.5rem;
+		background: var(--surface-2);
+
+		& > span {
+			font-variant: small-caps;
 		}
 	}
 

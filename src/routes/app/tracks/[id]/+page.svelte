@@ -8,7 +8,7 @@
 	export let data: PageData;
 
 	$: track = data.track;
-	$: metadata = data.metadata;
+	$: metadata = data.metadata ?? {};
 	$: artists = track?.artists ?? [];
 	$: album = track?.album;
 	$: imgUrl = album?.images[0]?.url;
@@ -41,7 +41,7 @@
 		<ol class="content__items">
 			{#each tracksViaArtist as track (track.id)}
 				<li class="content__item">
-					<Track {track} />
+					<Track {track} metadata={metadata[track.id]} />
 				</li>
 			{/each}
 		</ol>
@@ -52,7 +52,7 @@
 		<ol class="content__items">
 			{#each tracksViaTrack as track (track.id)}
 				<li class="content__item">
-					<Track {track} />
+					<Track {track} metadata={metadata[track.id]} />
 				</li>
 			{/each}
 		</ol>

@@ -1,7 +1,8 @@
 import type { AudioFeaturesCollection, Track } from "$lib/typings/spotify";
-import type { QueryApi, TrackMetadata } from "$lib/typings/app";
+import type { KeyNotation, QueryApi, TrackMetadata } from "$lib/typings/app";
 
 import { getEndpoint } from "./data";
+import notationData from "$lib/constants/key-notation.json";
 
 export async function getTrackMetadata({
 	tracks,
@@ -28,4 +29,15 @@ export async function getTrackMetadata({
 	}
 
 	return metadata;
+}
+
+export function getTrackKey(notation: KeyNotation, { mode, key }: TrackMetadata) {
+	const chord = mode === 0 ? "minor" : "major";
+	const h = (key * 30) % 360;
+	const l = mode === 0 ? 70 : 80;
+
+	return {
+		key: notationData[notation][chord][key],
+		hsl: `hsl(${h}deg 50% ${l}%)`,
+	};
 }

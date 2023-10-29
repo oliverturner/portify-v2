@@ -13,6 +13,7 @@
 	$: artist = data.artist;
 	$: genres = artist?.genres ?? [];
 	$: topTracks = data.topTracks?.tracks ?? [];
+	$: topTracksMetadata = data.topTracksMetadata ?? {};
 	$: albums = data.albums?.items ?? [];
 	$: appearsOn = data.appearsOn?.items ?? [];
 	$: relatedArtists = data.related?.artists ?? [];
@@ -38,7 +39,7 @@
 		<ol class="content__items">
 			{#each topTracks as track (track.id)}
 				<li class="content__item">
-					<Track {track} />
+					<Track {track} metadata={topTracksMetadata[track.id]} />
 				</li>
 			{/each}
 		</ol>

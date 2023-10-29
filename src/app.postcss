@@ -84,30 +84,38 @@ body {
 	margin: 0;
 }
 
+:where(h1, h2, h3, .title) {
+	--font-weight: 200;
+
+	text-transform: uppercase;
+	letter-spacing: 0.125em;
+	font-weight: var(--font-weight);
+}
+
+:where(p) {
+	margin: 0;
+}
+
 :where(ul, ol) {
 	list-style: none;
 	padding: 0;
 	margin: 0;
 }
 
-a {
+:where(a) {
 	text-decoration: none;
 	color: inherit;
 }
 
-button {
+:where(button) {
 	cursor: pointer;
 }
 
-p {
+:where(figure) {
 	margin: 0;
 }
 
-figure {
-	margin: 0;
-}
-
-img {
+:where(img) {
 	background: var(--surface-2);
 
 	&.square {
@@ -134,14 +142,6 @@ img {
 
 .uppercase {
 	text-transform: uppercase;
-}
-
-:where(h1, h2, h3, .title) {
-	--font-weight: 200;
-
-	text-transform: uppercase;
-	letter-spacing: 0.125em;
-	font-weight: var(--font-weight);
 }
 
 .label,
@@ -223,17 +223,6 @@ img {
 			"rail content";
 	}
 }
-
-/*
-.page__header,
-.app__header {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-
-	padding: 0.5rem 1rem;
-}
-*/
 
 .title.app__title {
 	font-size: var(--font-size-fluid-0);

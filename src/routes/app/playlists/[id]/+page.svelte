@@ -39,7 +39,7 @@
 				{#if isTrack(track)}
 					<li class="content__item">
 						{#if data.isGrouped}
-							<GroupedTrack index={index + 1} {track} />
+							<GroupedTrack index={index + 1} {track} metadata={metadata[track.id]} />
 						{:else}
 							<Track {track} metadata={metadata[track.id]} />
 						{/if}
