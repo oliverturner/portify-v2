@@ -5,11 +5,11 @@
 
 	export let artist: Artist;
 
-	function getBandcampLink() {
+	function getBandcampLink(artist: Artist) {
 		return `https://bandcamp.com/search?q=${artist.name}`;
 	}
 
-	function getBeatportLink() {
+	function getBeatportLink(artist: Artist) {
 		return `https://www.beatport.com/search?q=${artist.name}`;
 	}
 </script>
@@ -18,12 +18,12 @@
 	<Icon id="icon-artist" />
 	<ul>
 		<li>
-			<a href={getBandcampLink()} class="square" target="_blank">
+			<a href={getBandcampLink(artist)} class="square" target="_blank">
 				<Icon id="logo-bandcamp"></Icon>
 				<span class="sr-only">View on Bandcamp</span>
 			</a>
 		</li>
-		<a href={getBeatportLink()} class="square" target="_blank">
+		<a href={getBeatportLink(artist)} class="square" target="_blank">
 			<Icon id="logo-beatport"></Icon>
 			<span class="sr-only">View on Beatport</span>
 		</a>
