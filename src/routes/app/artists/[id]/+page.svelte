@@ -2,13 +2,12 @@
 	import type { PageData } from "./$types";
 
 	import { getAlbumItemProps } from "$lib/utils/album";
-	import { getArtistNames, getArtistItemProps } from "$lib/utils/artist";
+	import { getArtistNames, getArtistItemProps, getArtistLinks } from "$lib/utils/artist";
 
 	import Topper from "$lib/components/topper.svelte";
 	import Track from "$lib/components/track.svelte";
 	import ContentItem from "$lib/components/content-item.svelte";
-	import ArtistLinks from "$lib/components/artist-links.svelte";
-	import AlbumLinks from "$lib/components/album-links.svelte";
+	import VendorLinks from "$lib/components/vendor-links.svelte";
 
 	export let data: PageData;
 
@@ -19,6 +18,7 @@
 	$: albums = data.albums?.items ?? [];
 	$: appearsOn = data.appearsOn?.items ?? [];
 	$: relatedArtists = data.relatedArtists?.artists ?? [];
+	$: links = getArtistLinks(artist);
 </script>
 
 <svelte:head>
@@ -29,7 +29,9 @@
 	<Topper type="artist" imgUrl={artist.images[0]?.url}>
 		<div class="stack">
 			<h2>{artist.name}</h2>
-			<ArtistLinks {artist} />
+
+			<VendorLinks {links} />
+
 			{#if genres.length > 0}
 				<p class="artist__genres">
 					{#each genres as genre}

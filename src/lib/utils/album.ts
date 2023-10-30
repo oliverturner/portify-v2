@@ -21,3 +21,12 @@ export const getAlbumItemProps = (album: Album) => ({
 	href: `/app/albums/${album.id}`,
 	imgUrl: album.images.at(0)?.url,
 });
+
+export function getAlbumLinks(album: Album | null) {
+	if (!album) return;
+
+	return {
+		bandcamp: `https://www.bandcamp.com/search?q=${album.name}`,
+		beatport: `https://www.beatport.com/search?q=${album.name}`,
+	};
+}

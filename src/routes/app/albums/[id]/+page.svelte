@@ -4,15 +4,16 @@
 	import Topper from "$lib/components/topper.svelte";
 	import GroupedTrack from "$lib/components/track-grouped.svelte";
 	import Icon from "$lib/components/icon.svelte";
-	import { tracksShareArtist } from "$lib/utils/album";
-	import AlbumLinks from "$lib/components/album-links.svelte";
+	import VendorLinks from "$lib/components/vendor-links.svelte";
+	import { getAlbumLinks, tracksShareArtist } from "$lib/utils/album";
 
 	export let data: PageData;
 
 	$: album = data.album;
 	$: metadata = data.metadata ?? {};
 	$: tracks = album?.tracks?.items ?? [];
-	$: showTrackArtists = tracksShareArtist(album) === false;
+	$: showArtists = tracksShareArtist(album) === false;
+	$: links = getAlbumLinks(album);
 </script>
 
 <svelte:head>
@@ -38,7 +39,7 @@
 				<dd>{album?.release_date}</dd>
 			</dl>
 
-			<AlbumLinks {album} />
+			<VendorLinks {links} />
 		</div>
 	</Topper>
 
@@ -49,7 +50,7 @@
 					<GroupedTrack
 						index={track.track_number}
 						{track}
-						{showTrackArtists}
+						{showArtists}
 						metadata={metadata[track.id]}
 					/>
 				</li>

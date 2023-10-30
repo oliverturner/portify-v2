@@ -5,10 +5,20 @@
 
 	let loaded = false;
 
-	const onImageLoaded = () => (loaded = true);
+	/**
+	 * If the load event hasn't fired after 2 seconds, fade it up anyway.
+	 */
+	const timeOut = setTimeout(() => {
+		loaded = true;
+	}, 2000);
+
+	const onImageLoaded = () => {
+		clearTimeout(timeOut);
+		loaded = true;
+	};
 </script>
 
-<img {src} {alt} class:square class:loaded loading="lazy" on:load={onImageLoaded} />
+<img {src} {alt} class:square class:loaded on:load={onImageLoaded} loading="lazy" />
 
 <style lang="postcss">
 	img {

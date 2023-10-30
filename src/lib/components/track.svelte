@@ -6,10 +6,13 @@
 	import IconLink from "./icon-link.svelte";
 	import TrackCover from "./track-cover.svelte";
 	import TrackArtists from "./track-artists.svelte";
-	import TrackLinks from "./track-links.svelte";
+	import VendorLinks from "./vendor-links.svelte";
+	import { getTrackLinks } from "$lib/utils/track";
 
 	export let track: Track;
 	export let metadata = {} as TrackMetadata;
+
+	$: links = getTrackLinks(track);
 </script>
 
 <article class="track">
@@ -30,7 +33,7 @@
 			<span>{track.album.name}</span>
 		</IconLink>
 
-		<TrackLinks {track} />
+		<VendorLinks {links} />
 	</div>
 </article>
 

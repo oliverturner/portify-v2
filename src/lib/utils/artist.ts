@@ -12,3 +12,12 @@ export const getArtistItemProps = (item: Artist) => ({
 	href: `/app/artists/${item.id}`,
 	imgUrl: item.images.at(0)?.url,
 });
+
+export function getArtistLinks(artist: Artist | undefined) {
+	if (!artist) return;
+
+	return {
+		bandcamp: `https://bandcamp.com/search?q=${artist.name}`,
+		beatport: `https://www.beatport.com/search?q=${artist.name}`,
+	};
+}

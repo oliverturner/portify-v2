@@ -42,3 +42,20 @@ export function getTrackKey(notation: KeyNotation, { mode, key }: TrackMetadata)
 		hsl: `hsl(${h}deg 70% ${l}%)`,
 	};
 }
+
+export function getTrackLinks(track: Track | SimplifiedTrack | undefined) {
+	if (!track) return;
+
+	const bandcampArtist = track.artists[0].name;
+	const bandcampUrl = new URL("https://bandcamp.com/search");
+	bandcampUrl.searchParams.set("q", `${bandcampArtist} ${track.name}`);
+
+	const beatportArtists = track.artists.map((artist) => artist.name).join(",");
+	const beatportUrl = new URL("https://www.beatport.com/search");
+	beatportUrl.searchParams.set("q", `${beatportArtists} ${track.name}`);
+
+	return {
+		bandcamp: bandcampUrl.toString(),
+		beatport: beatportUrl.toString(),
+	};
+}
