@@ -3,19 +3,12 @@
 	export let alt: string;
 	export let square = true;
 
-	import { onMount } from "svelte";
-
 	let loaded = false;
-	let thisImage: HTMLImageElement;
 
-	onMount(() => {
-		thisImage.onload = () => {
-			loaded = true;
-		};
-	});
+	const onImageLoaded = () => (loaded = true);
 </script>
 
-<img {src} {alt} class:square class:loaded bind:this={thisImage} loading="lazy" />
+<img {src} {alt} class:square class:loaded loading="lazy" on:load={onImageLoaded} />
 
 <style lang="postcss">
 	img {

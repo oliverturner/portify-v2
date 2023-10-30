@@ -1,13 +1,12 @@
 <script lang="ts">
 	import type { LayoutData } from "./$types";
 
-	import { onNavigate } from "$app/navigation";
 	import { page } from "$app/stores";
 
 	import App from "$lib/components/app.svelte";
 	import Icon from "$lib/components/icon.svelte";
 	import Image from "$lib/components/image.svelte";
-	import { displayPrefs } from "$lib/stores/ui";
+	import { prefsPanel } from "$lib/stores/ui";
 
 	import "../../app.postcss";
 
@@ -20,21 +19,6 @@
 		{ icon: "icon-track", href: "/app/tracks", label: "Tracks" },
 	];
 
-	onNavigate((navigation) => {
-		if (!document.startViewTransition) return;
-
-		return new Promise((resolve) => {
-			document.startViewTransition(async () => {
-				resolve();
-				await navigation.complete;
-			});
-		});
-	});
-
-	const togglePrefs = () => {
-		displayPrefs.update(() => !$displayPrefs);
-	};
-
 	$: currentPath = $page.url.pathname;
 	$: isActive = (href: string) => currentPath.startsWith(href);
 </script>
@@ -43,7 +27,7 @@
 
 <App>
 	<div class="header__controls" slot="header-trail">
-		<button class="prefs-btn" title="Preferences" on:click={togglePrefs}>
+		<button class="prefs-btn" title="User preferences" on:click={prefsPanel.toggle}>
 			<Image src={data.avatar} alt="User avatar" />
 			<span class="sr-only">Preferences</span>
 		</button>
@@ -84,6 +68,7 @@
 		width: var(--size);
 		height: var(--size);
 		border-radius: var(--size);
+		cursor: pointer;
 	}
 
 	.rail__links {

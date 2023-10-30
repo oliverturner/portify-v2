@@ -1,16 +1,12 @@
 <script>
 	import { enhance } from "$app/forms";
-	import { displayPageNav, displayPrefs } from "$lib/stores/ui";
+	import { pageNav, prefsPanel } from "$lib/stores/ui";
 
 	import Icon from "./icon.svelte";
-
-	const togglePageNav = () => {
-		displayPageNav.update(() => !$displayPageNav);
-	};
 </script>
 
 <header class="app__header">
-	<button id="toggle-page-menu" class="square btn--menu" on:click={togglePageNav}>
+	<button id="toggle-page-menu" class="square btn--menu" on:click={pageNav.toggle}>
 		<Icon id="icon-menu" />
 		<span class="sr-only"></span>
 	</button>
@@ -36,7 +32,7 @@
 	<slot />
 </div>
 
-<div class="app__prefs" class:displayed={$displayPrefs}>
+<div class="app__prefs" class:displayed={$prefsPanel}>
 	<div class="prefs-panel">
 		<form method="post" action="?/logout" use:enhance>
 			<button class="btn">Sign out</button>
@@ -45,38 +41,6 @@
 </div>
 
 <style lang="postcss">
-	.app__header,
-	.app__rail {
-		--_bg: var(--surface-2);
-		--_ink: var(--text-1);
-
-		background: var(--_bg);
-		color: var(--_ink);
-	}
-
-	.app__header {
-		grid-area: header;
-
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1rem;
-
-		padding: 0.5rem;
-
-		view-transition-name: app__header;
-
-		@media (min-width: 1024px) {
-			padding-inline-start: 1rem;
-		}
-	}
-
-	.app__header__trail {
-		@media (min-width: 1024px) {
-			margin-left: auto;
-		}
-	}
-
 	.btn--menu {
 		--size: 40px;
 

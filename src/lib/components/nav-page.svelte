@@ -1,9 +1,9 @@
 <script>
-	import { displayPageNav } from "$lib/stores/ui";
+	import { pageNav } from "$lib/stores/ui";
 </script>
 
 <div class="page">
-	<div class="page__nav" class:displayed={$displayPageNav}>
+	<div class="page__nav" class:displayed={$pageNav}>
 		<nav class="page__nav__content">
 			<ol class="page__nav__items">
 				<slot name="nav-items" />

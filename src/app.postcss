@@ -224,6 +224,38 @@ body {
 	}
 }
 
+.app__header,
+.app__rail {
+	--_bg: var(--surface-2);
+	--_ink: var(--text-1);
+
+	background: var(--_bg);
+	color: var(--_ink);
+}
+
+.app__header {
+	grid-area: header;
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+
+	padding: 0.5rem;
+
+	view-transition-name: app__header;
+
+	@media (min-width: 1024px) {
+		padding-inline-start: 1rem;
+	}
+}
+
+.app__header__trail {
+	@media (min-width: 1024px) {
+		margin-left: auto;
+	}
+}
+
 .title.app__title {
 	font-size: var(--font-size-fluid-0);
 	font-weight: 600;

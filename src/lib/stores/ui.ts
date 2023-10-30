@@ -1,4 +1,14 @@
 import { writable } from "svelte/store";
 
-export const displayPrefs = writable(false);
-export const displayPageNav = writable(false);
+function createToggleStore() {
+  const { subscribe, set, update } = writable(false);
+
+  return {
+    subscribe,
+    set,
+    toggle: () => update((n) => !n),
+  };
+}
+
+export const prefsPanel = createToggleStore();
+export const pageNav = createToggleStore();
