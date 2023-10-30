@@ -2,18 +2,18 @@
 	import type { Track, SimplifiedTrack } from "$lib/typings/spotify";
 	import type { TrackMetadata } from "$lib/typings/app";
 
-	import Icon from "./icon.svelte";
 	import IconLink from "./icon-link.svelte";
-	import BandcampLink from "./vendor-links/bandcamp.svelte";
-	import BeatportLink from "./vendor-links/beatport.svelte";
 	import TrackCover from "./track-cover.svelte";
 	import TrackArtists from "./track-artists.svelte";
-	import TrackLinks from "./track-links.svelte";
+	import VendorLinks from "./vendor-links.svelte";
+	import { getTrackLinks } from "$lib/utils/track";
 
 	export let index: number;
 	export let track: Track | SimplifiedTrack;
 	export let metadata = {} as TrackMetadata;
-	export let showTrackArtists: boolean = true;
+	export let showArtists: boolean = true;
+
+	$: links = getTrackLinks(track);
 </script>
 
 <article class="track">
@@ -24,7 +24,7 @@
 	</div>
 
 	<div class="track__info">
-		{#if showTrackArtists}
+		{#if showArtists}
 			<TrackArtists artists={track.artists} />
 		{/if}
 
@@ -32,7 +32,7 @@
 			<span>{track.name}</span>
 		</IconLink>
 
-		<TrackLinks {track} />
+		<VendorLinks {links} />
 	</div>
 </article>
 

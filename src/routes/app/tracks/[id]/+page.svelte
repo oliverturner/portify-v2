@@ -6,8 +6,9 @@
 	import Icon from "$lib/components/icon.svelte";
 	import Track from "$lib/components/track.svelte";
 	import TrackArtists from "$lib/components/track-artists.svelte";
-	import TrackLinks from "$lib/components/track-links.svelte";
 	import TrackCover from "$lib/components/track-cover.svelte";
+	import VendorLinks from "$lib/components/vendor-links.svelte";
+	import { getTrackLinks } from "$lib/utils/track";
 
 	export let data: PageData;
 
@@ -15,9 +16,9 @@
 	$: metadata = data.metadata ?? {};
 	$: artists = track?.artists ?? [];
 	$: album = track?.album;
-	$: imgUrl = album?.images[0]?.url;
 	$: tracksViaArtist = data.recommendedArtists?.tracks ?? [];
 	$: tracksViaTrack = data.recommendedTracks?.tracks ?? [];
+	$: links = getTrackLinks(track);
 </script>
 
 <svelte:head>
@@ -39,7 +40,8 @@
 				<dt aria-label="Release date"><Icon id="icon-calendar" /></dt>
 				<dd>{album?.release_date}</dd>
 			</dl>
-			<TrackLinks {track} />
+
+			<VendorLinks {links} />
 		</div>
 	</Topper>
 
