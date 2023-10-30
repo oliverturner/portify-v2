@@ -6,7 +6,7 @@
 
 {#if links}
 	<div class="links">
-		<Icon id="icon-album" />
+		<Icon id="icon-shopping-bag" />
 		<ul>
 			<li>
 				<a href={links.bandcamp} class="square" target="_blank">
