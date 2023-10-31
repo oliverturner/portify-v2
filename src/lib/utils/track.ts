@@ -34,12 +34,15 @@ export async function getTrackMetadata({
 
 export function getTrackKey(notation: KeyNotation, { mode, key }: TrackMetadata) {
 	const chord = mode === 0 ? "minor" : "major";
-	const h = (key * 30) % 360;
-	const l = mode === 0 ? 70 : 80;
+	const keyLabel = notationData[notation][chord][key];
+	const hue = parseInt(keyLabel, 10) - 1;
+
+	const h = (hue * 30) % 360;
+	const l = mode === 0 ? 70 : 85;
 
 	return {
-		key: notationData[notation][chord][key],
-		hsl: `hsl(${h}deg 70% ${l}%)`,
+		key: keyLabel,
+		hsl: `hsl(${h}deg 60% ${l}%)`,
 	};
 }
 

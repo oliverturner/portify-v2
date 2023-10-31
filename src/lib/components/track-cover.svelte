@@ -59,6 +59,9 @@
 		display: grid;
 		place-content: center;
 
+		font-size: 2.5rem;
+		font-weight: 100;
+
 		&.compact {
 			grid-area: btn;
 		}
