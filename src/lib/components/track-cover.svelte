@@ -1,14 +1,9 @@
 <script lang="ts">
-	import type { SimplifiedTrack, Track } from "$lib/typings/spotify";
 	import type { TrackMetadata } from "$lib/typings/app";
 
-	import { playTrack } from "$lib/utils/player";
 	import { getTrackAudio } from "$lib/utils/track";
 	import { keyNotation } from "$lib/stores/prefs";
 
-	import Icon from "./icon.svelte";
-
-	export let track: Track | SimplifiedTrack;
 	export let metadata = {} as TrackMetadata;
 	export let compact: boolean = false;
 
@@ -16,15 +11,10 @@
 	$: tempo = metadata.tempo ?? "N/A";
 </script>
 
-<figure>
+<figure class:compact>
 	<div class="subject" class:compact>
 		<slot />
 	</div>
-
-	<a class="playbtn" href={track.href} on:click|preventDefault={() => playTrack(track.id)}>
-		<Icon id="icon-play-btn" />
-		<span class="sr-only">Play</span>
-	</a>
 
 	<figcaption class="meta">
 		<p class="meta__key">
@@ -51,6 +41,10 @@
 		width: var(--wh, 10rem);
 		height: var(--wh, 10rem);
 		background: var(--surface-5);
+
+		&.compact {
+			height: 100%;
+		}
 	}
 
 	.subject {
@@ -65,10 +59,6 @@
 		&.compact {
 			grid-area: btn;
 		}
-	}
-
-	.playbtn {
-		grid-area: btn;
 	}
 
 	.meta {

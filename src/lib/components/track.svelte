@@ -3,11 +3,14 @@
 	import type { TrackMetadata } from "$lib/typings/app";
 
 	import Image from "./image.svelte";
+	import Icon from "./icon.svelte";
 	import IconLink from "./icon-link.svelte";
 	import TrackCover from "./track-cover.svelte";
 	import TrackArtists from "./track-artists.svelte";
 	import VendorLinks from "./vendor-links.svelte";
+
 	import { getTrackLinks } from "$lib/utils/track";
+	import { playTrack } from "$lib/utils/player";
 
 	export let track: Track;
 	export let metadata = {} as TrackMetadata;
@@ -17,7 +20,7 @@
 
 <article class="track">
 	<div class="track__cover">
-		<TrackCover {track} {metadata}>
+		<TrackCover {metadata}>
 			<Image src={track.album.images[1].url} alt={track.name} />
 		</TrackCover>
 	</div>
@@ -35,12 +38,17 @@
 
 		<VendorLinks {links} />
 	</div>
+
+	<button class="playbtn" on:click={() => playTrack(track.id)}>
+		<Icon id="icon-play-btn" />
+		<span class="sr-only">Play</span>
+	</button>
 </article>
 
 <style lang="postcss">
 	.track {
 		display: grid;
-		grid-template-columns: auto 1fr;
+		grid-template-columns: auto 1fr auto;
 		grid-template-areas: "cover info";
 		align-items: start;
 
@@ -65,6 +73,28 @@
 
 		& a:hover {
 			text-decoration: underline;
+		}
+	}
+
+	.playbtn {
+		grid-area: 1 / 1 / -1 / -1;
+		place-self: end;
+
+		margin: 0.9rem;
+		padding: 0.1rem;
+		border-radius: 50%;
+		cursor: pointer;
+
+		& > svg {
+			width: 2rem;
+			height: 2rem;
+		}
+
+		&:hover {
+			& > svg {
+				fill: #fff;
+				stroke: red;
+			}
 		}
 	}
 </style>

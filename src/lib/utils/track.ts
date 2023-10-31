@@ -24,7 +24,8 @@ export async function getTrackMetadata({
 
 	const metadata: Record<string, TrackMetadata> = {};
 	if (audio_features?.[0]) {
-		for (const { id, mode, tempo, key } of audio_features) {
+		for (const feature of audio_features) {
+			const { id, mode, tempo, key } = feature ?? {};
 			metadata[id] = { mode, tempo: Math.round(tempo), key };
 		}
 	}
@@ -34,7 +35,8 @@ export async function getTrackMetadata({
 
 export function getTrackAudio({ mode, key }: TrackMetadata) {
 	const chord = mode === 0 ? "minor" : "major";
-	return notationData[key][chord];
+	const audio = notationData[key] ?? {};
+	return audio[chord];
 }
 
 export function getTrackLinks(track: Track | SimplifiedTrack | undefined) {

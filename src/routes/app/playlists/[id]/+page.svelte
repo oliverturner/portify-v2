@@ -12,12 +12,10 @@
 	$: metadata = data.metadata ?? {};
 
 	// TODO: ensure that tracks is of type Track[]
-	$: tracks = playlist?.tracks?.items ?? [];
+	$: trackItems = playlist?.tracks?.items ?? [];
 	$: description = playlist?.description;
 	$: imgUrl = playlist?.images[0]?.url;
 	$: title = playlist?.name;
-
-	$: console.log({ playlist: { data } });
 </script>
 
 <svelte:head>
@@ -43,13 +41,17 @@
 		<!-- TODO use proper shorthand and componentisation -->
 		<ol class="content__items" class:content__items--grouped={data.isGrouped}>
 			<!-- TODO remove these checks: make tracks Track[]! -->
-			{#each tracks as { track }, index (track?.id)}
-				{#if isTrack(track)}
+			{#each trackItems as trackItem, index (trackItem?.track?.id)}
+				{#if isTrack(trackItem.track)}
 					<li class="content__item">
 						{#if data.isGrouped}
-							<GroupedTrack index={index + 1} {track} metadata={metadata[track.id]} />
+							<GroupedTrack
+								index={index + 1}
+								track={trackItem.track}
+								metadata={metadata[trackItem.track.id]}
+							/>
 						{:else}
-							<Track {track} metadata={metadata[track.id]} />
+							<Track track={trackItem.track} metadata={metadata[trackItem.track.id]} />
 						{/if}
 					</li>
 				{/if}
