@@ -1,14 +1,55 @@
 <script lang="ts">
 	import { getTrackAudio } from "$lib/utils/track";
+	import rawNotation from "$lib/constants/raw-notation.json";
 
-	const tempo = 0;
-	const arr = Array.from({ length: 12 }, (_, key) => {
-		const minor = getTrackAudio({ mode: 0, key, tempo });
-		const major = getTrackAudio({ mode: 1, key, tempo });
-		return { minor, major };
-	});
+	function reflectConfig() {
+		const tempo = 0;
+		const arr = Array.from({ length: 12 }, (_, key) => {
+			const minor = getTrackAudio({ mode: 0, key, tempo });
+			const major = getTrackAudio({ mode: 1, key, tempo });
+			return { minor, major };
+		});
 
-	const str = JSON.stringify(arr, null, 2);
+		return {
+			arr,
+			str: JSON.stringify(arr, null, 2),
+		};
+	}
+
+	function generateConfig() {
+		const oklchMinor = (hueIndex: number) => `76% 0.12 ${(hueIndex * 30) % 360}`;
+		const oklchMajor = (hueIndex: number) => `69% 0.19 ${(hueIndex * 30) % 360}`;
+
+		const arr = Array.from({ length: 12 }, (_, key) => {
+			const hueIndexMinor = parseInt(rawNotation.camelot.minor[key], 10) - 1;
+			const hueIndexMajor = parseInt(rawNotation.camelot.major[key], 10) - 1;
+
+			return {
+				minor: {
+					oklch: oklchMinor(hueIndexMinor),
+					keys: {
+						camelot: rawNotation.camelot.minor[key],
+						musical: rawNotation.musical.minor[key],
+					},
+				},
+				major: {
+					oklch: oklchMajor(hueIndexMajor),
+					keys: {
+						camelot: rawNotation.camelot.major[key],
+						musical: rawNotation.musical.major[key],
+					},
+				},
+			};
+		});
+
+		return {
+			arr,
+			str: JSON.stringify(arr, null, 2),
+		};
+	}
+
+	// const reflected = reflectConfig();
+	const { arr, str } = generateConfig();
 </script>
 
 <ul>
