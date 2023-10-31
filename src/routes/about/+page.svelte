@@ -21,8 +21,9 @@
 		const oklchMajor = (hueIndex: number) => `69% 0.19 ${(hueIndex * 30) % 360}`;
 
 		const arr = Array.from({ length: 12 }, (_, key) => {
-			const hueIndexMinor = parseInt(rawNotation.camelot.minor[key], 10) - 1;
-			const hueIndexMajor = parseInt(rawNotation.camelot.major[key], 10) - 1;
+			const offset = 5;
+			const hueIndexMinor = parseInt(rawNotation.camelot.minor[key], 10) + offset;
+			const hueIndexMajor = parseInt(rawNotation.camelot.major[key], 10) + offset;
 
 			return {
 				minor: {
@@ -52,6 +53,8 @@
 	const { arr, str } = generateConfig();
 </script>
 
+<pre>{str}</pre>
+
 <ul>
 	{#each arr as { major, minor }}
 		<li style="--cell:_{major.keys['camelot']}; --bg:oklch({major.oklch})">
@@ -63,12 +66,8 @@
 	{/each}
 </ul>
 
-<pre>{str}</pre>
-
 <style>
 	ul {
-		grid-area: 1/1/-1/-1;
-
 		display: grid;
 		grid-template-columns: repeat(2, 5rem);
 		grid-template-areas:

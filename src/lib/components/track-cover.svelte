@@ -22,7 +22,7 @@
 	</div>
 
 	<a class="playbtn" href={track.href} on:click|preventDefault={() => playTrack(track.id)}>
-		<Icon id="icon-play" />
+		<Icon id="icon-play-btn" />
 		<span class="sr-only">Play</span>
 	</a>
 

@@ -11,6 +11,7 @@
 	$: playlist = data.playlist;
 	$: metadata = data.metadata ?? {};
 
+	// TODO: ensure that tracks is of type Track[]
 	$: tracks = playlist?.tracks?.items ?? [];
 	$: description = playlist?.description;
 	$: imgUrl = playlist?.images[0]?.url;
@@ -39,8 +40,10 @@
 	</Topper>
 
 	<div class="content">
+		<!-- TODO use proper shorthand and componentisation -->
 		<ol class="content__items" class:content__items--grouped={data.isGrouped}>
-			{#each tracks as { track }, index (track.id)}
+			<!-- TODO remove these checks: make tracks Track[]! -->
+			{#each tracks as { track }, index (track?.id)}
 				{#if isTrack(track)}
 					<li class="content__item">
 						{#if data.isGrouped}
