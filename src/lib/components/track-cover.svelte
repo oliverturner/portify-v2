@@ -3,7 +3,7 @@
 	import type { TrackMetadata } from "$lib/typings/app";
 
 	import { playTrack } from "$lib/utils/player";
-	import { getTrackKey } from "$lib/utils/track";
+	import { getTrackAudio } from "$lib/utils/track";
 	import { keyNotation } from "$lib/stores/prefs";
 
 	import Icon from "./icon.svelte";
@@ -12,7 +12,7 @@
 	export let metadata = {} as TrackMetadata;
 	export let compact: boolean = false;
 
-	$: trackKey = getTrackKey($keyNotation, metadata) ?? "N/A";
+	$: trackKey = getTrackAudio(metadata) ?? {};
 	$: tempo = metadata.tempo ?? "N/A";
 </script>
 
@@ -28,9 +28,9 @@
 
 	<figcaption class="meta">
 		<p class="meta__key">
-			<button style="--bg: {trackKey.hsl}" on:click={keyNotation.toggle}>
+			<button style="--bg: oklch({trackKey.oklch})" on:click={keyNotation.toggle}>
 				<span>
-					{trackKey.key}
+					{trackKey.keys[$keyNotation]}
 				</span>
 			</button>
 		</p>
@@ -92,11 +92,9 @@
 			border: none;
 			white-space: nowrap;
 			font-weight: 400;
+			text-shadow: none;
 			background-color: var(--bg);
-		}
-
-		& span {
-			mix-blend-mode: difference;
+			color: #000;
 		}
 	}
 

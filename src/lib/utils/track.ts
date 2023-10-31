@@ -1,8 +1,8 @@
 import type { AudioFeaturesCollection, SimplifiedTrack, Track } from "$lib/typings/spotify";
-import type { KeyNotation, QueryApi, TrackMetadata } from "$lib/typings/app";
+import type { QueryApi, TrackMetadata } from "$lib/typings/app";
 
 import { getEndpoint } from "./data";
-import notationData from "$lib/constants/key-notation.json";
+import notationData from "$lib/constants/key-notation";
 
 export async function getTrackMetadata({
 	tracks,
@@ -32,23 +32,9 @@ export async function getTrackMetadata({
 	return metadata;
 }
 
-export function getTrackKey(notation: KeyNotation, { mode, key }: TrackMetadata) {
+export function getTrackAudio({ mode, key }: TrackMetadata) {
 	const chord = mode === 0 ? "minor" : "major";
-	const keyLabel = notationData[notation][chord][key];
-	const hue = parseInt(keyLabel, 10) - 1;
-
-	const h = (hue * 30) % 360;
-	const l = mode === 0 ? 70 : 85;
-
-	const okl = mode === 0 ? 76 : 69;
-	const okc = mode === 0 ? 0.12 : 0.19;
-	const okh = (hue * 30) % 360;
-
-	return {
-		key: keyLabel,
-		hsl: `hsl(${h}deg 60% ${l}%)`,
-		oklch: `oklch(${okl}% ${okc} ${okh})`,
-	};
+	return notationData[key][chord];
 }
 
 export function getTrackLinks(track: Track | SimplifiedTrack | undefined) {

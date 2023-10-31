@@ -1,20 +1,28 @@
 <script lang="ts">
-	import { getTrackKey } from "$lib/utils/track";
+	import { getTrackAudio } from "$lib/utils/track";
 
 	const tempo = 0;
 	const arr = Array.from({ length: 12 }, (_, key) => {
-		const minor = getTrackKey("camelot", { mode: 0, key, tempo });
-		const major = getTrackKey("camelot", { mode: 1, key, tempo });
-		return [minor, major];
+		const minor = getTrackAudio({ mode: 0, key, tempo });
+		const major = getTrackAudio({ mode: 1, key, tempo });
+		return { minor, major };
 	});
+
+	const str = JSON.stringify(arr, null, 2);
 </script>
 
 <ul>
-	{#each arr as [major, minor]}
-		<li style="--cell:_{major.key}; --bg:{major.oklch}"><span>{major.key}</span></li>
-		<li style="--cell:_{minor.key}; --bg:{minor.oklch}"><span>{minor.key}</span></li>
+	{#each arr as { major, minor }}
+		<li style="--cell:_{major.keys['camelot']}; --bg:oklch({major.oklch})">
+			<span>{major.keys["camelot"]}</span>
+		</li>
+		<li style="--cell:_{minor.keys['camelot']}; --bg:oklch({minor.oklch})">
+			<span>{minor.keys["camelot"]}</span>
+		</li>
 	{/each}
 </ul>
+
+<pre>{str}</pre>
 
 <style>
 	ul {
