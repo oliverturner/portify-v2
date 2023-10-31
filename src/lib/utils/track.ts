@@ -40,9 +40,14 @@ export function getTrackKey(notation: KeyNotation, { mode, key }: TrackMetadata)
 	const h = (hue * 30) % 360;
 	const l = mode === 0 ? 70 : 85;
 
+	const okl = mode === 0 ? 76 : 69;
+	const okc = mode === 0 ? 0.12 : 0.19;
+	const okh = (hue * 30) % 360;
+
 	return {
 		key: keyLabel,
 		hsl: `hsl(${h}deg 60% ${l}%)`,
+		oklch: `oklch(${okl}% ${okc} ${okh})`,
 	};
 }
 

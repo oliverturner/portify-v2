@@ -11,19 +11,44 @@
 
 <ul>
 	{#each arr as [major, minor]}
-		<li style="--bg:{major.hsl}"><span>{major.key}</span></li>
-		<li style="--bg:{minor.hsl}"><span>{minor.key}</span></li>
+		<li style="--cell:_{major.key}; --bg:{major.oklch}"><span>{major.key}</span></li>
+		<li style="--cell:_{minor.key}; --bg:{minor.oklch}"><span>{minor.key}</span></li>
 	{/each}
 </ul>
 
 <style>
+	ul {
+		grid-area: 1/1/-1/-1;
+
+		display: grid;
+		grid-template-columns: repeat(2, 5rem);
+		grid-template-areas:
+			"_1A  _1B"
+			"_2A  _2B"
+			"_3A  _3B"
+			"_4A  _4B"
+			"_5A  _5B"
+			"_6A  _6B"
+			"_7A  _7B"
+			"_8A  _8B"
+			"_9A  _9B"
+			"_10A _10B"
+			"_11A _11B"
+			"_12A _12B";
+
+		margin: auto;
+	}
+
 	li {
+		grid-area: var(--cell);
+
 		padding: 1rem;
-    text-align: center;
+		text-align: center;
 		background-color: var(--bg);
 	}
 
-  span {
-    mix-blend-mode: difference;
-  }
+	span {
+		/* mix-blend-mode: difference; */
+		color: black;
+	}
 </style>
