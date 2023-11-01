@@ -213,30 +213,12 @@ body {
 
 .app {
 	display: grid;
-	grid-template-rows: 50px 1fr auto;
+	grid-template-rows: 50px 1fr;
 	grid-template-areas:
 		"header"
-		"content"
-		"rail";
+		"content";
 
 	height: 100dvh;
-
-	@media (min-width: 768px) {
-		grid-template-columns: 92px 1fr;
-		grid-template-rows: 50px 1fr;
-		grid-template-areas:
-			"header header"
-			"rail content";
-	}
-}
-
-.app__header,
-.app__rail {
-	--_bg: var(--surface-2);
-	--_ink: var(--text-1);
-
-	background: var(--_bg);
-	color: var(--_ink);
 }
 
 .app__header {
@@ -248,6 +230,8 @@ body {
 	gap: 1rem;
 
 	padding: 0.5rem;
+	background: var(--surface-2);
+	color: var(--text-1);
 
 	view-transition-name: app__header;
 
@@ -256,17 +240,17 @@ body {
 	}
 }
 
-.app__header__trail {
-	@media (min-width: 1024px) {
-		margin-left: auto;
-	}
-}
-
-.title.app__title {
+.app__header__title {
 	font-size: var(--font-size-fluid-0);
 	font-weight: 600;
 	letter-spacing: var(--font-letterspacing-4);
 	text-decoration: none;
+}
+
+.app__content {
+	grid-area: content;
+
+	display: grid;
 }
 
 .content {

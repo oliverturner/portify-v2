@@ -1,95 +1,88 @@
-<script>
+<script lang="ts">
 	import { enhance } from "$app/forms";
 	import { pageNav, prefsPanel } from "$lib/stores/ui";
 
-	import Icon from "./icon.svelte";
+	import MenuBtn from "./btn-menu.svelte";
 </script>
 
 <header class="app__header">
-	<button id="toggle-page-menu" class="square btn--menu" on:click={pageNav.toggle}>
-		<Icon id="icon-menu" />
-		<span class="sr-only"></span>
-	</button>
+	<MenuBtn onClick={pageNav.toggle} />
 
-	<a href="/app/playlists" class="title app__title">Portify</a>
+	<a href="/app/playlists" class="title app__header__title">Portify</a>
 
 	<div class="app__header__trail">
-		<slot name="header-trail" />
+		<slot name="avatar" />
 	</div>
 </header>
 
-<nav class="app__rail">
-	<div class="app__rail__lead">
-		<slot name="rail-lead" />
-	</div>
-
-	<div class="app__rail__trail">
-		<slot name="rail-trail" />
-	</div>
-</nav>
-
 <div class="app__content">
-	<slot />
-</div>
+	<nav class="app__content__rail">
+		<div class="app__rail__lead">
+			<slot name="rail-lead" />
+		</div>
 
-<div class="app__prefs" class:displayed={$prefsPanel}>
-	<div class="prefs-panel">
-		<form method="post" action="?/logout" use:enhance>
-			<button class="btn">Sign out</button>
-		</form>
+		<div class="app__rail__trail">
+			<slot name="rail-trail" />
+		</div>
+	</nav>
+
+	<slot />
+
+	<div class="app__content__prefs" class:displayed={$prefsPanel}>
+		<div class="prefs-panel">
+			<form method="post" action="?/logout" use:enhance>
+				<button class="btn">Sign out</button>
+			</form>
+		</div>
 	</div>
 </div>
 
 <style lang="postcss">
-	.btn--menu {
-		--size: 40px;
-
-		display: grid;
-		place-content: center;
-
-		width: var(--size);
-		height: var(--size);
-		border-color: currentColor;
-		border-width: 1px;
-		border-radius: var(--size);
-
+	.app__header__trail {
 		@media (min-width: 1024px) {
-			display: none;
-		}
-	}
-
-	.title {
-		font-size: var(--font-size-fluid-0);
-		font-weight: 600;
-		letter-spacing: var(--font-letterspacing-4);
-		text-decoration: none;
-	}
-
-	.app__rail {
-		--_bg: var(--surface-0);
-
-		grid-area: rail;
-
-		display: grid;
-
-		position: relative;
-		z-index: 2;
-
-		view-transition-name: static;
-		@media (min-width: 1024px) {
-			--_bg: var(--surface-2);
+			margin-left: auto;
 		}
 	}
 
 	.app__content {
 		grid-area: content;
 
+		display: grid;
+		grid-template-areas:
+			"content"
+			"rail";
+
+		@media (min-width: 768px) {
+			grid-template-columns: 92px 1fr;
+			grid-template-areas: "rail content";
+		}
+
 		position: relative;
 		z-index: 1;
 		overflow-y: auto;
 	}
 
-	.app__prefs {
+	.app__content__rail {
+		--_bg: var(--surface-0);
+		--_ink: var(--text-1);
+
+		grid-area: rail;
+
+		display: grid;
+
+		position: relative;
+		background: var(--_bg);
+		color: var(--_ink);
+		z-index: 2;
+
+		view-transition-name: none;
+
+		@media (min-width: 1024px) {
+			--_bg: var(--surface-2);
+		}
+	}
+
+	.app__content__prefs {
 		--_translateX: 100%;
 		--_bg: var(--surface-0);
 
