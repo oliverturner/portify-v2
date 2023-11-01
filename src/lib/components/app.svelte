@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
 	import { enhance } from "$app/forms";
 	import { pageNav, prefsPanel } from "$lib/stores/ui";
 
+	import Image from "./image.svelte";
 	import Icon from "./icon.svelte";
 </script>
 
@@ -14,33 +15,72 @@
 	<a href="/app/playlists" class="title app__title">Portify</a>
 
 	<div class="app__header__trail">
-		<slot name="header-trail" />
+		<slot name="avatar"><!-- optional fallback --></slot>
 	</div>
 </header>
 
-<nav class="app__rail">
-	<div class="app__rail__lead">
-		<slot name="rail-lead" />
-	</div>
-
-	<div class="app__rail__trail">
-		<slot name="rail-trail" />
-	</div>
-</nav>
-
 <div class="app__content">
-	<slot />
-</div>
+	<nav class="app__rail">
+		<div class="app__rail__lead">
+			<slot name="rail-lead" />
+		</div>
 
-<div class="app__prefs" class:displayed={$prefsPanel}>
-	<div class="prefs-panel">
-		<form method="post" action="?/logout" use:enhance>
-			<button class="btn">Sign out</button>
-		</form>
+		<div class="app__rail__trail">
+			<slot name="rail-trail" />
+		</div>
+	</nav>
+
+	<slot />
+
+	<div class="app__prefs" class:displayed={$prefsPanel}>
+		<div class="prefs-panel">
+			<form method="post" action="?/logout" use:enhance>
+				<button class="btn">Sign out</button>
+			</form>
+		</div>
 	</div>
 </div>
 
 <style lang="postcss">
+	.app__header,
+	.app__rail {
+		--_bg: var(--surface-2);
+		--_ink: var(--text-1);
+
+		background: var(--_bg);
+		color: var(--_ink);
+	}
+
+	.app__header {
+		grid-area: header;
+
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+
+		padding: 0.5rem;
+
+		view-transition-name: app__header;
+
+		@media (min-width: 1024px) {
+			padding-inline-start: 1rem;
+		}
+	}
+
+	.app__header__trail {
+		@media (min-width: 1024px) {
+			margin-left: auto;
+		}
+	}
+
+	.title.app__title {
+		font-size: var(--font-size-fluid-0);
+		font-weight: 600;
+		letter-spacing: var(--font-letterspacing-4);
+		text-decoration: none;
+	}
+
 	.btn--menu {
 		--size: 40px;
 
@@ -83,6 +123,16 @@
 
 	.app__content {
 		grid-area: content;
+
+		display: grid;
+		grid-template-areas:
+			"content"
+			"rail";
+
+		@media (min-width: 768px) {
+			grid-template-columns: 92px 1fr;
+			grid-template-areas: "rail content";
+		}
 
 		position: relative;
 		z-index: 1;

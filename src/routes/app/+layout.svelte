@@ -2,11 +2,11 @@
 	import type { LayoutData } from "./$types";
 
 	import { page } from "$app/stores";
+	import { prefsPanel } from "$lib/stores/ui";
 
 	import App from "$lib/components/app.svelte";
 	import Icon from "$lib/components/icon.svelte";
 	import Image from "$lib/components/image.svelte";
-	import { prefsPanel } from "$lib/stores/ui";
 
 	import "../../app.postcss";
 
@@ -19,6 +19,7 @@
 		{ icon: "icon-track", href: "/app/tracks", label: "Tracks" },
 	];
 
+	$: avatar = data.avatar;
 	$: currentPath = $page.url.pathname;
 	$: isActive = (href: string) => currentPath.startsWith(href);
 </script>
@@ -26,12 +27,12 @@
 <!-- Page Route Content -->
 
 <App>
-	<div class="header__controls" slot="header-trail">
+	<svelte:fragment slot="avatar">
 		<button class="prefs-btn" title="User preferences" on:click={prefsPanel.toggle}>
-			<Image src={data.avatar} alt="User avatar" />
+			<Image src={avatar} alt="User avatar" />
 			<span class="sr-only">Preferences</span>
 		</button>
-	</div>
+	</svelte:fragment>
 
 	<svelte:fragment slot="rail-lead">
 		<nav class="rail__links">
@@ -48,6 +49,7 @@
 </App>
 
 <style>
+	/*
 	.header__controls {
 		display: flex;
 		align-items: center;
@@ -56,6 +58,7 @@
 		position: relative;
 		z-index: 2;
 	}
+	*/
 
 	.prefs-btn {
 		--size: 40px;
