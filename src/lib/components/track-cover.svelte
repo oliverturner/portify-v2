@@ -4,11 +4,11 @@
 	import { getTrackAudio } from "$lib/utils/track";
 	import { keyNotation } from "$lib/stores/prefs";
 
-	export let metadata = {} as TrackMetadata;
+	export let metadata: TrackMetadata | undefined;
 	export let compact: boolean = false;
 
-	$: trackKey = getTrackAudio(metadata) ?? {};
-	$: tempo = metadata.tempo ?? "N/A";
+	$: trackKey = getTrackAudio(metadata);
+	$: tempo = metadata?.tempo;
 </script>
 
 <figure class:compact>
@@ -16,16 +16,18 @@
 		<slot />
 	</div>
 
-	<figcaption class="meta">
-		<p class="meta__key">
-			<button style="--bg: oklch({trackKey.oklch})" on:click={keyNotation.toggle}>
-				<span>
-					{trackKey.keys[$keyNotation]}
-				</span>
-			</button>
-		</p>
-		<p class="meta__bpm" class:compact>{tempo} <span>bpm</span></p>
-	</figcaption>
+	{#if trackKey}
+		<figcaption class="meta">
+			<p class="meta__key">
+				<button style="--bg: oklch({trackKey.oklch})" on:click={keyNotation.toggle}>
+					<span>
+						{trackKey.keys[$keyNotation]}
+					</span>
+				</button>
+			</p>
+			<p class="meta__bpm" class:compact>{tempo} <span>bpm</span></p>
+		</figcaption>
+	{/if}
 </figure>
 
 <style lang="postcss">

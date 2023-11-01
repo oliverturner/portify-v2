@@ -33,7 +33,10 @@ export async function getTrackMetadata({
 	return metadata;
 }
 
-export function getTrackAudio({ mode, key }: TrackMetadata) {
+export function getTrackAudio(metadata?: TrackMetadata) {
+	if (!metadata) return;
+
+	const { mode, key } = metadata;
 	const chord = mode === 0 ? "minor" : "major";
 	const audio = notationData[key] ?? {};
 	return audio[chord];

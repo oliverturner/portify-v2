@@ -4,15 +4,13 @@
 	import Topper from "$lib/components/topper.svelte";
 	import Track from "$lib/components/track.svelte";
 	import GroupedTrack from "$lib/components/track-grouped.svelte";
-	import { isTrack } from "$lib/utils/data";
 
 	export let data: PageData;
 
 	$: playlist = data.playlist;
-	$: metadata = data.metadata ?? {};
+	$: tracks = data.tracks ?? [];
+	$: tracksMetadata = data.tracksMetadata ?? {};
 
-	// TODO: ensure that tracks is of type Track[]
-	$: trackItems = playlist?.tracks?.items ?? [];
 	$: description = playlist?.description;
 	$: imgUrl = playlist?.images[0]?.url;
 	$: title = playlist?.name;
@@ -40,21 +38,14 @@
 	<div class="content">
 		<!-- TODO use proper shorthand and componentisation -->
 		<ol class="content__items" class:content__items--grouped={data.isGrouped}>
-			<!-- TODO remove these checks: make tracks Track[]! -->
-			{#each trackItems as trackItem, index (trackItem?.track?.id)}
-				{#if isTrack(trackItem.track)}
-					<li class="content__item">
-						{#if data.isGrouped}
-							<GroupedTrack
-								index={index + 1}
-								track={trackItem.track}
-								metadata={metadata[trackItem.track.id]}
-							/>
-						{:else}
-							<Track track={trackItem.track} metadata={metadata[trackItem.track.id]} />
-						{/if}
-					</li>
-				{/if}
+			{#each tracks as track, index (track.id)}
+				<li class="content__item">
+					{#if data.isGrouped}
+						<GroupedTrack index={index + 1} {track} metadata={tracksMetadata[track.id]} />
+					{:else}
+						<Track {track} metadata={tracksMetadata[track.id]} />
+					{/if}
+				</li>
 			{/each}
 		</ol>
 	</div>
