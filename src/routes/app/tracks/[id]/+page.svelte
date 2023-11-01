@@ -27,7 +27,7 @@
 
 {#if track}
 	<Topper type="track">
-		<TrackCover {track} metadata={metadata[track.id]} slot="cover">
+		<TrackCover metadata={metadata[track.id]} slot="cover">
 			<Image src={track.album.images[1].url} alt={track.name} />
 		</TrackCover>
 

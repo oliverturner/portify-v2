@@ -23,7 +23,7 @@
 <style lang="postcss">
 	img {
 		opacity: 0;
-		transition: 0.25s opacity 0.75s ease-out;
+		transition: opacity 1s;
 
 		&.loaded {
 			opacity: 1;

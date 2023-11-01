@@ -4,19 +4,16 @@
 	import Topper from "$lib/components/topper.svelte";
 	import Track from "$lib/components/track.svelte";
 	import GroupedTrack from "$lib/components/track-grouped.svelte";
-	import { isTrack } from "$lib/utils/data";
 
 	export let data: PageData;
 
 	$: playlist = data.playlist;
-	$: metadata = data.metadata ?? {};
+	$: tracks = data.tracks ?? [];
+	$: tracksMetadata = data.tracksMetadata ?? {};
 
-	$: tracks = playlist?.tracks?.items ?? [];
 	$: description = playlist?.description;
 	$: imgUrl = playlist?.images[0]?.url;
 	$: title = playlist?.name;
-
-	$: console.log({ playlist: { data } });
 </script>
 
 <svelte:head>
@@ -39,17 +36,16 @@
 	</Topper>
 
 	<div class="content">
+		<!-- TODO use proper shorthand and componentisation -->
 		<ol class="content__items" class:content__items--grouped={data.isGrouped}>
-			{#each tracks as { track }, index (track.id)}
-				{#if isTrack(track)}
-					<li class="content__item">
-						{#if data.isGrouped}
-							<GroupedTrack index={index + 1} {track} metadata={metadata[track.id]} />
-						{:else}
-							<Track {track} metadata={metadata[track.id]} />
-						{/if}
-					</li>
-				{/if}
+			{#each tracks as track, index (track.id)}
+				<li class="content__item">
+					{#if data.isGrouped}
+						<GroupedTrack index={index + 1} {track} metadata={tracksMetadata[track.id]} />
+					{:else}
+						<Track {track} metadata={tracksMetadata[track.id]} />
+					{/if}
+				</li>
 			{/each}
 		</ol>
 	</div>
