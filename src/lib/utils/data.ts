@@ -15,6 +15,6 @@ export function getEndpoint(path: string, params: Record<string, unknown> = {}) 
 }
 
 // TODO move this into a playlist utils file
-export const isTrack = (data?: TrackItem): data is Track => {
-	return data?.type === "track";
+export const isTrack = (trackItem: TrackItem): trackItem is Track => {
+	return trackItem?.type === "track";
 };

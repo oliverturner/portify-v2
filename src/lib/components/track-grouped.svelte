@@ -18,7 +18,7 @@
 
 <article class="track">
 	<div class="track__meta">
-		<TrackCover {track} {metadata} compact={true}>
+		<TrackCover {metadata} compact={true}>
 			{index}
 		</TrackCover>
 	</div>

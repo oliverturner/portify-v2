@@ -48,12 +48,13 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 	const playlist = await queryApi<Playlist>(endpoint);
 	const tracks = getPlaylistTracks(playlist);
 
-	const metadata = await getTrackMetadata({ tracks, queryApi });
+	const tracksMetadata = await getTrackMetadata({ tracks, queryApi });
 	const isGrouped = tracksAreGrouped(tracks);
 
 	return {
 		isGrouped,
 		playlist,
-		metadata,
+		tracks,
+		tracksMetadata,
 	};
 };
