@@ -2,25 +2,21 @@
 	import { enhance } from "$app/forms";
 	import { pageNav, prefsPanel } from "$lib/stores/ui";
 
-	import Image from "./image.svelte";
-	import Icon from "./icon.svelte";
+	import MenuBtn from "./btn-menu.svelte";
 </script>
 
 <header class="app__header">
-	<button id="toggle-page-menu" class="square btn--menu" on:click={pageNav.toggle}>
-		<Icon id="icon-menu" />
-		<span class="sr-only"></span>
-	</button>
+	<MenuBtn onClick={pageNav.toggle} />
 
-	<a href="/app/playlists" class="title app__title">Portify</a>
+	<a href="/app/playlists" class="title app__header__title">Portify</a>
 
 	<div class="app__header__trail">
-		<slot name="avatar"><!-- optional fallback --></slot>
+		<slot name="avatar" />
 	</div>
 </header>
 
 <div class="app__content">
-	<nav class="app__rail">
+	<nav class="app__content__rail">
 		<div class="app__rail__lead">
 			<slot name="rail-lead" />
 		</div>
@@ -32,7 +28,7 @@
 
 	<slot />
 
-	<div class="app__prefs" class:displayed={$prefsPanel}>
+	<div class="app__content__prefs" class:displayed={$prefsPanel}>
 		<div class="prefs-panel">
 			<form method="post" action="?/logout" use:enhance>
 				<button class="btn">Sign out</button>
@@ -42,82 +38,9 @@
 </div>
 
 <style lang="postcss">
-	.app__header,
-	.app__rail {
-		--_bg: var(--surface-2);
-		--_ink: var(--text-1);
-
-		background: var(--_bg);
-		color: var(--_ink);
-	}
-
-	.app__header {
-		grid-area: header;
-
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1rem;
-
-		padding: 0.5rem;
-
-		view-transition-name: app__header;
-
-		@media (min-width: 1024px) {
-			padding-inline-start: 1rem;
-		}
-	}
-
 	.app__header__trail {
 		@media (min-width: 1024px) {
 			margin-left: auto;
-		}
-	}
-
-	.title.app__title {
-		font-size: var(--font-size-fluid-0);
-		font-weight: 600;
-		letter-spacing: var(--font-letterspacing-4);
-		text-decoration: none;
-	}
-
-	.btn--menu {
-		--size: 40px;
-
-		display: grid;
-		place-content: center;
-
-		width: var(--size);
-		height: var(--size);
-		border-color: currentColor;
-		border-width: 1px;
-		border-radius: var(--size);
-
-		@media (min-width: 1024px) {
-			display: none;
-		}
-	}
-
-	.title {
-		font-size: var(--font-size-fluid-0);
-		font-weight: 600;
-		letter-spacing: var(--font-letterspacing-4);
-		text-decoration: none;
-	}
-
-	.app__rail {
-		--_bg: var(--surface-0);
-
-		grid-area: rail;
-
-		display: grid;
-
-		position: relative;
-		z-index: 2;
-
-		view-transition-name: static;
-		@media (min-width: 1024px) {
-			--_bg: var(--surface-2);
 		}
 	}
 
@@ -139,7 +62,27 @@
 		overflow-y: auto;
 	}
 
-	.app__prefs {
+	.app__content__rail {
+		--_bg: var(--surface-0);
+		--_ink: var(--text-1);
+
+		grid-area: rail;
+
+		display: grid;
+
+		position: relative;
+		background: var(--_bg);
+		color: var(--_ink);
+		z-index: 2;
+
+		view-transition-name: none;
+
+		@media (min-width: 1024px) {
+			--_bg: var(--surface-2);
+		}
+	}
+
+	.app__content__prefs {
 		--_translateX: 100%;
 		--_bg: var(--surface-0);
 
