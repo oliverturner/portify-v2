@@ -30,7 +30,7 @@
 
 			<dl class="datatable">
 				<dt aria-label="Count">Track count:</dt>
-				<dd>{playlist.tracks.total}</dd>
+				<dd>{playlist.total}</dd>
 			</dl>
 		</div>
 	</Topper>

@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { TrackMetadata } from "$lib/typings/app";
+	import type { TrackAudioFeatures } from "$lib/typings/app";
 
 	import { getTrackAudio } from "$lib/utils/track";
 	import { keyNotation } from "$lib/stores/prefs";
 
-	export let metadata: TrackMetadata | undefined;
+	export let metadata: TrackAudioFeatures | undefined;
 	export let compact: boolean = false;
 
 	$: trackKey = getTrackAudio(metadata);

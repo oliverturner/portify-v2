@@ -1,10 +1,10 @@
 import type { AudioFeaturesCollection, SimplifiedTrack, Track } from "$lib/typings/spotify";
-import type { QueryApi, TrackMetadata } from "$lib/typings/app";
+import type { QueryApi, TrackAudioFeatures } from "$lib/typings/app";
 
 import { getEndpoint } from "./data";
-import notationData from "$lib/constants/key-notation";
+import keyNotation from "$lib/constants/key-notation";
 
-export async function getTrackMetadata({
+export async function getTrackAudioFeatures({
 	tracks,
 	queryApi,
 }: {
@@ -22,7 +22,7 @@ export async function getTrackMetadata({
 	const endpoint = getEndpoint("audio-features", { ids });
 	const { audio_features } = await queryApi<AudioFeaturesCollection>(endpoint);
 
-	const metadata: Record<string, TrackMetadata> = {};
+	const metadata: Record<string, TrackAudioFeatures> = {};
 	if (audio_features?.[0]) {
 		for (const feature of audio_features) {
 			const { id, mode, tempo, key } = feature ?? {};
@@ -33,13 +33,14 @@ export async function getTrackMetadata({
 	return metadata;
 }
 
-export function getTrackAudio(metadata?: TrackMetadata) {
-	if (!metadata) return;
+export function getTrackAudio(audioFeatures?: TrackAudioFeatures) {
+	if (!audioFeatures) return;
 
-	const { mode, key } = metadata;
+	const { mode, key } = audioFeatures;
 	const chord = mode === 0 ? "minor" : "major";
-	const audio = notationData[key] ?? {};
-	return audio[chord];
+	const keyConfig = keyNotation[key] ?? {};
+
+	return keyConfig[chord];
 }
 
 export function getTrackLinks(track: Track | SimplifiedTrack | undefined) {

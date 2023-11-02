@@ -3,7 +3,7 @@ import type { Track, RecommendationsResponse } from "$lib/typings/spotify";
 
 import { getEndpoint } from "$lib/utils/data";
 import { queryApiFn } from "$lib/server/api";
-import { getTrackMetadata } from "$lib/utils/track";
+import { getTrackAudioFeatures } from "$lib/utils/track";
 export { actions } from "$lib/actions";
 
 const apiParams = {
@@ -31,12 +31,12 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 
 		try {
 			const [trackMetadata, recommendedArtists, recommendedTracks] = await Promise.all([
-				getTrackMetadata({ tracks: [track], queryApi }),
+				getTrackAudioFeatures({ tracks: [track], queryApi }),
 				queryApi<RecommendationsResponse>(endpoints.recommendedArtists),
 				queryApi<RecommendationsResponse>(endpoints.recommendedTracks),
 			]);
 
-			const relatedMetadata = await getTrackMetadata({
+			const relatedMetadata = await getTrackAudioFeatures({
 				tracks: [...(recommendedTracks?.tracks ?? []), ...(recommendedArtists?.tracks ?? [])],
 				queryApi,
 			});
