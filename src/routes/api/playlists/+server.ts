@@ -15,7 +15,7 @@ export async function GET({ locals, url }) {
 
 	if (!queryApi) return json(null);
 
-	const offset = Number(url.searchParams.get("offset")) ?? 0;
+	const offset = url.searchParams.get("offset") ?? 0;
 	const endpoint = getSpotifyEndpoint("me/playlists", { ...apiParams, offset });
 	const playlists = await queryApi<Playlist>(endpoint);
 

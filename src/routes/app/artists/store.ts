@@ -3,7 +3,7 @@ import { getAppEndpoint } from "$lib/utils/data";
 
 import { writable } from "svelte/store";
 
-const initialPage: Page<Artist> = {
+export const initialPage: Page<Artist> = {
 	items: [],
 	total: 0,
 	offset: 0,
@@ -23,9 +23,11 @@ const createArtists = () => {
 		loadNext: async (next: string | null) => {
 			if (next === null) return;
 
-			const endpoint = new URL("/api/artists", window.location.origin);
+			const endpoint = new URL("api/artists/top", window.location.origin);
 			const res = await fetch(getAppEndpoint(next, endpoint));
 			const data = await res.json();
+
+			console.log("loadNext complete", endpoint.toString());
 
 			artists.update((state) => {
 				return {

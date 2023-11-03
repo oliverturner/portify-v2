@@ -22,6 +22,7 @@ const trackFields = [
 ].join(",");
 
 const apiParams = {
+	offset: 0,
 	limit: 50,
 	market: "from_token",
 	fields: `limit,offset,total,items(track(${trackFields}))`,
@@ -34,8 +35,13 @@ export async function GET({ locals, params, url }) {
 		// TODO: throw Svelte error if queryApi is null
 		if (!queryApi) return json({ playlist: null });
 
-		const offset = Number(url.searchParams.get("offset")) ?? 0;
-		const endpoint = getSpotifyEndpoint(`playlists/${params.id}/tracks`, { ...apiParams, offset });
+		const offset = url.searchParams.get("offset") ?? apiParams.offset;
+		const limit = url.searchParams.get("limit") ?? apiParams.limit;
+		const endpoint = getSpotifyEndpoint(`playlists/${params.id}/tracks`, {
+			...apiParams,
+			offset,
+			limit,
+		});
 		const { items, ...tracksPage } = await queryApi<Page<PlaylistedTrack<TrackItem>>>(endpoint);
 
 		const tracks = filterTracks(items);

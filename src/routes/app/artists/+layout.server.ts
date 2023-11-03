@@ -1,26 +1,20 @@
 import type { Page, Artist, FollowedArtists } from "$lib/typings/spotify";
 import type { LayoutServerLoad } from "../$types";
 
-import { getSpotifyEndpoint } from "$lib/utils/data";
 import { queryApiFn } from "$lib/server/api";
 
-const endpoints = {
-	top: getSpotifyEndpoint(`me/top/artists`, { time_range: "long_term", limit: 25 }),
-	following: getSpotifyEndpoint(`me/following`, { type: "artist", limit: 25 }),
-};
-
-export const load: LayoutServerLoad = async ({ locals }) => {
+export const load: LayoutServerLoad = async ({ locals, fetch }) => {
 	const queryApi = await queryApiFn(locals.auth);
 
 	if (!queryApi) return { artists: null, following: null };
 
 	const [artists, following] = await Promise.all([
-		queryApi<Page<Artist>>(endpoints.top),
-		queryApi<FollowedArtists>(endpoints.following),
+		fetch("/api/artists/top").then((res) => res.json()) as Promise<Page<Artist>>,
+		fetch("/api/artists/following").then((res) => res.json()) as Promise<FollowedArtists>,
 	]);
 
 	return {
 		artists,
-		following
+		following,
 	};
 };

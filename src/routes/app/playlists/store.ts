@@ -23,7 +23,7 @@ const createPlaylists = () => {
 		loadNext: async (next: string | null) => {
 			if (next === null) return;
 
-			const endpoint = new URL("/api/playlists", window.location.origin);
+			const endpoint = new URL("api/playlists", window.location.origin);
 			const res = await fetch(getAppEndpoint(next, endpoint));
 			const data = await res.json();
 
