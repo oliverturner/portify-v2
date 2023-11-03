@@ -4,11 +4,13 @@
 	import Topper from "$lib/components/topper.svelte";
 	import Track from "$lib/components/track.svelte";
 	import GroupedTrack from "$lib/components/track-grouped.svelte";
+	import { page } from "$app/stores";
 
 	export let data: PageData;
 
 	$: playlist = data.playlist;
 	$: tracks = data.tracks ?? [];
+	$: tracksPage = data.tracksPage ?? {};
 	$: tracksMetadata = data.tracksMetadata ?? {};
 
 	$: description = playlist?.description;
@@ -30,7 +32,7 @@
 
 			<dl class="datatable">
 				<dt aria-label="Count">Track count:</dt>
-				<dd>{playlist.total}</dd>
+				<dd>{tracksPage.total}</dd>
 			</dl>
 		</div>
 	</Topper>

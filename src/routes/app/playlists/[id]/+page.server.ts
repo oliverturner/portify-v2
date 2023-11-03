@@ -16,14 +16,11 @@ export const load: PageServerLoad = async ({ locals, params, fetch }) => {
 	const endpoint = getEndpoint(`playlists/${params.id}`, apiParams);
 	const playlist = await queryApi<Playlist>(endpoint);
 
-	const res = await fetch(`/api/playlists/${params.id}`);
+	const res = await fetch(`/api/playlists/${params.id}/tracks`);
 	const tracks = await res.json();
 
-	const isGrouped = tracksAreGrouped(tracks);
-
 	return {
-		isGrouped,
 		playlist,
-		tracks,
+		...tracks,
 	};
 };

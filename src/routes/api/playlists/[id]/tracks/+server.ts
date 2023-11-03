@@ -22,6 +22,7 @@ const trackFields = [
 ].join(",");
 
 const apiParams = {
+	limit: 50,
 	market: "from_token",
 	fields: `limit,offset,total,items(track(${trackFields}))`,
 };
@@ -35,14 +36,14 @@ export async function GET({ locals, params, url }) {
 
 		const offset = Number(url.searchParams.get("offset")) ?? 0;
 		const endpoint = getEndpoint(`playlists/${params.id}/tracks`, { ...apiParams, offset });
-		const { items, ...page } = await queryApi<Page<PlaylistedTrack<TrackItem>>>(endpoint);
+		const { items, ...tracksPage } = await queryApi<Page<PlaylistedTrack<TrackItem>>>(endpoint);
 
 		const tracks = filterTracks(items);
 		const tracksMetadata = await getTrackAudioFeatures({ tracks, queryApi });
 
 		return json({
-			page,
 			tracks,
+			tracksPage,
 			tracksMetadata,
 		});
 	} catch (error) {

@@ -59,3 +59,13 @@ export function getTrackLinks(track: Track | SimplifiedTrack | undefined) {
 		beatport: beatportUrl.toString(),
 	};
 }
+
+/**
+ * Are all playlist items part of a group, such as a mix?
+ */
+export function tracksAreGrouped(tracks: Track[]) {
+	const testTrack = tracks[0];
+	const albumId = testTrack.album?.id;
+
+	return tracks.every((track) => track.album.id === albumId);
+}
