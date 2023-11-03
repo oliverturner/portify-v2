@@ -1,4 +1,4 @@
-import type { Page, Artist, FollowedArtists } from "$lib/typings/spotify";
+import type { Page, Artist } from "$lib/typings/spotify";
 import type { LayoutServerLoad } from "../$types";
 
 import { queryApiFn } from "$lib/server/api";
@@ -8,9 +8,9 @@ export const load: LayoutServerLoad = async ({ locals, fetch }) => {
 
 	if (!queryApi) return { artists: null, following: null };
 
-	const [artists, following] = await Promise.all([
-		fetch("/api/artists/top").then((res) => res.json()) as Promise<Page<Artist>>,
-		fetch("/api/artists/following").then((res) => res.json()) as Promise<FollowedArtists>,
+	const [artists, following] = await Promise.all<Page<Artist>>([
+		fetch("/api/artists/top").then((res) => res.json()),
+		fetch("/api/artists/following").then((res) => res.json()),
 	]);
 
 	return {

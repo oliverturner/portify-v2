@@ -23,11 +23,14 @@ const createArtists = () => {
 		loadNext: async (next: string | null) => {
 			if (next === null) return;
 
-			const endpoint = new URL("api/artists/top", window.location.origin);
+			const endpoint = new URL("api/artists/following", window.location.origin);
 			const res = await fetch(getAppEndpoint(next, endpoint));
 			const data = await res.json();
 
-			console.log("loadNext complete", endpoint.toString());
+			console.log("loadNext complete", {
+				next,
+				endpoint: endpoint.toString(),
+			});
 
 			artists.update((state) => {
 				return {

@@ -17,13 +17,14 @@
 		return { href, isActive };
 	}
 
-	$: artists.set(data.artists ?? initialPage);
+	$: artists.set(data.following ?? initialPage);
 	$: currentPath = $page.url.pathname;
 </script>
 
 <NavPage onNavScrollEnd={() => artists.loadNext($artists.next)}>
 	<svelte:fragment slot="nav-items">
-		{#each $artists.items as item (item.id)}
+		<!-- {#each $artists.items as item (item.id)} -->
+		{#each $artists.items as item}
 			<NavItem {...getLink(item, currentPath)}>
 				<span slot="label">{item.name}</span>
 			</NavItem>

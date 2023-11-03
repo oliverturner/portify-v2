@@ -5,10 +5,9 @@ import { json } from "@sveltejs/kit";
 import { getSpotifyEndpoint } from "$lib/utils/data";
 import { queryApiFn } from "$lib/server/api";
 
-const apiParams = {
+const apiParams: Record<string, unknown> = {
 	type: "artist",
 	limit: 25,
-	offset: 0,
 };
 
 export async function GET({ locals, url }) {
@@ -16,11 +15,15 @@ export async function GET({ locals, url }) {
 
 	if (!queryApi) return json(null);
 
-	const offset = url.searchParams.get("offset") ?? apiParams.offset;
+	const after = url.searchParams.get("after");
 	const limit = url.searchParams.get("limit") ?? apiParams.limit;
-	const endpoint = getSpotifyEndpoint(`me/following`, { ...apiParams, offset, limit });
 
-	const artists = await queryApi<Page<Artist>>(endpoint);
+	if (after) apiParams.after = after;
+	if (limit) apiParams.limit = limit;
+
+	const endpoint = getSpotifyEndpoint(`me/following`, apiParams);
+
+	const { artists } = await queryApi<{ artists: Page<Artist> }>(endpoint);
 
 	return json(artists);
 }
