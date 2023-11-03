@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Track } from "$lib/typings/spotify";
-	import type { TrackMetadata } from "$lib/typings/app";
+	import type { TrackAudioFeatures } from "$lib/typings/app";
 
 	import Image from "./image.svelte";
 	import Icon from "./icon.svelte";
@@ -13,7 +13,7 @@
 	import { playTrack } from "$lib/utils/player";
 
 	export let track: Track;
-	export let metadata = {} as TrackMetadata;
+	export let metadata = {} as TrackAudioFeatures;
 
 	$: links = getTrackLinks(track);
 </script>

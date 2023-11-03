@@ -1,8 +1,8 @@
 import type { Page, Track } from "$lib/typings/spotify";
 import type { LayoutServerLoad } from "../$types";
 
-import { getEndpoint } from "$lib/utils/data";
-import { getTrackMetadata } from "$lib/utils/track";
+import { getSpotifyEndpoint } from "$lib/utils/data";
+import { getTrackAudioFeatures } from "$lib/utils/track";
 import { queryApiFn } from "$lib/server/api";
 
 const apiParams = {
@@ -14,9 +14,9 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 
 	if (!queryApi) return { tracks: null };
 
-	const endpoint = getEndpoint("me/top/tracks", apiParams);
+	const endpoint = getSpotifyEndpoint("me/top/tracks", apiParams);
 	const tracks = await queryApi<Page<Track>>(endpoint);
-	const metadata = await getTrackMetadata({ tracks: tracks.items, queryApi });
+	const metadata = await getTrackAudioFeatures({ tracks: tracks.items, queryApi });
 
 	return {
 		tracks,

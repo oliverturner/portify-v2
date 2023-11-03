@@ -1,9 +1,9 @@
 import type { Album } from "$lib/typings/spotify";
 import type { PageServerLoad } from "./$types";
 
-import { getEndpoint } from "$lib/utils/data";
+import { getSpotifyEndpoint } from "$lib/utils/data";
 import { queryApiFn } from "$lib/server/api";
-import { getTrackMetadata } from "$lib/utils/track";
+import { getTrackAudioFeatures } from "$lib/utils/track";
 
 export { actions } from "$lib/actions";
 
@@ -22,11 +22,11 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 
 	if (!queryApi) return { album: null };
 
-	const endpoint = getEndpoint(`albums/${params.id}`, options);
+	const endpoint = getSpotifyEndpoint(`albums/${params.id}`, options);
 	const album = await queryApi<Album>(endpoint);
 
 	const tracks = album?.tracks?.items ?? [];
-	const metadata = await getTrackMetadata({ tracks, queryApi });
+	const metadata = await getTrackAudioFeatures({ tracks, queryApi });
 
 	return {
 		album,

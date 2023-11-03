@@ -8,7 +8,7 @@
 	export let data: PageData;
 
 	$: topArtists = data.artists?.items ?? [];
-	$: followedArtists = data.following?.artists.items ?? [];
+	$: followedArtists = data.following?.items ?? [];
 	// $: console.log({ data });
 </script>
 

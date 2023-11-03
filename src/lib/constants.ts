@@ -1,1 +1,1 @@
-export const PAGE_FIELDS = "total,previous,next,offset";
+export const PAGE_FIELDS = "offset,limit,total,previous,next";

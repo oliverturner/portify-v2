@@ -1,9 +1,9 @@
 import type { Artist, Track, Album, Page } from "$lib/typings/spotify";
 import type { PageServerLoad } from "./$types";
 
-import { getEndpoint } from "$lib/utils/data";
+import { getSpotifyEndpoint } from "$lib/utils/data";
 import { queryApiFn } from "$lib/server/api";
-import { getTrackMetadata } from "$lib/utils/track";
+import { getTrackAudioFeatures } from "$lib/utils/track";
 
 export { actions } from "$lib/actions";
 
@@ -12,11 +12,11 @@ function getEndpoints(artistId: string) {
 	const baseParams = { market: "from_token", limit: 10 };
 
 	return {
-		artist: getEndpoint(baseUrl, { ...baseParams, is_playable: true, is_local: false }),
-		albums: getEndpoint(`${baseUrl}/albums`, baseParams),
-		topTracks: getEndpoint(`${baseUrl}/top-tracks`, baseParams),
-		appearsOn: getEndpoint(`${baseUrl}/albums`, { ...baseParams, include_groups: "appears_on" }),
-		relatedArtists: getEndpoint(`${baseUrl}/related-artists`),
+		artist: getSpotifyEndpoint(baseUrl, { ...baseParams, is_playable: true, is_local: false }),
+		albums: getSpotifyEndpoint(`${baseUrl}/albums`, baseParams),
+		topTracks: getSpotifyEndpoint(`${baseUrl}/top-tracks`, baseParams),
+		appearsOn: getSpotifyEndpoint(`${baseUrl}/albums`, { ...baseParams, include_groups: "appears_on" }),
+		relatedArtists: getSpotifyEndpoint(`${baseUrl}/related-artists`),
 	};
 }
 
@@ -35,7 +35,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 
 		try {
 			const [artist, topTracks, albums, appearsOn, relatedArtists] = await Promise.all(requests);
-			const topTracksMetadata = await getTrackMetadata({ tracks: topTracks.tracks, queryApi });
+			const topTracksMetadata = await getTrackAudioFeatures({ tracks: topTracks.tracks, queryApi });
 
 			return {
 				artist,

@@ -1,17 +1,38 @@
-<script>
+<script lang="ts">
 	import { pageNav } from "$lib/stores/ui";
+	import { onMount } from "svelte";
+
+	let navScrollRoot: HTMLElement;
+	let navScrollSentinel: HTMLElement;
+
+	export let onNavScrollEnd = () => {
+		console.log("loadAdditionalItems called");
+	};
+
+	export let onNavScroll = (entries: IntersectionObserverEntry[]) => {
+		const entry = entries[0];
+		if (entry.isIntersecting) {
+			onNavScrollEnd();
+		}
+	};
+
+	onMount(() => {
+		let observer = new IntersectionObserver(onNavScroll, {
+			root: navScrollRoot,
+			rootMargin: "0px",
+			threshold: 1.0,
+		});
+
+		observer.observe(navScrollSentinel);
+	});
 </script>
 
 <div class="page">
-	<div class="page__nav" class:displayed={$pageNav}>
-		<nav class="page__nav__content">
-			<ol class="page__nav__items">
-				<slot name="nav-items" />
-			</ol>
-		</nav>
-		<div class="page__nav__footer">
-			<slot name="nav-footer" />
-		</div>
+	<div class="page__nav" class:displayed={$pageNav} bind:this={navScrollRoot}>
+		<ol class="page__nav__items">
+			<slot name="nav-items" />
+			<li bind:this={navScrollSentinel}></li>
+		</ol>
 	</div>
 	<div class="page__content">
 		<slot />
@@ -75,15 +96,6 @@
 				--_height: calc(100dvh - 50px);
 				--_translate-x: 92px;
 			}
-		}
-	}
-
-	.page__nav__items {
-	}
-
-	.page__nav__footer {
-		&:empty {
-			display: none;
 		}
 	}
 
