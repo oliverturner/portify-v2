@@ -4,7 +4,7 @@ import { json } from "@sveltejs/kit";
 
 import { queryApiFn } from "$lib/server/api";
 import { getTrackAudioFeatures } from "$lib/utils/track";
-import { getEndpoint, isTrack } from "$lib/utils/data";
+import { getSpotifyEndpoint, isTrack } from "$lib/utils/data";
 
 function filterTracks(items: PlaylistedTrack<TrackItem>[]) {
 	return (items ?? []).map((item) => item.track).filter(isTrack);
@@ -35,7 +35,7 @@ export async function GET({ locals, params, url }) {
 		if (!queryApi) return json({ playlist: null });
 
 		const offset = Number(url.searchParams.get("offset")) ?? 0;
-		const endpoint = getEndpoint(`playlists/${params.id}/tracks`, { ...apiParams, offset });
+		const endpoint = getSpotifyEndpoint(`playlists/${params.id}/tracks`, { ...apiParams, offset });
 		const { items, ...tracksPage } = await queryApi<Page<PlaylistedTrack<TrackItem>>>(endpoint);
 
 		const tracks = filterTracks(items);

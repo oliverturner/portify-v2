@@ -1,12 +1,12 @@
 import type { Page, Artist, FollowedArtists } from "$lib/typings/spotify";
 import type { LayoutServerLoad } from "../$types";
 
-import { getEndpoint } from "$lib/utils/data";
+import { getSpotifyEndpoint } from "$lib/utils/data";
 import { queryApiFn } from "$lib/server/api";
 
 const endpoints = {
-	top: getEndpoint(`me/top/artists`, { time_range: "long_term", limit: 25 }),
-	following: getEndpoint(`me/following`, { type: "artist", limit: 25 }),
+	top: getSpotifyEndpoint(`me/top/artists`, { time_range: "long_term", limit: 25 }),
+	following: getSpotifyEndpoint(`me/following`, { type: "artist", limit: 25 }),
 };
 
 export const load: LayoutServerLoad = async ({ locals }) => {

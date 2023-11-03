@@ -3,6 +3,8 @@
 	import type { LayoutData } from "./$types";
 
 	import { page } from "$app/stores";
+	import { playlists } from "./store";
+
 	import NavPage from "$lib/components/nav-page.svelte";
 	import NavItem from "$lib/components/nav-item.svelte";
 
@@ -15,12 +17,13 @@
 		return { href, isActive };
 	}
 
+	$: playlists.set(data.playlists);
 	$: currentPath = $page.url.pathname;
 </script>
 
-<NavPage>
+<NavPage onNavScrollEnd={() => playlists.loadNext($playlists.next)}>
 	<svelte:fragment slot="nav-items">
-		{#each data.playlists?.items ?? [] as item (item.id)}
+		{#each $playlists.items as item (item.id)}
 			<NavItem {...getLink(item, currentPath)}>
 				<span slot="label">{item.name}</span>
 			</NavItem>

@@ -1,7 +1,7 @@
 import type { Artist, Track, Album, Page } from "$lib/typings/spotify";
 import type { PageServerLoad } from "./$types";
 
-import { getEndpoint } from "$lib/utils/data";
+import { getSpotifyEndpoint } from "$lib/utils/data";
 import { queryApiFn } from "$lib/server/api";
 import { getTrackAudioFeatures } from "$lib/utils/track";
 
@@ -12,11 +12,11 @@ function getEndpoints(artistId: string) {
 	const baseParams = { market: "from_token", limit: 10 };
 
 	return {
-		artist: getEndpoint(baseUrl, { ...baseParams, is_playable: true, is_local: false }),
-		albums: getEndpoint(`${baseUrl}/albums`, baseParams),
-		topTracks: getEndpoint(`${baseUrl}/top-tracks`, baseParams),
-		appearsOn: getEndpoint(`${baseUrl}/albums`, { ...baseParams, include_groups: "appears_on" }),
-		relatedArtists: getEndpoint(`${baseUrl}/related-artists`),
+		artist: getSpotifyEndpoint(baseUrl, { ...baseParams, is_playable: true, is_local: false }),
+		albums: getSpotifyEndpoint(`${baseUrl}/albums`, baseParams),
+		topTracks: getSpotifyEndpoint(`${baseUrl}/top-tracks`, baseParams),
+		appearsOn: getSpotifyEndpoint(`${baseUrl}/albums`, { ...baseParams, include_groups: "appears_on" }),
+		relatedArtists: getSpotifyEndpoint(`${baseUrl}/related-artists`),
 	};
 }
 

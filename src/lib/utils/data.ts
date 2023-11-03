@@ -10,8 +10,20 @@ function buildUrl(path: string, params: Record<string, unknown> = {}) {
 	return url;
 }
 
-export function getEndpoint(path: string, params: Record<string, unknown> = {}) {
+export function getSpotifyEndpoint(path: string, params: Record<string, unknown> = {}) {
 	return buildUrl(path, params).toString();
+}
+
+/**
+ * Applies query params from the `next` url to the endpoint
+ */
+export function getAppEndpoint(next: string, endpoint: URL) {
+	const url = new URL(next);
+	for (const [k, v] of url.searchParams.entries()) {
+		endpoint.searchParams.set(k, v);
+	}
+
+	return endpoint.toString();
 }
 
 // TODO move this into a playlist utils file
