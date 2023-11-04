@@ -17,6 +17,7 @@
 </svelte:head>
 
 <div class="content">
+	<h2 class="content__title">Playlists</h2>
 	<ul class="content__items content__items--tiled">
 		{#each data.playlists?.items ?? [] as item (item.id)}
 			<ContentItem {...getItemProps(item)}>

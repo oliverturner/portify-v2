@@ -3,8 +3,8 @@ import type { Page, PlaylistedTrack, TrackItem } from "$lib/typings/spotify";
 import { json } from "@sveltejs/kit";
 
 import { queryApiFn } from "$lib/server/api";
-import { getTrackAudioFeatures } from "$lib/utils/track";
-import { getSpotifyEndpoint, isTrack } from "$lib/utils/data";
+import { getSpotifyEndpoint } from "$lib/utils/data";
+import { getTrackAudioFeatures, isTrack } from "$lib/utils/track";
 
 function filterTracks(items: PlaylistedTrack<TrackItem>[]) {
 	return (items ?? []).map((item) => item.track).filter(isTrack);

@@ -1,20 +1,20 @@
 import type { Artist, Page } from "$lib/typings/spotify";
-import { getAppEndpoint } from "$lib/utils/data";
 
 import { writable } from "svelte/store";
 
-export const initialPage: Page<Artist> = {
-	items: [],
-	total: 0,
-	offset: 0,
-	limit: 0,
-	href: "",
-	next: null,
-	previous: null,
-};
+import { getInitialPage } from "$lib/utils/api";
+import { getAppEndpoint } from "$lib/utils/data";
+
+export function getLink(item: Artist, currentPath: string) {
+	const href = `/app/artists/${item.id}`;
+	const isActive = currentPath.startsWith(href);
+
+	return { href, isActive };
+}
 
 const createArtists = () => {
-	const { subscribe, set, update } = writable<Page<Artist>>(initialPage);
+	const initialPage = getInitialPage<Artist>();
+	const { subscribe, set, update } = writable(initialPage);
 
 	return {
 		subscribe,
@@ -25,12 +25,7 @@ const createArtists = () => {
 
 			const endpoint = new URL("api/artists/following", window.location.origin);
 			const res = await fetch(getAppEndpoint(next, endpoint));
-			const data = await res.json();
-
-			console.log("loadNext complete", {
-				next,
-				endpoint: endpoint.toString(),
-			});
+			const data = (await res.json()) as Page<Artist>;
 
 			artists.update((state) => {
 				return {

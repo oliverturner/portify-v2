@@ -14,6 +14,7 @@
 </svelte:head>
 
 <div class="content">
+	<h2 class="content__title">Top Tracks</h2>
 	<ol class="content__items">
 		{#each tracks as track (track.id)}
 			<li class="content__item">

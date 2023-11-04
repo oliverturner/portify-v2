@@ -1,5 +1,3 @@
-import type { TrackItem, Track } from "$lib/typings/spotify";
-
 function buildUrl(path: string, params: Record<string, unknown> = {}) {
 	const url = new URL(`v1/${path}`, "https://api.spotify.com");
 
@@ -15,7 +13,26 @@ export function getSpotifyEndpoint(path: string, params: Record<string, unknown>
 }
 
 /**
+ * Merges the query params from the url into the `defaults` object
+ *
+ * @example
+ * input: { limit: 25, offset: 0 }, `<url>?time_range=short_term&offset=50`
+ * output: { time_range: "short_term", limit: 25, offset: 50 }
+ */
+export function mergeParams(defaults: Record<string, unknown>, url: URL) {
+	for (const [key, value] of url.searchParams.entries()) {
+		defaults[key] = value;
+	}
+
+	return defaults;
+}
+
+/**
  * Applies query params from the `next` url to the endpoint
+ *
+ * @example
+ * input: `https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=25&offset=0`
+ * output: `/artists/top?time_range=short_term&limit=25&offset=0`
  */
 export function getAppEndpoint(next: string, endpoint: URL) {
 	const url = new URL(next);
@@ -25,8 +42,3 @@ export function getAppEndpoint(next: string, endpoint: URL) {
 
 	return endpoint.toString();
 }
-
-// TODO move this into a playlist utils file
-export const isTrack = (trackItem: TrackItem): trackItem is Track => {
-	return trackItem?.type === "track";
-};

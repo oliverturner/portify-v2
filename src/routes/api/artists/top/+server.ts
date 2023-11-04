@@ -6,7 +6,7 @@ import { getSpotifyEndpoint } from "$lib/utils/data";
 import { queryApiFn } from "$lib/server/api";
 
 const apiParams = {
-	time_range: "long_term",
+	time_range: "short_term",
 	limit: 25,
 	offset: 0,
 };

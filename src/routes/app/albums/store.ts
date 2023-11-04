@@ -1,19 +1,19 @@
-import type { Page, Playlist, TrackItem } from "$lib/typings/spotify";
+import type { Page, SavedAlbum } from "$lib/typings/spotify";
 
 import { writable } from "svelte/store";
 
 import { getAppEndpoint } from "$lib/utils/data";
 import { getInitialPage } from "$lib/utils/api";
 
-export function getLink(item: Playlist, currentPath: string) {
-	const href = `/app/playlists/${item.id}`;
+export function getLink(item: SavedAlbum, currentPath: string) {
+	const href = `/app/albums/${item.album.id}`;
 	const isActive = currentPath === href;
 
 	return { href, isActive };
 }
 
-const createPlaylistStore = () => {
-	const initialPage = getInitialPage<Playlist<TrackItem>>();
+const createAlbumStore = () => {
+	const initialPage = getInitialPage<SavedAlbum>();
 	const { subscribe, set, update } = writable(initialPage);
 
 	return {
@@ -23,11 +23,11 @@ const createPlaylistStore = () => {
 		loadNext: async (next: string | null) => {
 			if (next === null) return;
 
-			const endpoint = new URL("api/playlists", window.location.origin);
+			const endpoint = new URL("api/albums", window.location.origin);
 			const res = await fetch(getAppEndpoint(next, endpoint));
-			const data = (await res.json()) as Page<Playlist<TrackItem>>;
+			const data = (await res.json()) as Page<SavedAlbum>;
 
-			playlists.update((state) => {
+			albums.update((state) => {
 				return {
 					...data,
 					items: [...state.items, ...data.items],
@@ -37,4 +37,4 @@ const createPlaylistStore = () => {
 	};
 };
 
-export const playlists = createPlaylistStore();
+export const albums = createAlbumStore();

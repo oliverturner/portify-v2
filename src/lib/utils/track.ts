@@ -1,4 +1,9 @@
-import type { AudioFeaturesCollection, SimplifiedTrack, Track } from "$lib/typings/spotify";
+import type {
+	AudioFeaturesCollection,
+	SimplifiedTrack,
+	Track,
+	TrackItem,
+} from "$lib/typings/spotify";
 import type { QueryApi, TrackAudioFeatures } from "$lib/typings/app";
 
 import { getSpotifyEndpoint } from "./data";
@@ -69,3 +74,7 @@ export function tracksAreGrouped(tracks: Track[]) {
 
 	return tracks.every((track) => track.album.id === albumId);
 }
+
+export const isTrack = (trackItem: TrackItem): trackItem is Track => {
+	return trackItem?.type === "track";
+};

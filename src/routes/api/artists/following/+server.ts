@@ -2,7 +2,7 @@ import type { Page, Artist } from "$lib/typings/spotify";
 
 import { json } from "@sveltejs/kit";
 
-import { getSpotifyEndpoint } from "$lib/utils/data";
+import { getSpotifyEndpoint, mergeParams } from "$lib/utils/data";
 import { queryApiFn } from "$lib/server/api";
 
 const apiParams: Record<string, unknown> = {
@@ -16,13 +16,13 @@ export async function GET({ locals, url }) {
 	if (!queryApi) return json(null);
 
 	// TODO: Automatically merge passed query params with defaults
-	const after = url.searchParams.get("after");
-	const limit = url.searchParams.get("limit") ?? apiParams.limit;
+	// const after = url.searchParams.get("after");
+	// const limit = url.searchParams.get("limit") ?? apiParams.limit;
 
-	if (after) apiParams.after = after;
-	if (limit) apiParams.limit = limit;
+	// if (after) apiParams.after = after;
+	// if (limit) apiParams.limit = limit;
 
-	const endpoint = getSpotifyEndpoint(`me/following`, apiParams);
+	const endpoint = getSpotifyEndpoint(`me/following`, mergeParams(apiParams, url));
 
 	const { artists } = await queryApi<{ artists: Page<Artist> }>(endpoint);
 

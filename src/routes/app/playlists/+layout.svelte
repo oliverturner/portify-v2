@@ -3,19 +3,12 @@
 	import type { LayoutData } from "./$types";
 
 	import { page } from "$app/stores";
-	import { playlists } from "./store";
+	import { playlists, getLink } from "./store";
 
 	import NavPage from "$lib/components/nav-page.svelte";
 	import NavItem from "$lib/components/nav-item.svelte";
 
 	export let data: LayoutData;
-
-	function getLink(item: Playlist, currentPath: string) {
-		const href = `/app/playlists/${item.id}`;
-		const isActive = currentPath === href;
-
-		return { href, isActive };
-	}
 
 	$: playlists.set(data.playlists);
 	$: currentPath = $page.url.pathname;

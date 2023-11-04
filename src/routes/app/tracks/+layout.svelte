@@ -1,27 +1,24 @@
 <script lang="ts">
 	import type { LayoutData } from "./$types";
-	import type { Track } from "$lib/typings/spotify";
 
 	import { page } from "$app/stores";
+	import { getLink, tracks } from "./stores";
+
 	import { getArtistNames } from "$lib/utils/artist";
+	import { getInitialPage } from "$lib/utils/api";
+
 	import NavPage from "$lib/components/nav-page.svelte";
 	import NavItem from "$lib/components/nav-item.svelte";
 
 	export let data: LayoutData;
 
-	function getLink(item: Track, currentPath: string) {
-		const href = `/app/tracks/${item.id}`;
-		const isActive = currentPath.startsWith(href);
-
-		return { href, isActive };
-	}
-
+	$: tracks.set(data.tracks ?? getInitialPage());
 	$: currentPath = $page.url.pathname;
 </script>
 
-<NavPage>
+<NavPage onNavScrollEnd={() => tracks.loadNext($tracks.next)}>
 	<svelte:fragment slot="nav-items">
-		{#each data.tracks?.items ?? [] as item (item.id)}
+		{#each $tracks.items as item (item.id)}
 			<NavItem {...getLink(item, currentPath)}>
 				<svelte:fragment slot="label">
 					<span>{item.name}</span>

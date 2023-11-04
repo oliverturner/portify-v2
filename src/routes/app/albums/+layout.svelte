@@ -3,25 +3,23 @@
 	import type { LayoutData } from "./$types";
 
 	import { page } from "$app/stores";
+	import { albums, getLink } from "./store";
+
 	import { getArtistNames } from "$lib/utils/artist";
+	import { getInitialPage } from "$lib/utils/api";
+
 	import NavPage from "$lib/components/nav-page.svelte";
 	import NavItem from "$lib/components/nav-item.svelte";
 
 	export let data: LayoutData;
 
-	function getLink(item: SavedAlbum, currentPath: string) {
-		const href = `/app/albums/${item.album.id}`;
-		const isActive = currentPath === href;
-
-		return { href, isActive };
-	}
-
+	$: albums.set(data.albums ?? getInitialPage());
 	$: currentPath = $page.url.pathname;
 </script>
 
-<NavPage>
+<NavPage onNavScrollEnd={() => albums.loadNext($albums.next)}>
 	<svelte:fragment slot="nav-items">
-		{#each data.albums?.items ?? [] as item (item.album.id)}
+		{#each $albums.items as item (item.album.id)}
 			<NavItem {...getLink(item, currentPath)}>
 				<svelte:fragment slot="label">
 					<span>{item.album.name}</span>

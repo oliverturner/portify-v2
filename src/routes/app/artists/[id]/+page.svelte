@@ -35,7 +35,8 @@
 			{#if genres.length > 0}
 				<p class="artist__genres">
 					{#each genres as genre}
-						<a href="/app/genres/{genre}"><span>{genre}</span></a>
+						<!-- <a href="/app/genres/{genre}"><span>{genre}</span></a> -->
+						<span>{genre}</span>
 					{/each}
 				</p>
 			{/if}
@@ -111,15 +112,9 @@
 		flex-wrap: wrap;
 		gap: 0.25rem;
 
-		& a {
+		& span {
 			white-space: nowrap;
 			text-transform: capitalize;
-
-			&:hover {
-				& > span {
-					text-decoration: underline;
-				}
-			}
 
 			&:not(:last-child)::after {
 				content: ",";
