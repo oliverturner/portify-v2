@@ -2,18 +2,43 @@
 	import type { Track } from "$lib/typings/spotify";
 	import type { TrackAudioFeatures } from "$lib/typings/app";
 
+	function create() {
+		addToast({
+			data: {
+				title: "Success",
+				description: "The resource was created!",
+				color: "bg-green-500",
+			},
+		});
+	}
+
 	import Image from "./image.svelte";
 	import Icon from "./icon.svelte";
 	import IconLink from "./icon-link.svelte";
 	import TrackCover from "./track-cover.svelte";
 	import TrackArtists from "./track-artists.svelte";
 	import VendorLinks from "./vendor-links.svelte";
+	import { addToast } from "$lib/components/toaster.svelte";
 
 	import { getTrackLinks } from "$lib/utils/track";
 	import { playTrack } from "$lib/utils/player";
 
 	export let track: Track;
 	export let metadata = {} as TrackAudioFeatures;
+
+	async function onPlayBtnClick() {
+		const { status } = await playTrack(track.id);
+
+		if (status === 404) {
+			addToast({
+				data: {
+					title: "Heads up!",
+					description: "Spotify Connect needs Spotify to be playing",
+					color: "bg-red-500",
+				},
+			});
+		}
+	}
 
 	$: links = getTrackLinks(track);
 </script>
@@ -39,7 +64,7 @@
 		<VendorLinks {links} />
 	</div>
 
-	<button class="playbtn" on:click={() => playTrack(track.id)}>
+	<button class="playbtn" on:click={onPlayBtnClick}>
 		<Icon id="icon-play-btn" />
 		<span class="sr-only">Play</span>
 	</button>
