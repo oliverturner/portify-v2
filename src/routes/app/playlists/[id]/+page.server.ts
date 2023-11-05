@@ -1,26 +1,12 @@
 import type { PageServerLoad } from "./$types";
-import type { Playlist } from "$lib/typings/spotify";
+import type { Page, Playlist, TrackItem } from "$lib/typings/spotify";
+import type { AudioTrack } from "$lib/typings/app";
 
-import { queryApiFn } from "$lib/server/api";
-import { getSpotifyEndpoint } from "$lib/utils/data";
+export const load: PageServerLoad = async ({ params, fetch }) => {
+	const res = await fetch(`/api/playlists/${params.id}`);
 
-const apiParams = {
-	fields: `name,description,images`,
-};
-
-export const load: PageServerLoad = async ({ locals, params, fetch }) => {
-	const queryApi = await queryApiFn(locals.auth);
-
-	if (!queryApi) return { playlist: null };
-
-	const endpoint = getSpotifyEndpoint(`playlists/${params.id}`, apiParams);
-	const playlist = await queryApi<Playlist>(endpoint);
-
-	const res = await fetch(`/api/playlists/${params.id}/tracks`);
-	const tracks = await res.json();
-
-	return {
-		playlist,
-		...tracks,
-	};
+	return res.json() as Promise<{
+		playlist: Playlist<TrackItem>;
+		tracks: Page<AudioTrack>;
+	}>;
 };
