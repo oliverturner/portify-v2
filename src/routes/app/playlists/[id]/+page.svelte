@@ -1,21 +1,34 @@
 <script lang="ts">
+	import type { AudioTrack } from "$lib/typings/app";
 	import type { PageData } from "./$types";
 
 	import Topper from "$lib/components/topper.svelte";
 	import Track from "$lib/components/track.svelte";
 	import GroupedTrack from "$lib/components/track-grouped.svelte";
-	import { page } from "$app/stores";
+	import Pagination from "$lib/components/pagination.svelte";
+	import { getInitialPage } from "$lib/utils/api";
+	import { tracks } from "./store";
 
 	export let data: PageData;
 
 	$: playlist = data.playlist;
-	$: tracks = data.tracks ?? [];
-	$: tracksPage = data.tracksPage ?? {};
-	$: tracksMetadata = data.tracksMetadata ?? {};
+	$: tracks.set(data.tracks ?? getInitialPage<AudioTrack>());
+	$: isGrouped = false;
 
 	$: description = playlist?.description;
 	$: imgUrl = playlist?.images[0]?.url;
 	$: title = playlist?.name;
+
+	function onPageChange(props: { curr: number; next: number }) {
+		const offset = (props.next - 1) * $tracks.limit;
+
+		console.log("onPageChange", props, offset, playlist);
+
+
+		tracks.loadPage(playlist.id, offset);
+
+		return props.next;
+	}
 </script>
 
 <svelte:head>
@@ -32,20 +45,22 @@
 
 			<dl class="datatable">
 				<dt aria-label="Count">Track count:</dt>
-				<dd>{tracksPage.total}</dd>
+				<dd>{$tracks.total}</dd>
 			</dl>
 		</div>
 	</Topper>
 
+	<Pagination count={$tracks.total} perPage={$tracks.limit} {onPageChange} />
+
 	<div class="content">
 		<!-- TODO use proper shorthand and componentisation -->
-		<ol class="content__items" class:content__items--grouped={data.isGrouped}>
-			{#each tracks as track, index (track.id)}
+		<ol class="content__items" class:content__items--grouped={isGrouped}>
+			{#each $tracks.items as track, index (track.id)}
 				<li class="content__item">
-					{#if data.isGrouped}
-						<GroupedTrack index={index + 1} {track} metadata={tracksMetadata[track.id]} />
+					{#if isGrouped}
+						<GroupedTrack index={index + 1} {track} />
 					{:else}
-						<Track {track} metadata={tracksMetadata[track.id]} />
+						<Track {track} />
 					{/if}
 				</li>
 			{/each}
