@@ -1,6 +1,5 @@
 <script lang="ts">
-	import type { Track, SimplifiedTrack } from "$lib/typings/spotify";
-	import type { TrackAudioFeatures } from "$lib/typings/app";
+	import type { AudioTrack } from "$lib/typings/app";
 
 	import IconLink from "./icon-link.svelte";
 	import TrackCover from "./track-cover.svelte";
@@ -9,8 +8,7 @@
 	import { getTrackLinks } from "$lib/utils/track";
 
 	export let index: number;
-	export let track: Track | SimplifiedTrack;
-	export let metadata = {} as TrackAudioFeatures;
+	export let track: AudioTrack;
 	export let showArtists: boolean = true;
 
 	$: links = getTrackLinks(track);
@@ -18,7 +16,7 @@
 
 <article class="track">
 	<div class="track__meta">
-		<TrackCover {metadata} compact={true}>
+		<TrackCover {track} compact={true}>
 			{index}
 		</TrackCover>
 	</div>

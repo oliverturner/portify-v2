@@ -4,12 +4,12 @@ import type {
 	Track,
 	TrackItem,
 } from "$lib/typings/spotify";
-import type { QueryApi, TrackAudioFeatures } from "$lib/typings/app";
+import type { AudioTrack, QueryApi, TrackAudioFeatures } from "$lib/typings/app";
 
 import { getSpotifyEndpoint } from "./data";
 import keyNotation from "$lib/constants/key-notation";
 
-export async function getTrackAudioFeatures({
+export async function getAudioFeatures({
 	tracks,
 	queryApi,
 }: {
@@ -27,25 +27,43 @@ export async function getTrackAudioFeatures({
 	const endpoint = getSpotifyEndpoint("audio-features", { ids });
 	const { audio_features } = await queryApi<AudioFeaturesCollection>(endpoint);
 
-	const metadata: Record<string, TrackAudioFeatures> = {};
+	const trackAudio: Record<string, TrackAudioFeatures> = {};
 	if (audio_features?.[0]) {
 		for (const feature of audio_features) {
 			const { id, mode, tempo, key } = feature ?? {};
-			metadata[id] = { mode, tempo: Math.round(tempo), key };
+			trackAudio[id] = { mode, tempo: Math.round(tempo), key };
 		}
 	}
 
-	return metadata;
+	return trackAudio;
 }
 
 export function getTrackAudio(audioFeatures?: TrackAudioFeatures) {
 	if (!audioFeatures) return;
 
-	const { mode, key } = audioFeatures;
+	const { mode, key, tempo } = audioFeatures;
 	const chord = mode === 0 ? "minor" : "major";
 	const keyConfig = keyNotation[key] ?? {};
 
-	return keyConfig[chord];
+	return { tempo, ...keyConfig[chord] };
+}
+
+export const isTrack = (trackItem: TrackItem): trackItem is Track => {
+	return trackItem.type === "track";
+};
+
+export function filterTracks(trackItems: TrackItem[]): AudioTrack[] {
+	return (trackItems ?? []).filter(isTrack);
+}
+
+export async function injectAudio(queryApi: QueryApi, tracks: AudioTrack[]) {
+	const audioFeatures = await getAudioFeatures({ tracks, queryApi });
+
+	for (const track of tracks) {
+		track.audio = getTrackAudio(audioFeatures[track.id]);
+	}
+
+	return tracks;
 }
 
 export function getTrackLinks(track: Track | SimplifiedTrack | undefined) {
@@ -74,7 +92,3 @@ export function tracksAreGrouped(tracks: Track[]) {
 
 	return tracks.every((track) => track.album.id === albumId);
 }
-
-export const isTrack = (trackItem: TrackItem): trackItem is Track => {
-	return trackItem?.type === "track";
-};
