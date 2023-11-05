@@ -10,7 +10,6 @@
 	export let data: PageData;
 
 	$: album = data.album;
-	$: metadata = data.metadata ?? {};
 	$: tracks = album?.tracks?.items ?? [];
 	$: showArtists = tracksShareArtist(album) === false;
 	$: links = getAlbumLinks(album);
@@ -47,12 +46,7 @@
 		<ol class="content__items content__items--grouped">
 			{#each tracks as track (track.id)}
 				<li class="content__item">
-					<GroupedTrack
-						index={track.track_number}
-						{track}
-						{showArtists}
-						metadata={metadata[track.id]}
-					/>
+					<GroupedTrack index={track.track_number} {track} {showArtists} />
 				</li>
 			{/each}
 		</ol>

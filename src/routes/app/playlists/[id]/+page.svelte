@@ -13,6 +13,7 @@
 
 	$: playlist = data.playlist;
 	$: tracks.set(data.tracks ?? getInitialPage<AudioTrack>());
+	$: showPagination = $tracks.total > $tracks.limit;
 	$: isGrouped = false;
 
 	$: description = playlist?.description;
@@ -21,10 +22,6 @@
 
 	function onPageChange(props: { curr: number; next: number }) {
 		const offset = (props.next - 1) * $tracks.limit;
-
-		console.log("onPageChange", props, offset, playlist);
-
-
 		tracks.loadPage(playlist.id, offset);
 
 		return props.next;
@@ -50,7 +47,9 @@
 		</div>
 	</Topper>
 
-	<Pagination count={$tracks.total} perPage={$tracks.limit} {onPageChange} />
+	{#if showPagination}
+		<Pagination count={$tracks.total} perPage={$tracks.limit} {onPageChange} />
+	{/if}
 
 	<div class="content">
 		<!-- TODO use proper shorthand and componentisation -->

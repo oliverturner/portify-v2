@@ -27,7 +27,7 @@
 
 {#if track}
 	<Topper type="track">
-		<TrackCover metadata={metadata[track.id]} slot="cover">
+		<TrackCover {track} slot="cover">
 			<Image src={track.album.images[1].url} alt={track.name} />
 		</TrackCover>
 
@@ -50,7 +50,7 @@
 		<ol class="content__items">
 			{#each tracksViaArtist as track (track.id)}
 				<li class="content__item">
-					<Track {track} metadata={metadata[track.id]} />
+					<Track {track} />
 				</li>
 			{/each}
 		</ol>
@@ -61,7 +61,7 @@
 		<ol class="content__items">
 			{#each tracksViaTrack as track (track.id)}
 				<li class="content__item">
-					<Track {track} metadata={metadata[track.id]} />
+					<Track {track} />
 				</li>
 			{/each}
 		</ol>

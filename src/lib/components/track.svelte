@@ -1,16 +1,6 @@
 <script lang="ts">
 	import type { AudioTrack } from "$lib/typings/app";
 
-	function create() {
-		addToast({
-			data: {
-				title: "Success",
-				description: "The resource was created!",
-				color: "bg-green-500",
-			},
-		});
-	}
-
 	import Image from "./image.svelte";
 	import Icon from "./icon.svelte";
 	import IconLink from "./icon-link.svelte";
@@ -38,27 +28,13 @@
 		}
 	}
 
-	async function onPlayBtnClick() {
-		const { status } = await playTrack(track.id);
-
-		if (status === 404) {
-			addToast({
-				data: {
-					title: "Heads up!",
-					description: "Spotify Connect needs Spotify to be playing",
-					color: "bg-red-500",
-				},
-			});
-		}
-	}
-
 	$: links = getTrackLinks(track);
 </script>
 
 <article class="track">
 	<div class="track__cover">
 		<TrackCover {track}>
-			<Image src={track.album.images[1].url} alt={track.name} />
+			<Image src={track.album?.images[1]?.url} alt={track.name} />
 		</TrackCover>
 	</div>
 

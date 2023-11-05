@@ -49,7 +49,7 @@ export function getTrackAudio(audioFeatures?: TrackAudioFeatures) {
 }
 
 export const isTrack = (trackItem: TrackItem): trackItem is Track => {
-	return trackItem.type === "track";
+	return trackItem?.type === "track";
 };
 
 export function filterTracks(trackItems: TrackItem[]): AudioTrack[] {

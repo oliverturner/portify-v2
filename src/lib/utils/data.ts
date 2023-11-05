@@ -20,6 +20,7 @@ export function getSpotifyEndpoint(path: string, params: Record<string, unknown>
  * output: { time_range: "short_term", limit: 25, offset: 50 }
  */
 export function mergeParams(defaults: Record<string, unknown>, url: URL) {
+	// TODO: deeply merge values
 	for (const [key, value] of url.searchParams.entries()) {
 		defaults[key] = value;
 	}

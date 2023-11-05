@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { Playlist } from "$lib/typings/spotify";
 	import type { LayoutData } from "./$types";
 
 	import { page } from "$app/stores";
@@ -10,7 +9,7 @@
 
 	export let data: LayoutData;
 
-	$: playlists.set(data.playlists);
+	$: playlists.set(data);
 	$: currentPath = $page.url.pathname;
 </script>
 
