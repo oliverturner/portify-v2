@@ -6,7 +6,7 @@
 
 <button class="square btn--menu" on:click={onClick}>
 	<Icon id="icon-menu" />
-	<span class="sr-only"></span>
+	<span class="sr-only">View items</span>
 </button>
 
 <style lang="postcss">

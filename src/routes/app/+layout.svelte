@@ -10,8 +10,6 @@
 	import PrefsBtn from "$lib/components/btn-prefs.svelte";
 	import RailLinks from "$lib/components/rail-links.svelte";
 
-	import "../../app.postcss";
-
 	export let data: LayoutData;
 
 	const links = [

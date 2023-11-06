@@ -48,7 +48,7 @@
 		grid-area: content;
 
 		display: grid;
-		grid-template-rows: 1fr 70px;
+		grid-template-rows: 1fr var(--rail-mobile-h);
 		grid-template-areas:
 			"content"
 			"rail";
@@ -60,11 +60,12 @@
 		}
 
 		position: relative;
-		overflow-y: auto;
+		overflow: hidden;
 		z-index: 1;
 	}
 
 	.app__content__rail {
+		--_h: var(--rail-mobile-h);
 		--_bg: var(--surface-0);
 		--_ink: var(--text-1);
 
@@ -73,6 +74,7 @@
 		display: grid;
 
 		position: relative;
+		height: var(--_h);
 		background: var(--_bg);
 		color: var(--_ink);
 		z-index: 3;
@@ -80,6 +82,7 @@
 		view-transition-name: none;
 
 		@media (min-width: 1024px) {
+			--_h: initial;
 			--_bg: var(--surface-2);
 		}
 	}
@@ -89,7 +92,7 @@
 		--_bg: var(--surface-0);
 
 		position: fixed;
-		top: 50px;
+		top: 0;
 		right: 0;
 		width: 200px;
 		height: calc(100dvh - 50px);

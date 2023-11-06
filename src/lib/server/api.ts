@@ -10,7 +10,10 @@ export async function queryApiFn(authRequest: AuthRequest) {
 	return async function queryApi<T>(endpoint: string, options: RequestInit = {}) {
 		const res = await fetch(endpoint, {
 			...options,
-			headers: { Authorization: `Bearer ${accessToken}` },
+			headers: {
+				"cache-control": "public, max-age=3600",
+				Authorization: `Bearer ${accessToken}`,
+			},
 		});
 
 		if (res.ok === false) {

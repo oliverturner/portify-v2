@@ -4,6 +4,7 @@ import type { Track, RecommendationsResponse } from "$lib/typings/spotify";
 import { getSpotifyEndpoint } from "$lib/utils/data";
 import { queryApiFn } from "$lib/server/api";
 import { getAudioFeatures } from "$lib/utils/track";
+
 export { actions } from "$lib/actions";
 
 const apiParams = {

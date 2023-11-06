@@ -33,7 +33,9 @@
 		flex: 1;
 
 		display: grid;
+		place-content: center;
 		place-items: center;
+		gap: var(--size-1);
 
 		font-size: var(--font-size-0);
 		line-height: 1;
@@ -54,7 +56,7 @@
 		}
 		&:active,
 		&.active {
-			background: var(--brand);
+			background: var(--brand-2);
 		}
 	}
 

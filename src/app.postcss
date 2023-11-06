@@ -1,20 +1,22 @@
 /* See https://github.com/argyleink/open-props/tree/main/src for details */
 @import "open-props/style";
 @import "open-props/animations";
-@import "open-props/aspects";
+/* @import "open-props/aspects"; */
 @import "open-props/buttons";
 @import "open-props/colors";
 @import "open-props/colors-hsl";
 @import "open-props/fonts";
 @import "open-props/gradients";
-@import "open-props/masks/corner-cuts";
-@import "open-props/masks/edges";
-@import "open-props/media";
-@import "open-props/shadows";
+/* @import "open-props/masks/corner-cuts"; */
+/* @import "open-props/masks/edges"; */
+/* @import "open-props/media"; */
+/* @import "open-props/shadows"; */
 @import "open-props/sizes";
-@import "open-props/zindex";
+/* @import "open-props/zindex"; */
 
 :root {
+	--rail-mobile-h: 72px;
+
 	&[color-scheme="dark"] {
 		--brand-hsl: var(--blue-8-hsl);
 		--brand: hsla(var(--brand-hsl) / 1);
@@ -215,6 +217,10 @@ body {
 	width: 1px;
 }
 
+.spritesheet {
+	display: none;
+}
+
 .app {
 	display: grid;
 	grid-template-rows: 50px 1fr;
@@ -224,6 +230,7 @@ body {
 
 	position: relative;
 	height: 100dvh;
+	overflow: hidden;
 	z-index: 3;
 }
 
@@ -257,6 +264,7 @@ body {
 	grid-area: content;
 
 	display: grid;
+	contain: paint;
 }
 
 .content {

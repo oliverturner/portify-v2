@@ -4,7 +4,7 @@
 </script>
 
 <svg class={size}>
-	<use xlink:href="/icons.svg#{id}"></use>
+	<use xlink:href="#{id}"></use>
 </svg>
 
 <style lang="postcss">
@@ -17,13 +17,13 @@
 		stroke: currentColor;
 
 		&.small {
-			width: 1.5rem;
+			--wh: 1.5rem;
 		}
 		&.medium {
-			width: 2rem;
+			--wh: 2rem;
 		}
 		&.large {
-			width: 2.5rem;
+			--wh: 2.5rem;
 		}
 	}
 </style>
