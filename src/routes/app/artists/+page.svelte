@@ -9,7 +9,6 @@
 
 	$: topArtists = data.artists?.items ?? [];
 	$: followedArtists = data.following?.items ?? [];
-	// $: console.log({ data });
 </script>
 
 <svelte:head>

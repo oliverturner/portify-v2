@@ -18,10 +18,11 @@ export async function GET({ locals, params, fetch, url }) {
 
 	if (!queryApi) return json(null);
 
-	const endpoint = getSpotifyEndpoint(`playlists/${params.id}`, mergeParams(apiParams, url));
+	const qs = mergeParams(apiParams, url);
+	const endpoint = getSpotifyEndpoint(`playlists/${params.id}`, qs);
 	const playlist = await queryApi<Playlist>(endpoint);
 
-	const res = await fetch(`/api/playlists/${params.id}/tracks`);
+	const res = await fetch(`/api/playlists/${params.id}/tracks?offset=0`);
 	const tracks = (await res.json()) as Page<AudioTrack>;
 
 	return json({

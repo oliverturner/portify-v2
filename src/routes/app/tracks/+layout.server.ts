@@ -3,7 +3,7 @@ import type { LayoutServerLoad } from "../$types";
 
 // TODO: load from API instead
 export const load: LayoutServerLoad = async ({ fetch }) => {
-	const res = await fetch("/api/tracks");
+	const res = await fetch("/api/tracks?offset=0");
 
 	return {
 		tracks: res.json() as Promise<Page<Track>>,
