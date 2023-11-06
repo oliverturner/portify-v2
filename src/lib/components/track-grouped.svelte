@@ -55,7 +55,6 @@
 		grid-area: info;
 
 		display: grid;
-		align-content: end;
 		gap: 0.5rem;
 
 		padding: 1rem;

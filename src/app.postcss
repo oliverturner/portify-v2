@@ -66,6 +66,10 @@
 	animation-duration: 0.75s;
 }
 
+* {
+	box-sizing: border-box;
+}
+
 html,
 body {
 	height: 100dvh;
@@ -218,7 +222,9 @@ body {
 		"header"
 		"content";
 
+	position: relative;
 	height: 100dvh;
+	z-index: 3;
 }
 
 .app__header {
