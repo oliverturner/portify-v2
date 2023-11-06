@@ -16,7 +16,7 @@
 
 <NavPage onNavScrollEnd={() => playlists.loadNext($playlists.next)}>
 	<svelte:fragment slot="nav-items">
-		{#each $playlists.items as item (item.id)}
+		{#each $playlists.items ?? [] as item (item.id)}
 			<NavItem {...getLink(item, currentPath)}>
 				<span slot="label">{item.name}</span>
 			</NavItem>

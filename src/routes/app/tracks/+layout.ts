@@ -1,7 +1,6 @@
 import type { Page, Track } from "$lib/typings/spotify";
-import type { LayoutServerLoad } from "../$types";
 
-export const load: LayoutServerLoad = async ({ fetch }) => {
+export const load = async ({ fetch }) => {
 	const res = await fetch("/api/tracks?offset=0");
 
 	return {

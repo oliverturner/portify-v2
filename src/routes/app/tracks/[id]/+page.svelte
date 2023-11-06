@@ -13,7 +13,6 @@
 	export let data: PageData;
 
 	$: track = data.track;
-	$: metadata = data.metadata ?? {};
 	$: artists = track?.artists ?? [];
 	$: album = track?.album;
 	$: tracksViaArtist = data.recommendedArtists?.tracks ?? [];

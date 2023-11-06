@@ -62,7 +62,7 @@
 		"test:integration": "playwright test",
 		"test": "run-s test:*",
 		"dev:check": "run-s svelte:sync svelte:check -- --watch",
-		"dev": "vite dev",
+		"dev": "vite dev --host --open",
 		"preview": "vite preview",
 		"build:check": "npm run check",
 		"build:vite": "vite build",

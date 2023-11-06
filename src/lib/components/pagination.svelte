@@ -42,14 +42,18 @@
 <style lang="postcss">
 	.pagination {
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
+		justify-content: center;
 
 		position: sticky;
 		top: 0;
 		padding: 0.5rem 1rem;
 		background: var(--bg, #111d30);
 		z-index: 2;
+
+		@media (min-width: 768px) {
+			justify-content: space-between;
+		}
 	}
 
 	.pagination__controls {

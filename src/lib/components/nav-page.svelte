@@ -39,6 +39,7 @@
 	</div>
 </div>
 
+
 <style lang="postcss">
 	.page {
 		display: grid;
@@ -79,8 +80,8 @@
 		transition: transform 0.25s ease-in-out;
 
 		@media (min-width: 1024px) {
-			--_width: auto;
-			--_height: auto;
+			--_width: initial;
+			--_height: initial;
 			--_bg: var(--surface-5);
 
 			grid-area: nav;
