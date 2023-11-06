@@ -35,7 +35,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 
 		try {
 			const [artist, topTracks, albums, appearsOn, relatedArtists] = await Promise.all(requests);
-			const topTracksMetadata = await getAudioFeatures({ tracks: topTracks.tracks, queryApi });
+			const topTracksMetadata = await getAudioFeatures({ playableTracks: topTracks.tracks, queryApi });
 
 			return {
 				artist,

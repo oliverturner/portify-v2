@@ -4,7 +4,7 @@ import { json } from "@sveltejs/kit";
 
 import { queryApiFn } from "$lib/server/api";
 import { getSpotifyEndpoint, mergeParams } from "$lib/utils/data";
-import { filterTracks, injectAudio } from "$lib/utils/track";
+import { injectAudio } from "$lib/utils/track";
 
 const trackFields = [
 	"id",
@@ -37,8 +37,7 @@ export async function GET({ params, locals, url }) {
 		);
 		const { items, ...page } = await queryApi<Page<PlaylistedTrack<TrackItem>>>(endpoint);
 		const trackItems = items.map(({ track }) => track);
-		const filteredTracks = filterTracks(trackItems);
-		const audioTracks = await injectAudio(queryApi, filteredTracks);
+		const audioTracks = await injectAudio(queryApi, trackItems);
 		const tracks = { ...page, items: audioTracks };
 
 		return json(tracks);

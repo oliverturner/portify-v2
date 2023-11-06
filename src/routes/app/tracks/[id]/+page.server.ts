@@ -31,13 +31,13 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 
 		try {
 			const [trackMetadata, recommendedArtists, recommendedTracks] = await Promise.all([
-				getAudioFeatures({ tracks: [track], queryApi }),
+				getAudioFeatures({ playableTracks: [track], queryApi }),
 				queryApi<RecommendationsResponse>(endpoints.recommendedArtists),
 				queryApi<RecommendationsResponse>(endpoints.recommendedTracks),
 			]);
 
 			const relatedMetadata = await getAudioFeatures({
-				tracks: [...(recommendedTracks?.tracks ?? []), ...(recommendedArtists?.tracks ?? [])],
+				playableTracks: [...(recommendedTracks?.tracks ?? []), ...(recommendedArtists?.tracks ?? [])],
 				queryApi,
 			});
 

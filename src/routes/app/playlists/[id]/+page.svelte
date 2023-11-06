@@ -7,13 +7,17 @@
 	import GroupedTrack from "$lib/components/track-grouped.svelte";
 	import Pagination from "$lib/components/pagination.svelte";
 	import { getInitialPage } from "$lib/utils/api";
-	import { tracks } from "./store";
+	import { tracksPage } from "./store";
 
 	export let data: PageData;
 
 	$: playlist = data.playlist;
-	$: tracks.set(data.tracks ?? getInitialPage<AudioTrack>());
-	$: showPagination = $tracks.total > $tracks.limit;
+	$: tracks = data.tracks;
+
+	$: tracksPage.set(tracks ?? getInitialPage<AudioTrack>());
+	$: showPagination = $tracksPage.total > $tracksPage.limit;
+
+	// TODO: set value in the store somehow
 	$: isGrouped = false;
 
 	$: description = playlist?.description;
@@ -21,8 +25,8 @@
 	$: title = playlist?.name;
 
 	function onPageChange(props: { curr: number; next: number }) {
-		const offset = (props.next - 1) * $tracks.limit;
-		tracks.loadPage(playlist.id, offset);
+		const offset = (props.next - 1) * $tracksPage.limit;
+		tracksPage.loadTracks(playlist.id, offset);
 
 		return props.next;
 	}
@@ -42,19 +46,19 @@
 
 			<dl class="datatable">
 				<dt aria-label="Count">Track count:</dt>
-				<dd>{$tracks.total}</dd>
+				<dd>{$tracksPage.total}</dd>
 			</dl>
 		</div>
 	</Topper>
 
 	{#if showPagination}
-		<Pagination count={$tracks.total} perPage={$tracks.limit} {onPageChange} />
+		<Pagination count={$tracksPage.total} perPage={$tracksPage.limit} {onPageChange} />
 	{/if}
 
 	<div class="content">
 		<!-- TODO use proper shorthand and componentisation -->
 		<ol class="content__items" class:content__items--grouped={isGrouped}>
-			{#each $tracks.items as track, index (track.id)}
+			{#each $tracksPage.items as track, index (track.id)}
 				<li class="content__item">
 					{#if isGrouped}
 						<GroupedTrack index={index + 1} {track} />

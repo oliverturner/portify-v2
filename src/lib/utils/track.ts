@@ -10,18 +10,14 @@ import { getSpotifyEndpoint } from "./data";
 import keyNotation from "$lib/constants/key-notation";
 
 export async function getAudioFeatures({
-	tracks,
+	playableTracks,
 	queryApi,
 }: {
-	tracks: Track[] | SimplifiedTrack[];
+	playableTracks: Track[] | SimplifiedTrack[];
 	queryApi: QueryApi;
 }) {
-	const playableIds = tracks
-		.filter(({ is_playable, is_local }) => {
-			return is_playable === false || is_local === true ? false : true;
-		})
-		.map(({ id }) => id);
-	const uniqueIds = new Set(playableIds);
+	const trackIds = playableTracks.map(({ id }) => id);
+	const uniqueIds = new Set(trackIds);
 	const ids = [...uniqueIds].join(",");
 
 	const endpoint = getSpotifyEndpoint("audio-features", { ids });
@@ -48,22 +44,24 @@ export function getTrackAudio(audioFeatures?: TrackAudioFeatures) {
 	return { tempo, ...keyConfig[chord] };
 }
 
-export const isTrack = (trackItem: TrackItem): trackItem is Track => {
+export const isTrack = (trackItem: TrackItem | AudioTrack): trackItem is Track => {
 	return trackItem?.type === "track";
 };
 
-export function filterTracks(trackItems: TrackItem[]): AudioTrack[] {
-	return (trackItems ?? []).filter(isTrack);
-}
+export const isPlayable = ({ is_playable, is_local }: AudioTrack) => {
+	return is_playable === false || is_local === true ? false : true;
+};
 
-export async function injectAudio(queryApi: QueryApi, tracks: AudioTrack[]) {
-	const audioFeatures = await getAudioFeatures({ tracks, queryApi });
+export async function injectAudio(queryApi: QueryApi, rawTracks: TrackItem[] | AudioTrack[]) {
+	const tracks = rawTracks.filter(isTrack);
+	const playableTracks = tracks.filter(isPlayable) as AudioTrack[];
+	const audioFeatures = await getAudioFeatures({ playableTracks, queryApi });
 
-	for (const track of tracks) {
+	for (const track of playableTracks) {
 		track.audio = getTrackAudio(audioFeatures[track.id]);
 	}
 
-	return tracks;
+	return playableTracks;
 }
 
 export function getTrackLinks(track: Track | SimplifiedTrack | undefined) {

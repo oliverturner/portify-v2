@@ -13,7 +13,7 @@ export function createPageStore() {
 		subscribe,
 		set,
 		update,
-		loadPage: async (id: string, offset: number) => {
+		loadTracks: async (id: string, offset: number) => {
 			const url = new URL(`api/playlists/${id}/tracks`, window.location.origin);
 			url.searchParams.set("offset", offset.toString());
 
@@ -25,4 +25,4 @@ export function createPageStore() {
 	};
 }
 
-export const tracks = createPageStore();
+export const tracksPage = createPageStore();
