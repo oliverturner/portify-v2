@@ -72,5 +72,16 @@
       <path d="m14 12l-3 1.732v-3.464L14 12Z"></path>
     </g>
   </symbol>
+
+  <!-- Arrows -->
+  <symbol viewBox="0 0 24 24" id="icon-arrow-left">
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m14 7l-5 5l5 5"></path>
+  </symbol>
+
+  <symbol viewBox="0 0 24 24" id="icon-arrow-right">
+    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m10 17l5-5l-5-5"></path>
+    </g>
+  </symbol>
 </svg>
 

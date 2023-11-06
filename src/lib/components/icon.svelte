@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let id: string;
-	export let size: "small" | "medium" | "large" = "small";
+	export let size: "small" | "medium" | "large" | "auto" = "small";
 </script>
 
 <svg class={size}>
@@ -9,7 +9,10 @@
 
 <style lang="postcss">
 	svg {
-		width: 100%;
+		--wh: 100%;
+
+		width: var(--wh);
+		height: var(--wh);
 		aspect-ratio: 1;
 		stroke: currentColor;
 
