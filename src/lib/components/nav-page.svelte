@@ -48,6 +48,7 @@
 		position: relative;
 		height: 100%;
 		overflow: hidden;
+		z-index: 2;
 
 		@media (min-width: 1024px) {
 			grid-template-columns: 260px 1fr;
@@ -72,7 +73,7 @@
 		width: var(--_width);
 		height: var(--_height);
 		background: var(--_bg);
-		z-index: 1;
+		z-index: 2;
 
 		transform: translateX(var(--_translate-x));
 		transition: transform 0.25s ease-in-out;
@@ -101,5 +102,8 @@
 
 	.page__content {
 		grid-area: content;
+
+		position: relative;
+		z-index: 1;
 	}
 </style>

@@ -6,10 +6,11 @@
 
 	import NavPage from "$lib/components/nav-page.svelte";
 	import NavItem from "$lib/components/nav-item.svelte";
+	import { getInitialPage } from "$lib/utils/api";
 
 	export let data: LayoutData;
 
-	$: playlists.set(data);
+	$: playlists.set(data.playlists ?? getInitialPage());
 	$: currentPath = $page.url.pathname;
 </script>
 

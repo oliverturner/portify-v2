@@ -4,5 +4,7 @@ import type { LayoutServerLoad } from "../$types";
 export const load: LayoutServerLoad = async ({ fetch }) => {
 	const res = await fetch("/api/playlists?offset=0");
 
-	return res.json() as Promise<Page<Playlist<TrackItem>>>;
+	return {
+		playlists: res.json() as Promise<Page<Playlist<TrackItem>>>
+	};
 };
