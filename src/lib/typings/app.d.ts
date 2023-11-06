@@ -1,4 +1,4 @@
-import type { AudioFeatures } from "$lib/typings/spotify";
+import type { AudioFeatures, SimplifiedTrack } from "$lib/typings/spotify";
 
 export type QueryApi = <T>(endpoint: string, options?: RequestInit) => Promise<T>;
 
@@ -16,3 +16,8 @@ export interface KeyConfig {
 	minor: ChordConfig;
 	major: ChordConfig;
 }
+
+export type AudioTrack = SimplifiedTrack & {
+	album?: SimplifiedAlbum;
+	audio?: ChordConfig & { tempo: number };
+};

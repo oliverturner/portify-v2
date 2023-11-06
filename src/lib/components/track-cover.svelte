@@ -1,14 +1,11 @@
 <script lang="ts">
-	import type { TrackAudioFeatures } from "$lib/typings/app";
+	import type { AudioTrack } from "$lib/typings/app";
 
-	import { getTrackAudio } from "$lib/utils/track";
+
 	import { keyNotation } from "$lib/stores/prefs";
 
-	export let metadata: TrackAudioFeatures | undefined;
+	export let track: AudioTrack;
 	export let compact: boolean = false;
-
-	$: trackKey = getTrackAudio(metadata);
-	$: tempo = metadata?.tempo;
 </script>
 
 <figure class:compact>
@@ -16,16 +13,16 @@
 		<slot />
 	</div>
 
-	{#if trackKey}
+	{#if track.audio}
 		<figcaption class="meta">
 			<p class="meta__key">
-				<button style="--bg: oklch({trackKey.oklch})" on:click={keyNotation.toggle}>
+				<button style="--bg: oklch({track.audio.oklch})" on:click={keyNotation.toggle}>
 					<span>
-						{trackKey.keys[$keyNotation]}
+						{track.audio.keys[$keyNotation]}
 					</span>
 				</button>
 			</p>
-			<p class="meta__bpm" class:compact>{tempo} <span>bpm</span></p>
+			<p class="meta__bpm" class:compact>{track.audio.tempo} <span>bpm</span></p>
 		</figcaption>
 	{/if}
 </figure>

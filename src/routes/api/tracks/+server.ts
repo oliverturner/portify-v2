@@ -1,9 +1,11 @@
-import type { Page, Track } from "$lib/typings/spotify";
+import type { Page } from "$lib/typings/spotify";
+import type { AudioTrack } from "$lib/typings/app";
 
 import { json } from "@sveltejs/kit";
 
 import { queryApiFn } from "$lib/server/api";
-import { getSpotifyEndpoint } from "$lib/utils/data";
+import { injectAudio } from "$lib/utils/track";
+import { getSpotifyEndpoint, mergeParams } from "$lib/utils/data";
 
 const apiParams = {
 	time_range: "short_term",
@@ -16,9 +18,10 @@ export async function GET({ locals, url }) {
 
 	if (!queryApi) return json(null);
 
-	const offset = url.searchParams.get("offset") ?? 0;
-	const endpoint = getSpotifyEndpoint("me/top/tracks", { ...apiParams, offset });
-	const albums = await queryApi<Page<Track>>(endpoint);
+	const endpoint = getSpotifyEndpoint("me/top/tracks", mergeParams(apiParams, url));
+	const page = await queryApi<Page<AudioTrack>>(endpoint);
 
-	return json(albums);
+	page.items = await injectAudio(queryApi, page.items);
+
+	return json(page);
 }

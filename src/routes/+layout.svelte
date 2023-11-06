@@ -3,6 +3,8 @@
 
 	import { onNavigate } from "$app/navigation";
 
+	import Toaster from "$lib/components/toaster.svelte";
+
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) return;
 
@@ -14,5 +16,7 @@
 		});
 	});
 </script>
+
+<Toaster />
 
 <slot />

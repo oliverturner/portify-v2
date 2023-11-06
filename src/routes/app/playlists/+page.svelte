@@ -1,10 +1,9 @@
 <script lang="ts">
 	import type { Playlist, TrackItem } from "$lib/typings/spotify";
-	import type { LayoutData } from "./$types";
 
 	import ContentItem from "$lib/components/content-item.svelte";
 
-	export let data: LayoutData;
+	import { playlists } from "./store";
 
 	const getItemProps = (item: Playlist<TrackItem>) => ({
 		href: `/app/playlists/${item.id}`,
@@ -19,7 +18,7 @@
 <div class="content">
 	<h2 class="content__title">Playlists</h2>
 	<ul class="content__items content__items--tiled">
-		{#each data.playlists?.items ?? [] as item (item.id)}
+		{#each $playlists.items ?? [] as item (item.id)}
 			<ContentItem {...getItemProps(item)}>
 				<span slot="title">{item.name}</span>
 			</ContentItem>

@@ -3,12 +3,8 @@ import type { Page, PlaylistedTrack, TrackItem } from "$lib/typings/spotify";
 import { json } from "@sveltejs/kit";
 
 import { queryApiFn } from "$lib/server/api";
-import { getSpotifyEndpoint } from "$lib/utils/data";
-import { getTrackAudioFeatures, isTrack } from "$lib/utils/track";
-
-function filterTracks(items: PlaylistedTrack<TrackItem>[]) {
-	return (items ?? []).map((item) => item.track).filter(isTrack);
-}
+import { getSpotifyEndpoint, mergeParams } from "$lib/utils/data";
+import { injectAudio } from "$lib/utils/track";
 
 const trackFields = [
 	"id",
@@ -25,33 +21,26 @@ const apiParams = {
 	offset: 0,
 	limit: 50,
 	market: "from_token",
-	fields: `limit,offset,total,items(track(${trackFields}))`,
+	fields: `limit,offset,total,next,previous,items(track(${trackFields}))`,
 };
 
-export async function GET({ locals, params, url }) {
+export async function GET({ params, locals, url }) {
 	try {
 		const queryApi = await queryApiFn(locals.auth);
 
 		// TODO: throw Svelte error if queryApi is null
-		if (!queryApi) return json({ playlist: null });
+		if (!queryApi) return json(null);
 
-		const offset = url.searchParams.get("offset") ?? apiParams.offset;
-		const limit = url.searchParams.get("limit") ?? apiParams.limit;
-		const endpoint = getSpotifyEndpoint(`playlists/${params.id}/tracks`, {
-			...apiParams,
-			offset,
-			limit,
-		});
-		const { items, ...tracksPage } = await queryApi<Page<PlaylistedTrack<TrackItem>>>(endpoint);
+		const endpoint = getSpotifyEndpoint(
+			`playlists/${params.id}/tracks`,
+			mergeParams(apiParams, url),
+		);
+		const { items, ...page } = await queryApi<Page<PlaylistedTrack<TrackItem>>>(endpoint);
+		const trackItems = items.map(({ track }) => track);
+		const audioTracks = await injectAudio(queryApi, trackItems);
+		const tracks = { ...page, items: audioTracks };
 
-		const tracks = filterTracks(items);
-		const tracksMetadata = await getTrackAudioFeatures({ tracks, queryApi });
-
-		return json({
-			tracks,
-			tracksPage,
-			tracksMetadata,
-		});
+		return json(tracks);
 	} catch (error) {
 		console.log(error);
 	}

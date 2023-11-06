@@ -3,7 +3,7 @@ import type { Playlist } from "$lib/typings/spotify";
 import { json } from "@sveltejs/kit";
 
 import { queryApiFn } from "$lib/server/api";
-import { getSpotifyEndpoint } from "$lib/utils/data";
+import { getSpotifyEndpoint, mergeParams } from "$lib/utils/data";
 
 const apiParams = {
 	limit: 50,
@@ -15,8 +15,7 @@ export async function GET({ locals, url }) {
 
 	if (!queryApi) return json(null);
 
-	const offset = url.searchParams.get("offset") ?? 0;
-	const endpoint = getSpotifyEndpoint("me/playlists", { ...apiParams, offset });
+	const endpoint = getSpotifyEndpoint("me/playlists", mergeParams(apiParams, url));
 	const playlists = await queryApi<Playlist>(endpoint);
 
 	return json(playlists);

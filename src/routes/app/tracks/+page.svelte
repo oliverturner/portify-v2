@@ -6,7 +6,6 @@
 	export let data: PageData;
 
 	$: tracks = data.tracks?.items ?? [];
-	$: metadata = data.metadata ?? {};
 </script>
 
 <svelte:head>
@@ -18,7 +17,7 @@
 	<ol class="content__items">
 		{#each tracks as track (track.id)}
 			<li class="content__item">
-				<Track {track} metadata={metadata[track.id]} />
+				<Track {track} />
 			</li>
 		{/each}
 	</ol>

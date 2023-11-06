@@ -13,8 +13,6 @@ async function getUser({
 	const existingUser = await getExistingUser();
 	if (existingUser) return existingUser;
 
-	console.log({ spotifyUser: JSON.stringify(spotifyUser, null, 2) });
-
 	const user = await createUser({
 		attributes: {
 			username: spotifyUser.display_name!,
