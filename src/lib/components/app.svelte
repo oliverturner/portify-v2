@@ -48,18 +48,20 @@
 		grid-area: content;
 
 		display: grid;
+		grid-template-rows: 1fr 70px;
 		grid-template-areas:
 			"content"
 			"rail";
 
 		@media (min-width: 768px) {
+			grid-template-rows: 1fr;
 			grid-template-columns: 92px 1fr;
 			grid-template-areas: "rail content";
 		}
 
 		position: relative;
-		z-index: 1;
 		overflow-y: auto;
+		z-index: 1;
 	}
 
 	.app__content__rail {
@@ -73,7 +75,7 @@
 		position: relative;
 		background: var(--_bg);
 		color: var(--_ink);
-		z-index: 2;
+		z-index: 3;
 
 		view-transition-name: none;
 
