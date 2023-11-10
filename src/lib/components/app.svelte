@@ -81,8 +81,11 @@
 
 		view-transition-name: none;
 
-		@media (min-width: 1024px) {
+		@media (min-width: 768px) {
 			--_h: initial;
+		}
+
+		@media (min-width: 1024px) {
 			--_bg: var(--surface-2);
 		}
 	}
