@@ -15,8 +15,8 @@
 	$: track = data.track;
 	$: artists = track?.artists ?? [];
 	$: album = track?.album;
-	$: tracksViaArtist = data.recommendedArtists?.tracks ?? [];
-	$: tracksViaTrack = data.recommendedTracks?.tracks ?? [];
+	$: tracksViaArtist = data.recommendedArtists ?? [];
+	$: tracksViaTrack = data.recommendedTracks ?? [];
 	$: links = getTrackLinks(track);
 </script>
 
