@@ -6,7 +6,7 @@
 	let navScrollSentinel: HTMLElement;
 
 	export let onNavScrollEnd = () => {
-		console.log("loadAdditionalItems called");
+		console.log("loadAdditionalItems called without override");
 	};
 
 	export let onNavScroll = (entries: IntersectionObserverEntry[]) => {
@@ -39,7 +39,6 @@
 	</div>
 </div>
 
-
 <style lang="postcss">
 	.page {
 		display: grid;
@@ -65,7 +64,7 @@
 	.page__nav {
 		--_translate-x: -100%;
 		--_width: min(calc(100dvw - 92px), 300px);
-		--_height: calc(100dvh - 50px - var(--rail-mobile-h));
+		--_height: 100%;
 		--_bg: var(--surface-0);
 
 		position: fixed;
@@ -76,7 +75,7 @@
 		background: var(--_bg);
 		z-index: 2;
 
-		transform: translateX(var(--_translate-x));
+		transform: translate3D(var(--_translate-x), 0, 0);
 		transition: transform 0.25s ease-in-out;
 
 		@media (min-width: 1024px) {
