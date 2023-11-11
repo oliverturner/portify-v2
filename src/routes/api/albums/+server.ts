@@ -3,7 +3,8 @@ import type { Page, SavedAlbum } from "$lib/typings/spotify";
 import { json } from "@sveltejs/kit";
 
 import { queryApiFn } from "$lib/server/api";
-import { getSpotifyEndpoint, mergeParams } from "$lib/utils/data";
+import { mergeParams } from "$lib/utils/data";
+import { getEndpoint } from "$lib/utils/spotify.js";
 
 const apiParams = {
 	market: "from_token",
@@ -16,7 +17,7 @@ export async function GET({ locals, url }) {
 
 	if (!queryApi) return json(null);
 
-	const endpoint = getSpotifyEndpoint(`me/albums`, mergeParams(apiParams, url));
+	const endpoint = getEndpoint(`me/albums`, mergeParams(apiParams, url));
 	const albums = await queryApi<Page<SavedAlbum>>(endpoint);
 
 	return json(albums);

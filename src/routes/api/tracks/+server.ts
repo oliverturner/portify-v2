@@ -3,9 +3,10 @@ import type { AudioTrack } from "$lib/typings/app";
 
 import { json } from "@sveltejs/kit";
 
-import { queryApiFn } from "$lib/server/api";
-import { injectAudio } from "$lib/utils/track";
-import { getSpotifyEndpoint, mergeParams } from "$lib/utils/data";
+import { queryApiFn } from "$lib/server/api.js";
+import { injectAudio } from "$lib/utils/track.js";
+import { mergeParams } from "$lib/utils/data.js";
+import { getEndpoint } from "$lib/utils/spotify.js";
 
 const apiParams = {
 	time_range: "short_term",
@@ -18,7 +19,7 @@ export async function GET({ locals, url }) {
 
 	if (!queryApi) return json(null);
 
-	const endpoint = getSpotifyEndpoint("me/top/tracks", mergeParams(apiParams, url));
+	const endpoint = getEndpoint("me/top/tracks", mergeParams(apiParams, url));
 	const page = await queryApi<Page<AudioTrack>>(endpoint);
 
 	page.items = await injectAudio(queryApi, page.items);

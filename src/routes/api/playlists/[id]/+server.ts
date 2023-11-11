@@ -3,8 +3,9 @@ import type { AudioTrack } from "$lib/typings/app";
 
 import { json } from "@sveltejs/kit";
 
-import { queryApiFn } from "$lib/server/api";
-import { getSpotifyEndpoint, mergeParams } from "$lib/utils/data";
+import { queryApiFn } from "$lib/server/api.js";
+import { mergeParams } from "$lib/utils/data.js";
+import { getEndpoint } from "$lib/utils/spotify.js";
 
 const apiParams = {
 	fields: `id,name,description,images`,
@@ -19,7 +20,7 @@ export async function GET({ locals, params, fetch, url }) {
 	if (!queryApi) return json(null);
 
 	const qs = mergeParams(apiParams, url);
-	const endpoint = getSpotifyEndpoint(`playlists/${params.id}`, qs);
+	const endpoint = getEndpoint(`playlists/${params.id}`, qs);
 	const playlist = await queryApi<Playlist>(endpoint);
 
 	const res = await fetch(`/api/playlists/${params.id}/tracks?offset=0`);
