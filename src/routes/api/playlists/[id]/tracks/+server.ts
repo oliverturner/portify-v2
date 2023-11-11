@@ -3,8 +3,9 @@ import type { Page, PlaylistedTrack, TrackItem } from "$lib/typings/spotify";
 import { json } from "@sveltejs/kit";
 
 import { queryApiFn } from "$lib/server/api";
-import { getSpotifyEndpoint, mergeParams } from "$lib/utils/data";
-import { injectAudio } from "$lib/utils/track";
+import { mergeParams } from "$lib/utils/data.js";
+import { getEndpoint } from "$lib/utils/spotify.js";
+import { injectAudio } from "$lib/utils/track.js";
 
 const trackFields = [
 	"id",
@@ -31,7 +32,7 @@ export async function GET({ params, locals, url }) {
 		// TODO: throw Svelte error if queryApi is null
 		if (!queryApi) return json(null);
 
-		const endpoint = getSpotifyEndpoint(
+		const endpoint = getEndpoint(
 			`playlists/${params.id}/tracks`,
 			mergeParams(apiParams, url),
 		);
