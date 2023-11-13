@@ -1,5 +1,18 @@
 <script lang="ts">
+	import type { KeyNotation } from "$lib/typings/app";
+
 	import { enhance } from "$app/forms";
+	import { keyNotation } from "$lib/stores/prefs";
+
+	const notations: Record<KeyNotation, string> = {
+		camelot: "Camelot",
+		musical: "Musical",
+	};
+
+	const onNotationChange = (event: Event) => {
+		const target = event.target as HTMLInputElement;
+		keyNotation.set(target.value as KeyNotation);
+	};
 </script>
 
 <div class="preferences">
@@ -8,14 +21,19 @@
 			<fieldset>
 				<legend class="title">Musical notation</legend>
 				<ul class="radioitems">
-					<li>
-						<input id="notation-camelot" type="radio" name="notation" value="camelot" checked />
-						<label for="notation-camelot"><span>Camelot</span></label>
-					</li>
-					<li>
-						<input id="notation-musical" type="radio" name="notation" value="musical" />
-						<label for="notation-musical"><span>Musical</span></label>
-					</li>
+					{#each Object.entries(notations) as [id, label] (id)}
+						<li>
+							<input
+								id="notation-{id}"
+								type="radio"
+								name="notation"
+								value={id}
+								on:change={onNotationChange}
+								checked={$keyNotation === id}
+							/>
+							<label for="notation-{id}"><span>{label}</span></label>
+						</li>
+					{/each}
 				</ul>
 			</fieldset>
 		</form>
@@ -29,23 +47,6 @@
 </div>
 
 <style lang="postcss">
-	fieldset {
-		border: none;
-		margin: 0;
-		padding: 1rem 0;
-	}
-
-	.radioitems {
-		display: grid;
-		gap: 0.5rem;
-
-		& li {
-			display: flex;
-			align-items: center;
-			gap: 0.5rem;
-		}
-	}
-
 	.preferences {
 		display: grid;
 		grid-template-rows: 1fr auto;

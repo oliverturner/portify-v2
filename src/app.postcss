@@ -119,8 +119,55 @@ body {
 	color: inherit;
 }
 
+:where(fieldset) {
+	border: none;
+	margin: 0;
+	padding: 1rem 0;
+}
+
 :where(button) {
 	cursor: pointer;
+}
+
+/* @link https://moderncss.dev/pure-css-custom-styled-radio-buttons/ */
+:where(input[type="radio"]) {
+	--_stroke: var(--brand);
+	--_wh: 1.15em;
+
+	display: grid;
+	place-content: center;
+
+	appearance: none;
+	margin: 0;
+
+	width: var(--_wh);
+	height: var(--_wh);
+	border: 0.15em solid var(--_stroke);
+	border-radius: 50%;
+	color: currentColor;
+
+	&::before {
+		content: "";
+		width: 0.65em;
+		height: 0.65em;
+		border-radius: 50%;
+
+		transform: scale(0);
+		transition: 120ms transform ease-in-out;
+		box-shadow: inset 1em 1em var(--_stroke);
+
+		/* Windows High Contrast Mode */
+		background-color: CanvasText;
+	}
+
+	&:focus {
+		outline: max(2px, 0.15em) solid currentColor;
+		outline-offset: max(2px, 0.15em);
+	}
+
+	&:checked::before {
+		transform: scale(1);
+	}
 }
 
 :where(figure) {
@@ -141,6 +188,8 @@ body {
 :where(dt, dd) {
 	margin: 0;
 }
+
+
 
 .square {
 	aspect-ratio: 1;
@@ -194,6 +243,17 @@ body {
 
 	& a:hover {
 		text-decoration: underline;
+	}
+}
+
+.radioitems {
+	display: grid;
+	gap: 0.5rem;
+
+	& li {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
 	}
 }
 
@@ -313,59 +373,4 @@ body {
 .stack {
 	display: grid;
 	gap: var(--gap, 0.5rem);
-}
-
-// @link https://moderncss.dev/pure-css-custom-styled-radio-buttons/
-:root {
-	--form-control-color: rebeccapurple;
-	--form-control-color: yellow;
-}
-
-.form-control {
-	display: grid;
-	grid-template-columns: 1em auto;
-	gap: 0.5em;
-}
-
-input {
-	&[type="radio"] {
-		--_wh: 1.15em;
-
-		display: grid;
-		place-content: center;
-
-		/* Remove most all native input styles */
-		appearance: none;
-		/* Not removed via appearance */
-		margin: 0;
-
-		width: var(--_wh);
-		height: var(--_wh);
-		border: 0.15em solid var(--form-control-color);
-		border-radius: 50%;
-		color: currentColor;
-
-		&::before {
-			content: "";
-			width: 0.65em;
-			height: 0.65em;
-			border-radius: 50%;
-
-			transform: scale(0);
-			transition: 120ms transform ease-in-out;
-			box-shadow: inset 1em 1em var(--form-control-color);
-
-			/* Windows High Contrast Mode */
-			background-color: CanvasText;
-		}
-	}
-
-	&:checked::before {
-		transform: scale(1);
-	}
-
-	&:focus {
-		outline: max(2px, 0.15em) solid currentColor;
-		outline-offset: max(2px, 0.15em);
-	}
 }
