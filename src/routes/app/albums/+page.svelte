@@ -16,7 +16,7 @@
 </svelte:head>
 
 <div class="content">
-	<h2 class="content__title">Saved albums</h2>
+	<h3 class="content__title">Saved albums</h3>
 	<ol class="content__items content__items--tiled">
 		{#each savedAlbums as { album } (album.id)}
 			<ContentItem {...getAlbumItemProps(album)}>

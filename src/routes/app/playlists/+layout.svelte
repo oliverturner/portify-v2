@@ -18,10 +18,22 @@
 	<svelte:fragment slot="nav-items">
 		{#each $playlists.items ?? [] as item (item.id)}
 			<NavItem {...getLink(item, currentPath)}>
-				<span slot="label">{item.name}</span>
+				<div class="playlist" slot="label">
+					<span>{item.name}</span>
+					<span>{item.tracks.total}</span>
+				</div>
 			</NavItem>
 		{/each}
 	</svelte:fragment>
 
 	<slot />
 </NavPage>
+
+<style>
+	.playlist {
+		display: flex;
+		justify-content: space-between;
+		align-items: start;
+		gap: 1rem;
+	}
+</style>

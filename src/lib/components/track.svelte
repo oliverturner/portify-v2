@@ -21,7 +21,7 @@
 			addToast({
 				data: {
 					title: "Heads up!",
-					description: "Spotify Connect needs Spotify to be playing",
+					description: "To listen, Spotify Connect needs the Spotify app to be playing",
 					color: "bg-red-500",
 				},
 			});
@@ -90,23 +90,18 @@
 	}
 
 	.playbtn {
+		--_highlight-dark: #fff4;
+
 		grid-area: 1 / 1 / -1 / -1;
 		place-self: end;
 
-		margin: 0.9rem;
-		padding: 0.1rem;
+		margin: 0.5rem;
+		padding: 0.25rem;
 		border-radius: 50%;
-		cursor: pointer;
-
-		& > svg {
-			width: 2rem;
-			height: 2rem;
-		}
 
 		&:hover {
-			& > svg {
+			& svg {
 				fill: #fff;
-				stroke: red;
 			}
 		}
 	}

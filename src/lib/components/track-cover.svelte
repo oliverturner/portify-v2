@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { AudioTrack } from "$lib/typings/app";
 
-
 	import { keyNotation } from "$lib/stores/prefs";
 
 	export let track: AudioTrack;
