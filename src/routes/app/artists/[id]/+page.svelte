@@ -13,10 +13,10 @@
 
 	$: artist = data.artist;
 	$: genres = artist?.genres ?? [];
-	$: topTracks = data.topTracks?.tracks ?? [];
+	$: topTracks = data.tracks ?? [];
 	$: albums = data.albums?.items ?? [];
 	$: appearsOn = data.appearsOn?.items ?? [];
-	$: relatedArtists = data.relatedArtists?.artists ?? [];
+	$: relatedArtists = data.related?.artists ?? [];
 	$: links = getArtistLinks(artist);
 </script>
 

@@ -2,7 +2,8 @@ import type { Page, Artist } from "$lib/typings/spotify";
 
 import { json } from "@sveltejs/kit";
 
-import { getSpotifyEndpoint, mergeParams } from "$lib/utils/data";
+import { mergeParams } from "$lib/utils/data.js";
+import { getEndpoint } from "$lib/utils/spotify.js";
 import { queryApiFn } from "$lib/server/api";
 
 const apiParams: Record<string, unknown> = {
@@ -15,7 +16,7 @@ export async function GET({ locals, url }) {
 
 	if (!queryApi) return json(null);
 
-	const endpoint = getSpotifyEndpoint(`me/following`, mergeParams(apiParams, url));
+	const endpoint = getEndpoint(`me/following`, mergeParams(apiParams, url));
 	const { artists } = await queryApi<{ artists: Page<Artist> }>(endpoint);
 
 	return json(artists);

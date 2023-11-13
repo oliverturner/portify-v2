@@ -1,11 +1,12 @@
 import type { Album } from "$lib/typings/spotify.js";
+import type { AudioTrack } from "$lib/typings/app.js";
 
 import { json } from "@sveltejs/kit";
 
 import { queryApiFn } from "$lib/server/api";
-import { getSpotifyEndpoint, mergeParams } from "$lib/utils/data.js";
+import { mergeParams } from "$lib/utils/data.js";
+import { getEndpoint } from "$lib/utils/spotify.js";
 import { injectAudio } from "$lib/utils/track.js";
-import type { AudioTrack } from "$lib/typings/app.js";
 
 const apiParams = {
 	market: "from_token",
@@ -23,7 +24,7 @@ export const GET = async ({ locals, params, url }) => {
 
 	if (!queryApi) return json(null);
 
-	const endpoint = getSpotifyEndpoint(`albums/${params.id}`, mergeParams(apiParams, url));
+	const endpoint = getEndpoint(`albums/${params.id}`, mergeParams(apiParams, url));
 	const album = await queryApi<Album>(endpoint);
 
 	const trackItems = (album?.tracks?.items ?? []) as AudioTrack[];

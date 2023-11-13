@@ -6,8 +6,9 @@ import type {
 } from "$lib/typings/spotify";
 import type { AudioTrack, QueryApi, TrackAudioFeatures } from "$lib/typings/app";
 
-import { getSpotifyEndpoint } from "./data";
 import keyNotation from "$lib/constants/key-notation";
+
+import { getEndpoint } from "./spotify";
 
 export async function getAudioFeatures({
 	playableTracks,
@@ -20,7 +21,7 @@ export async function getAudioFeatures({
 	const uniqueIds = new Set(trackIds);
 	const ids = [...uniqueIds].join(",");
 
-	const endpoint = getSpotifyEndpoint("audio-features", { ids });
+	const endpoint = getEndpoint("audio-features", { ids });
 	const { audio_features } = await queryApi<AudioFeaturesCollection>(endpoint);
 
 	const trackAudio: Record<string, TrackAudioFeatures> = {};

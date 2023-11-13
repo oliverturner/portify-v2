@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { enhance } from "$app/forms";
 	import { pageNav, prefsPanel } from "$lib/stores/ui";
 
 	import MenuBtn from "./btn-menu.svelte";
+	import Preferences from "./preferences.svelte";
 </script>
 
 <header class="app__header">
@@ -29,11 +29,7 @@
 	<slot />
 
 	<div class="app__content__prefs" class:displayed={$prefsPanel}>
-		<div class="prefs-panel">
-			<form method="post" action="?/logout" use:enhance>
-				<button class="btn">Sign out</button>
-			</form>
-		</div>
+		<Preferences />
 	</div>
 </div>
 
@@ -97,7 +93,7 @@
 		position: fixed;
 		top: 0;
 		right: 0;
-		width: 200px;
+		width: 240px;
 		height: calc(100dvh - 50px);
 		z-index: 2;
 
