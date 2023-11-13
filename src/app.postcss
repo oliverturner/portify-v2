@@ -314,3 +314,58 @@ body {
 	display: grid;
 	gap: var(--gap, 0.5rem);
 }
+
+// @link https://moderncss.dev/pure-css-custom-styled-radio-buttons/
+:root {
+	--form-control-color: rebeccapurple;
+	--form-control-color: yellow;
+}
+
+.form-control {
+	display: grid;
+	grid-template-columns: 1em auto;
+	gap: 0.5em;
+}
+
+input {
+	&[type="radio"] {
+		--_wh: 1.15em;
+
+		display: grid;
+		place-content: center;
+
+		/* Remove most all native input styles */
+		appearance: none;
+		/* Not removed via appearance */
+		margin: 0;
+
+		width: var(--_wh);
+		height: var(--_wh);
+		border: 0.15em solid var(--form-control-color);
+		border-radius: 50%;
+		color: currentColor;
+
+		&::before {
+			content: "";
+			width: 0.65em;
+			height: 0.65em;
+			border-radius: 50%;
+
+			transform: scale(0);
+			transition: 120ms transform ease-in-out;
+			box-shadow: inset 1em 1em var(--form-control-color);
+
+			/* Windows High Contrast Mode */
+			background-color: CanvasText;
+		}
+	}
+
+	&:checked::before {
+		transform: scale(1);
+	}
+
+	&:focus {
+		outline: max(2px, 0.15em) solid currentColor;
+		outline-offset: max(2px, 0.15em);
+	}
+}
