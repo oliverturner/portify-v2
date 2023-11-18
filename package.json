@@ -20,6 +20,7 @@
 		"@playwright/test": "^1.39.0",
 		"@sveltejs/adapter-auto": "^2.1.0",
 		"@sveltejs/adapter-netlify": "2.0.8",
+		"@sveltejs/enhanced-img": "0.1.4",
 		"@sveltejs/kit": "^1.27.2",
 		"@types/node": "20.8.10",
 		"@typescript-eslint/eslint-plugin": "^6.9.1",
