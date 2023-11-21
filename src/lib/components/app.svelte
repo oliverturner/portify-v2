@@ -87,7 +87,7 @@
 	}
 
 	.app__content__prefs {
-		--_height: calc(100dvh - 50px - var(--rail-mobile-h));
+		--_height: calc(100dvh - var(--app-header-h) - var(--rail-mobile-h));
 		--_translateX: 100%;
 		--_bg: var(--surface-0);
 

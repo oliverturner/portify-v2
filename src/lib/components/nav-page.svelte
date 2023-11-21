@@ -94,7 +94,7 @@
 			--_translate-x: 0;
 
 			@media (min-width: 768px) {
-				--_height: calc(100dvh - 50px);
+				--_height: calc(100dvh - var(--app-header-h));
 				--_translate-x: 92px;
 			}
 		}
