@@ -2,6 +2,7 @@
 @import "open-props/buttons";
 
 :root {
+	--app-header-h: 50px;
 	--rail-mobile-h: 72px;
 
 	&[color-scheme="dark"] {
@@ -13,7 +14,7 @@
 		--brand-4: hsla(var(--brand-hsl) / 0.2);
 
 		--surface-0: #000e;
-		--surface-1: #000b;
+		--surface-1: #000c;
 		--surface-2: #000a;
 		--surface-3: #0008;
 		--surface-4: #0006;
@@ -271,7 +272,7 @@ body {
 
 .app {
 	display: grid;
-	grid-template-rows: 50px 1fr;
+	grid-template-rows: var(--app-header-h) 1fr;
 	grid-template-areas:
 		"header"
 		"content";
@@ -279,7 +280,7 @@ body {
 	position: relative;
 	height: 100dvh;
 	overflow: hidden;
-	z-index: 3;
+	/* z-index: 3; */
 }
 
 .app__header {
@@ -312,7 +313,7 @@ body {
 	grid-area: content;
 
 	display: grid;
-	contain: paint;
+	/* contain: paint; */
 }
 
 .content {

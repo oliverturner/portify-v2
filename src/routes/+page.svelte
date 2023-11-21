@@ -11,134 +11,108 @@
 </header>
 
 <main class="app__content">
-	<a class="page" href="/login/spotify">
-		<figure class="page__hero">
-			<img src="/img/hacienda.png" alt="Splash" />
-			<figcaption class="title">
-				<span>Support artists:</span>
-				<span>buy their music</span>
-			</figcaption>
-		</figure>
-		<div class="page__content">
-			<img class="logo-spotify" src="/img/logo-spotify.png" alt="Spotify logo" />
+	<a class="login" href="/login/spotify">
+		<enhanced:img src="../../static/img/splash-1024.png" alt="Splash" />
+
+		<img class="login__logo square" src="/img/logo-spotify.png" alt="Spotify logo" />
+
+		<div class="login__cta textbox">
 			<p>
-				<span>Logging in adds purchase</span>
-				<span>links to your playlists</span>
+				Logging in lets Portify add purchase links to the tracks in your playlists and the artists
+				you follow on Spotify
 			</p>
 		</div>
 	</a>
+
+	<div class="cta">
+		<enhanced:img src="../../static/img/track.png" alt="Track" />
+		<div class="textbox">
+			<p>Portify uses Spotify's Web API to add details like the track's key and tempo.</p>
+			<p>
+				Clicking the key button toggles between Camelot (useful for harmonic mixing) and musical key
+				notation.
+			</p>
+			<p>
+				The play button uses Spotify Connect to play tracks through the app... handy for previewing
+				new music, remixes and browsing artist catalogues.
+			</p>
+		</div>
+	</div>
 </main>
 
 <style>
+	img {
+		width: 100%;
+		height: min-content;
+		object-fit: contain;
+	}
+
 	.app__content {
-		@media (min-width: 768px) {
-			place-content: center;
-		}
-	}
-
-	.page {
-		display: grid;
-
-		@media (min-width: 768px) {
-			display: flex;
-
-			height: 50vh;
-			border-radius: 0.5rem;
-			overflow: hidden;
-		}
-
-		@media (min-width: 1024px) {
-			width: 75vw;
-		}
-	}
-
-	:is(.page__hero, .page__content) {
-		@media (min-width: 768px) {
-			width: 50%;
-		}
-	}
-
-	figure {
-		grid-area: 1 / 1;
+		--_content-w: min(468px, 100vw);
+		--_content-gap: var(--size-4);
+		--_padImage: var(--size-4);
+		--textboxBG: var(--surface-4);
 
 		display: grid;
+		align-content: start;
+		gap: var(--_content-gap);
+
+		max-width: 768px;
+		min-height: 100%;
+		overflow: hidden auto;
+		margin: 0 auto;
+
+		@media (min-width: 768px) {
+			padding-block: var(--_content-gap);
+		}
+	}
+
+	.login {
+		display: grid;
+		gap: var(--_content-gap);
+
+		width: var(--_content-w);
+		margin-inline: auto;
 		text-align: center;
 
-		& > * {
-			grid-area: 1 / 1;
-
-			max-width: 100%;
-		}
-
-		& img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			object-position: top center;
-			overflow: hidden;
+		& > picture {
+			padding-inline: var(--_padImage);
 		}
 	}
 
-	figcaption {
-		align-self: start;
-		justify-self: auto;
-
+	.textbox {
 		display: grid;
-		grid-gap: 0.5rem;
+		gap: var(--_content-gap);
 
-		padding: 1rem;
-		font-size: 1.1rem;
-		text-align: center;
-		background: var(--surface-1);
-
-		@media (min-width: 768px) {
-			align-self: end;
-			justify-self: start;
-
-			text-align: start;
-			font-size: 1.4rem;
-		}
+		padding: var(--size-4);
+		line-height: var(--font-lineheight-4);
+		background: var(--textboxBG);
 	}
 
-	.page__content {
-		grid-area: 1 / 1;
-
-		align-self: end;
-		justify-self: auto;
-
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-
-		padding: 1.5rem;
-		font-size: 1.2rem;
-		line-height: 1.5;
-		background: var(--surface-1);
-
-		& span {
-			display: block;
-		}
-
-		@media (min-width: 768px) {
-			align-self: stretch;
-
-			display: grid;
-			place-content: center;
-			justify-items: center;
-			gap: 2rem;
-
-			padding: 2rem;
-			text-align: center;
-			line-height: 1.6;
-			font-size: 1.2rem;
-		}
-	}
-
-	.logo-spotify {
-		--wh: 5rem;
+	.login__logo {
+		--_wh: 4rem;
 
 		display: block;
-		width: var(--wh);
-		height: var(--wh);
+		width: var(--_wh);
+		height: var(--_wh);
+		margin-inline: auto;
+		background: none;
+	}
+
+	.cta {
+		--textboxBG: var(--surface-6);
+
+		display: grid;
+		gap: var(--_content-gap);
+
+		width: var(--_content-w);
+		margin-inline: auto;
+		text-align: start;
+
+		& img {
+			display: block;
+			max-width: 75%;
+			margin-inline: auto;
+		}
 	}
 </style>
