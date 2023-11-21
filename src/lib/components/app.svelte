@@ -87,6 +87,7 @@
 	}
 
 	.app__content__prefs {
+		--_height: calc(100dvh - 50px - var(--rail-mobile-h));
 		--_translateX: 100%;
 		--_bg: var(--surface-0);
 
@@ -94,7 +95,7 @@
 		top: 0;
 		right: 0;
 		width: 240px;
-		height: calc(100dvh - 50px);
+		height: var(--_height);
 		z-index: 2;
 
 		transform: translateX(var(--_translateX));
@@ -105,6 +106,10 @@
 
 		&.displayed {
 			--_translateX: 0;
+		}
+
+		@media (min-width: 768px) {
+			--_height: 100%;
 		}
 	}
 </style>

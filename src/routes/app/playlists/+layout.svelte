@@ -20,7 +20,7 @@
 			<NavItem {...getLink(item, currentPath)}>
 				<div class="playlist" slot="label">
 					<span>{item.name}</span>
-					<span>{item.tracks.total}</span>
+					<span class="pill">{item.tracks.total}</span>
 				</div>
 			</NavItem>
 		{/each}
@@ -33,7 +33,11 @@
 	.playlist {
 		display: flex;
 		justify-content: space-between;
-		align-items: start;
+		align-items: center;
 		gap: 1rem;
+
+		& .pill {
+			border-color: var(--border-1);
+		}
 	}
 </style>

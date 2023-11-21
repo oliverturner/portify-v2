@@ -64,7 +64,7 @@
 	.page__nav {
 		--_translate-x: -100%;
 		--_width: min(calc(100dvw - 92px), 300px);
-		--_height: 100%;
+		--_height: calc(100% - var(--rail-mobile-h));
 		--_bg: var(--surface-0);
 
 		position: fixed;

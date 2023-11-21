@@ -66,15 +66,22 @@
 
 			width: var(--wh);
 			height: var(--wh);
-			border-radius: var(--wh);
 			padding: 0;
+			border-radius: var(--wh);
 			border-width: 1px;
+			box-shadow: none;
 			font-family: inherit;
 			font-size: 0.9rem;
+			font-weight: 200;
 			text-align: center;
 			text-transform: uppercase;
 			letter-spacing: 0.125em;
-			font-weight: 200;
+
+			&:hover,
+			&:focus {
+				border-color: currentColor;
+				outline: none;
+			}
 		}
 
 		& [data-selected] {
