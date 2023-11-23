@@ -62,8 +62,7 @@
 
 html,
 body {
-	height: 100dvh;
-	overflow: hidden;
+	min-height: 100dvh;
 	margin: 0;
 	font-family: var(--font-sans);
 }
@@ -178,8 +177,6 @@ body {
 	margin: 0;
 }
 
-
-
 .square {
 	aspect-ratio: 1;
 	overflow: hidden;
@@ -280,7 +277,9 @@ body {
 	position: relative;
 	height: 100dvh;
 	overflow: hidden;
-	/* z-index: 3; */
+	/*
+	z-index: 3;
+	*/
 }
 
 .app__header {
@@ -340,11 +339,11 @@ body {
 	}
 
 	&.content__items--grouped {
-		--min-col-width: 22rem;
+		--min-col-width: 20rem;
 	}
 
 	&.content__items--tiled {
-		--min-col-width: 12rem;
+		--min-col-width: 15rem;
 	}
 }
 

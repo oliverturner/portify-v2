@@ -17,7 +17,7 @@
 
 <div class="content">
 	<h3 class="content__title">Saved albums</h3>
-	<ol class="content__items content__items--tiled">
+	<ol class="content__items content__items--grouped">
 		{#each savedAlbums as { album } (album.id)}
 			<ContentItem {...getAlbumItemProps(album)}>
 				<svelte:fragment slot="title">

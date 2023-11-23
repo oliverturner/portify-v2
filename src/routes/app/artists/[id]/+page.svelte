@@ -59,7 +59,7 @@
 {#if albums.length > 0}
 	<div class="content" id="albums">
 		<h3 class="content__title">Albums</h3>
-		<ol class="content__items content__items--tiled">
+		<ol class="content__items content__items--grouped">
 			{#each albums as album (album.id)}
 				<ContentItem {...getAlbumItemProps(album)}>
 					<svelte:fragment slot="title">
@@ -75,7 +75,7 @@
 {#if appearsOn.length > 0}
 	<div class="content">
 		<h3 class="content__title" id="appears-on">Appears on</h3>
-		<ol class="content__items content__items--tiled">
+		<ol class="content__items content__items--grouped">
 			{#each appearsOn as album (album.id)}
 				<ContentItem {...getAlbumItemProps(album)}>
 					<svelte:fragment slot="title">

@@ -11,36 +11,43 @@
 </header>
 
 <main class="app__content">
-	<a class="login" href="/login/spotify">
-		<enhanced:img src="../../static/img/splash-1024.png" alt="Splash" />
+	<div class="page">
+		<a class="login" href="/login/spotify">
+			<enhanced:img src="../../static/img/splash-1024.png" alt="Splash" />
 
-		<img class="login__logo square" src="/img/logo-spotify.png" alt="Spotify logo" />
+			<img class="login__logo square" src="/img/logo-spotify.png" alt="Spotify logo" />
 
-		<div class="login__cta textbox">
-			<p>
-				Logging in lets Portify add purchase links to the tracks in your playlists and the artists
-				you follow on Spotify
-			</p>
-		</div>
-	</a>
+			<div class="login__cta textbox">
+				<p>
+					Logging in lets Portify add purchase links to the tracks in your playlists and the artists
+					you follow on Spotify
+				</p>
+			</div>
+		</a>
 
-	<div class="cta">
-		<enhanced:img src="../../static/img/track.png" alt="Track" />
-		<div class="textbox">
-			<p>Portify uses Spotify's Web API to add details like the track's key and tempo.</p>
-			<p>
-				Clicking the key button toggles between Camelot (useful for harmonic mixing) and musical key
-				notation.
-			</p>
-			<p>
-				The play button uses Spotify Connect to play tracks through the app... handy for previewing
-				new music, remixes and browsing artist catalogues.
-			</p>
+		<div class="cta">
+			<enhanced:img src="../../static/img/track.png" alt="Track" />
+			<div class="textbox">
+				<p>Portify uses Spotify's Web API to add details like the track's key and tempo.</p>
+				<p>
+					Clicking the key button toggles between Camelot (useful for harmonic mixing) and musical
+					key notation.
+				</p>
+				<p>
+					The play button uses Spotify Connect to play tracks through the app... handy for
+					previewing new music, remixes and browsing artist catalogues.
+				</p>
+			</div>
 		</div>
 	</div>
 </main>
 
 <style>
+	:global(html, body, .app) {
+		overflow: initial;
+		height: initial;
+	}
+
 	img {
 		width: 100%;
 		height: min-content;
@@ -53,18 +60,21 @@
 		--_padImage: var(--size-4);
 		--textboxBG: var(--surface-4);
 
+		min-height: 100%;
+		overflow: hidden auto;
+
+		@media (min-width: 768px) {
+			padding-block: var(--_content-gap);
+		}
+	}
+
+	.page {
 		display: grid;
 		align-content: start;
 		gap: var(--_content-gap);
 
 		max-width: 768px;
-		min-height: 100%;
-		overflow: hidden auto;
 		margin: 0 auto;
-
-		@media (min-width: 768px) {
-			padding-block: var(--_content-gap);
-		}
 	}
 
 	.login {
