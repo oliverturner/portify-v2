@@ -3,19 +3,13 @@
 	export let alt: string;
 	export let square = true;
 
-	let loaded = false;
-
-	/**
-	 * If the load event hasn't fired after 2 seconds, fade it up anyway.
-	 */
-	const timeOut = setTimeout(() => {
-		loaded = true;
-	}, 2000);
-
 	const onImageLoaded = () => {
 		clearTimeout(timeOut);
 		loaded = true;
 	};
+
+	$: loaded = false;
+	$: timeOut = setTimeout(() => (loaded = true), 2000);
 </script>
 
 <img {src} {alt} class:square class:loaded on:load={onImageLoaded} loading="lazy" />
