@@ -17,7 +17,7 @@ export function getArtistLinks(artist: Artist | undefined) {
 	if (!artist) return;
 
 	return {
-		spotify: artist.external_urls.spotify,
+		spotify: artist.external_urls?.spotify,
 		bandcamp: `https://bandcamp.com/search?q=${artist.name}`,
 		beatport: `https://www.beatport.com/search?q=${artist.name}`,
 	};

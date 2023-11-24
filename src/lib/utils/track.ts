@@ -68,7 +68,7 @@ export async function injectAudio(queryApi: QueryApi, rawTracks: TrackItem[] | A
 export function getTrackLinks(track: Track | SimplifiedTrack | undefined) {
 	if (!track) return;
 
-	const bandcampArtist = track.artists[0].name;
+	const bandcampArtist = track.artists[0]?.name;
 	const bandcampUrl = new URL("https://bandcamp.com/search");
 	bandcampUrl.searchParams.set("q", `${bandcampArtist} ${track.name}`);
 
@@ -77,7 +77,7 @@ export function getTrackLinks(track: Track | SimplifiedTrack | undefined) {
 	beatportUrl.searchParams.set("q", `${beatportArtists} ${track.name}`);
 
 	return {
-		spotify: track.external_urls.spotify,
+		spotify: track.external_urls?.spotify,
 		bandcamp: bandcampUrl.toString(),
 		beatport: beatportUrl.toString(),
 	};

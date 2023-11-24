@@ -23,7 +23,7 @@ export function createPageStore<T>(endpoint: string) {
 			update((state) => {
 				return {
 					...data,
-					items: [...state.items, ...data.items],
+					items: [...state.items, ...(data.items ?? [])],
 				};
 			});
 		},

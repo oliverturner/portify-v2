@@ -16,11 +16,11 @@
 
 <NavPage onNavScrollEnd={() => playlists.loadNext($playlists.next)}>
 	<svelte:fragment slot="nav-items">
-		{#each $playlists.items ?? [] as item (item.id)}
+		{#each $playlists.items as item (item.id)}
 			<NavItem {...getLink(item, currentPath)}>
 				<div class="playlist" slot="label">
 					<span>{item.name}</span>
-					<span class="pill">{item.tracks.total}</span>
+					<span class="badge">{item.tracks?.total ?? 0}</span>
 				</div>
 			</NavItem>
 		{/each}
@@ -36,8 +36,10 @@
 		align-items: center;
 		gap: 1rem;
 
-		& .pill {
-			border-color: var(--border-1);
+		& .badge {
+			border: 1px solid var(--border-1);
+			border-radius: 1rem;
+			padding: 0.25rem 0.75rem;
 		}
 	}
 </style>

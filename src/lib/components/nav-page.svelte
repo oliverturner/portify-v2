@@ -10,8 +10,9 @@
 	};
 
 	export let onNavScroll = (entries: IntersectionObserverEntry[]) => {
-		const entry = entries[0];
-		if (entry.isIntersecting) {
+		const sentinel = entries[0];
+
+		if (sentinel.isIntersecting) {
 			onNavScrollEnd();
 		}
 	};
@@ -58,7 +59,7 @@
 
 	:is(.page__nav, .page__content) {
 		overflow: hidden auto;
-		scrollbar-gutter: stable;
+		/* scrollbar-gutter: stable; */
 	}
 
 	.page__nav {

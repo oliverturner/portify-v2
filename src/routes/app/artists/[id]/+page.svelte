@@ -11,7 +11,7 @@
 
 	export let data: PageData;
 
-	$: artist = data.artist;
+	$: artist = data.artist ?? {};
 	$: genres = artist?.genres ?? [];
 	$: topTracks = data.tracks ?? [];
 	$: albums = data.albums?.items ?? [];
