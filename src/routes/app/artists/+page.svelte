@@ -16,7 +16,7 @@
 </svelte:head>
 
 <div class="content">
-	<h2 class="content__title">Top Artists</h2>
+	<h3 class="content__title">Top Artists</h3>
 	<ol class="content__items content__items--tiled">
 		{#each topArtists as artist (artist.id)}
 			<ContentItem {...getArtistItemProps(artist)}>
@@ -27,7 +27,7 @@
 </div>
 
 <div class="content">
-	<h2 class="content__title">Followed Artists</h2>
+	<h3 class="content__title">Followed Artists</h3>
 	<ol class="content__items content__items--tiled">
 		{#each followedArtists as artist (artist.id)}
 			<ContentItem {...getArtistItemProps(artist)}>

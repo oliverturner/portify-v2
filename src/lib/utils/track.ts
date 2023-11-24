@@ -77,6 +77,7 @@ export function getTrackLinks(track: Track | SimplifiedTrack | undefined) {
 	beatportUrl.searchParams.set("q", `${beatportArtists} ${track.name}`);
 
 	return {
+		spotify: track.external_urls.spotify,
 		bandcamp: bandcampUrl.toString(),
 		beatport: beatportUrl.toString(),
 	};

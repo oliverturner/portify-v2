@@ -37,11 +37,6 @@
 		{#if data.playlist.description}
 			<div>{@html data.playlist.description}</div>
 		{/if}
-
-		<dl class="datatable">
-			<dt aria-label="Count">Track count:</dt>
-			<dd>{$tracksPage.total}</dd>
-		</dl>
 	</div>
 </Topper>
 

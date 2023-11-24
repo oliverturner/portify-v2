@@ -1,20 +1,8 @@
 /* See https://github.com/argyleink/open-props/tree/main/src for details */
-@import "open-props/style";
-@import "open-props/animations";
-/* @import "open-props/aspects"; */
 @import "open-props/buttons";
-@import "open-props/colors";
-@import "open-props/colors-hsl";
-@import "open-props/fonts";
-@import "open-props/gradients";
-/* @import "open-props/masks/corner-cuts"; */
-/* @import "open-props/masks/edges"; */
-/* @import "open-props/media"; */
-/* @import "open-props/shadows"; */
-@import "open-props/sizes";
-/* @import "open-props/zindex"; */
 
 :root {
+	--app-header-h: 50px;
 	--rail-mobile-h: 72px;
 
 	&[color-scheme="dark"] {
@@ -26,7 +14,7 @@
 		--brand-4: hsla(var(--brand-hsl) / 0.2);
 
 		--surface-0: #000e;
-		--surface-1: #000b;
+		--surface-1: #000c;
 		--surface-2: #000a;
 		--surface-3: #0008;
 		--surface-4: #0006;
@@ -74,8 +62,7 @@
 
 html,
 body {
-	height: 100dvh;
-	overflow: hidden;
+	min-height: 100dvh;
 	margin: 0;
 	font-family: var(--font-sans);
 }
@@ -100,6 +87,7 @@ body {
 	--font-weight: 200;
 
 	text-transform: uppercase;
+	text-wrap: balance;
 	letter-spacing: 0.125em;
 	font-weight: var(--font-weight);
 }
@@ -188,8 +176,6 @@ body {
 :where(dt, dd) {
 	margin: 0;
 }
-
-
 
 .square {
 	aspect-ratio: 1;
@@ -283,7 +269,7 @@ body {
 
 .app {
 	display: grid;
-	grid-template-rows: 50px 1fr;
+	grid-template-rows: var(--app-header-h) 1fr;
 	grid-template-areas:
 		"header"
 		"content";
@@ -291,7 +277,9 @@ body {
 	position: relative;
 	height: 100dvh;
 	overflow: hidden;
+	/*
 	z-index: 3;
+	*/
 }
 
 .app__header {
@@ -324,7 +312,7 @@ body {
 	grid-area: content;
 
 	display: grid;
-	contain: paint;
+	/* contain: paint; */
 }
 
 .content {
@@ -351,11 +339,11 @@ body {
 	}
 
 	&.content__items--grouped {
-		--min-col-width: 22rem;
+		--min-col-width: 20rem;
 	}
 
 	&.content__items--tiled {
-		--min-col-width: 12rem;
+		--min-col-width: 16rem;
 	}
 }
 
@@ -373,4 +361,21 @@ body {
 .stack {
 	display: grid;
 	gap: var(--gap, 0.5rem);
+}
+
+.playbtn {
+	--_highlight-dark: #fff4;
+
+	grid-area: 1 / 1 / -1 / -1;
+	place-self: end;
+
+	margin: 0.5rem;
+	padding: 0.25rem;
+	border-radius: 50%;
+
+	&:hover {
+		& svg {
+			fill: #fff;
+		}
+	}
 }
