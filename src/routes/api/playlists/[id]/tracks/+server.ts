@@ -18,12 +18,12 @@ const trackFields = [
 	"album(id,name,images)",
 ].join(",");
 
-const apiParams = {
+const getDefaultParams = () => ({
 	offset: 0,
 	limit: 50,
 	market: "from_token",
 	fields: `limit,offset,total,next,previous,items(track(${trackFields}))`,
-};
+});
 
 export async function GET({ params, locals, url }) {
 	try {
@@ -34,7 +34,7 @@ export async function GET({ params, locals, url }) {
 
 		const endpoint = getEndpoint(
 			`playlists/${params.id}/tracks`,
-			mergeParams(apiParams, url),
+			mergeParams(getDefaultParams(), url),
 		);
 		const { items, ...page } = await queryApi<Page<PlaylistedTrack<TrackItem>>>(endpoint);
 		const trackItems = items.map(({ track }) => track);

@@ -10,11 +10,12 @@
 
 	export let data: LayoutData;
 
-	$: artists.set(data.following ?? getInitialPage());
+	$: artists.set(data.followedArtists ?? getInitialPage());
 	$: currentPath = $page.url.pathname;
 </script>
 
 <NavPage onNavScrollEnd={() => artists.loadNext($artists.next)}>
+	<!-- <NavPage> -->
 	<svelte:fragment slot="nav-items">
 		{#each $artists.items as item (item.id)}
 			<NavItem {...getLink(item, currentPath)}>

@@ -7,19 +7,19 @@ import { queryApiFn } from "$lib/server/api.js";
 import { mergeParams } from "$lib/utils/data.js";
 import { getEndpoint } from "$lib/utils/spotify.js";
 
-const apiParams = {
+const getDefaultParams = () => ({
 	fields: `id,name,description,images`,
 	market: "from_token",
 	limit: 50,
 	offset: 0,
-};
+});
 
 export async function GET({ locals, params, fetch, url }) {
 	const queryApi = await queryApiFn(locals.auth);
 
 	if (!queryApi) return json(null);
 
-	const qs = mergeParams(apiParams, url);
+	const qs = mergeParams(getDefaultParams(), url);
 	const endpoint = getEndpoint(`playlists/${params.id}`, qs);
 	const playlist = await queryApi<Playlist>(endpoint);
 
