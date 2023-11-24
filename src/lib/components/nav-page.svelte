@@ -20,8 +20,7 @@
 	onMount(() => {
 		let observer = new IntersectionObserver(onNavScroll, {
 			root: navScrollRoot,
-			rootMargin: "0px",
-			threshold: 1.0,
+			rootMargin: "0px 0px 100px 0px"
 		});
 
 		observer.observe(navScrollSentinel);

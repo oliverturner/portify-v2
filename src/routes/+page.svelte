@@ -12,32 +12,34 @@
 
 <main class="app__content">
 	<div class="page">
-		<a class="login textbox" href="/login/spotify">
-			<enhanced:img src="../../static/img/splash-1024.png" alt="Splash" />
-
-			<img class="login__logo square" src="/img/logo-spotify.png" alt="Spotify logo" />
-
-			<div class="login__cta">
-				<p>
-					Logging in lets Portify add purchase links to the tracks in your playlists and the artists
-					you follow on Spotify
-				</p>
+		<a class="login bg" href="/login/spotify">
+			<div class="login__content">
+				<enhanced:img src="../../static/img/splash-1024.png" alt="Splash" />
+				<div class="textbox">
+					<img class="login__logo square" src="/img/logo-spotify.png" alt="Spotify logo" />
+					<Icon id="icon-arrow-up" />
+					<p class="title">Click!</p>
+				</div>
 			</div>
 		</a>
 
-		<div class="cta">
+		<div class="cta textbox bg">
+			<p>
+				Logging in lets Portify add purchase links to the tracks in your Spotify playlists. Your
+				details are never stored or shared: the sole purpose of the app is to help you support the
+				artists you love.
+			</p>
+
 			<enhanced:img src="../../static/img/track.png" alt="Track" />
-			<div class="textbox">
-				<p>Portify uses Spotify's Web API to add details like the track's key and tempo.</p>
-				<p>
-					Clicking the key button toggles between Camelot (useful for harmonic mixing) and musical
-					key notation.
-				</p>
-				<p>
-					The play button uses Spotify Connect to play tracks through the app... handy for
-					previewing new music, remixes and browsing artist catalogues.
-				</p>
-			</div>
+
+			<p>
+				Portify uses Spotify's Web API to add details like the track's key and tempo, while clicking
+				the key button toggles between Camelot (useful for harmonic mixing) and musical notation.
+			</p>
+			<p>
+				The play button uses Spotify Connect to play tracks through the app... handy for previewing
+				new music, remixes and browsing artist catalogues.
+			</p>
 		</div>
 	</div>
 </main>
@@ -47,6 +49,15 @@
 		width: 100%;
 		height: min-content;
 		object-fit: contain;
+	}
+
+	.bg {
+		background: var(--textboxBG);
+	}
+
+	.textbox {
+		padding: var(--size-4);
+		line-height: var(--font-lineheight-4);
 	}
 
 	.app__content {
@@ -61,23 +72,34 @@
 		@media (min-width: 768px) {
 			padding-block: var(--_content-gap);
 		}
+
+		@media (min-width: 1024px) {
+			place-content: center;
+		}
 	}
 
 	.page {
+		--_maxWidth: 768px;
+		--_marginInline: auto;
+
 		display: grid;
-		align-content: start;
 		gap: var(--_content-gap);
 
-		max-width: 768px;
+		width: 100%;
+		max-width: var(--_maxWidth);
 		margin: 0 auto;
+
+		@media (min-width: 1024px) {
+			--_maxWidth: 1024px;
+			--_marginInline: 0;
+
+			grid-template-columns: 1fr 1fr;
+		}
 	}
 
 	.login {
-		display: grid;
-		gap: var(--_content-gap);
-
 		width: var(--_content-w);
-		margin-inline: auto;
+		margin-inline: var(--_marginInline);
 		text-align: center;
 
 		& > picture {
@@ -85,13 +107,14 @@
 		}
 	}
 
-	.textbox {
-		display: grid;
-		gap: var(--_content-gap);
+	.login__content {
+		& .textbox {
+			display: grid;
+			place-items: start center;
+			gap: var(--size-2);
 
-		padding: var(--size-4);
-		line-height: var(--font-lineheight-4);
-		background: var(--textboxBG);
+			line-height: 1;
+		}
 	}
 
 	.login__logo {
@@ -105,13 +128,14 @@
 	}
 
 	.cta {
+		--_content-gap: var(--size-4);
 		--textboxBG: var(--surface-6);
 
 		display: grid;
 		gap: var(--_content-gap);
 
 		width: var(--_content-w);
-		margin-inline: auto;
+		margin-inline: var(--_marginInline);
 		text-align: start;
 
 		& img {
