@@ -26,6 +26,7 @@ export function getAlbumLinks(album: Album | null) {
 	if (!album) return;
 
 	return {
+		spotify: album.external_urls.spotify,
 		bandcamp: `https://www.bandcamp.com/search?q=${album.name}`,
 		beatport: `https://www.beatport.com/search?q=${album.name}`,
 	};

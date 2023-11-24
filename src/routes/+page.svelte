@@ -12,12 +12,12 @@
 
 <main class="app__content">
 	<div class="page">
-		<a class="login" href="/login/spotify">
+		<a class="login textbox" href="/login/spotify">
 			<enhanced:img src="../../static/img/splash-1024.png" alt="Splash" />
 
 			<img class="login__logo square" src="/img/logo-spotify.png" alt="Spotify logo" />
 
-			<div class="login__cta textbox">
+			<div class="login__cta">
 				<p>
 					Logging in lets Portify add purchase links to the tracks in your playlists and the artists
 					you follow on Spotify
@@ -43,11 +43,6 @@
 </main>
 
 <style>
-	:global(html, body, .app) {
-		overflow: initial;
-		height: initial;
-	}
-
 	img {
 		width: 100%;
 		height: min-content;
@@ -121,7 +116,7 @@
 
 		& img {
 			display: block;
-			max-width: 75%;
+			/* max-width: 75%; */
 			margin-inline: auto;
 		}
 	}

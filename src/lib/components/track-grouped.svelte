@@ -1,11 +1,13 @@
 <script lang="ts">
 	import type { AudioTrack } from "$lib/typings/app";
 
+	import Icon from "./icon.svelte";
 	import IconLink from "./icon-link.svelte";
 	import TrackCover from "./track-cover.svelte";
 	import TrackArtists from "./track-artists.svelte";
 	import VendorLinks from "./vendor-links.svelte";
 	import { getTrackLinks } from "$lib/utils/track";
+	import { onPlayBtnClick } from "$lib/utils/player";
 
 	export let index: number;
 	export let track: AudioTrack;
@@ -32,6 +34,11 @@
 
 		<VendorLinks {links} />
 	</div>
+
+	<button class="playbtn" on:click={() => onPlayBtnClick(track.id)}>
+		<Icon id="icon-play-btn" />
+		<span class="sr-only">Play</span>
+	</button>
 </article>
 
 <style lang="postcss">
@@ -64,5 +71,12 @@
 		& a:hover {
 			text-decoration: underline;
 		}
+	}
+
+	.playbtn {
+		--_highlight-dark: #fff4;
+
+		grid-area: 1 / 1 / -1 / -1;
+		place-self: end;
 	}
 </style>

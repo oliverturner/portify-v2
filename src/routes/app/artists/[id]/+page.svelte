@@ -29,8 +29,6 @@
 		<div class="stack">
 			<h2>{artist.name}</h2>
 
-			<VendorLinks {links} />
-
 			{#if genres.length > 0}
 				<p class="artist__genres">
 					{#each genres as genre}
@@ -39,6 +37,8 @@
 					{/each}
 				</p>
 			{/if}
+
+			<VendorLinks {links} />
 		</div>
 	</Topper>
 {/if}

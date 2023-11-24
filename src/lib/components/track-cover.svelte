@@ -56,6 +56,8 @@
 
 		&.compact {
 			grid-area: btn;
+
+			padding-block: 1rem;
 		}
 	}
 

@@ -343,7 +343,7 @@ body {
 	}
 
 	&.content__items--tiled {
-		--min-col-width: 15rem;
+		--min-col-width: 16rem;
 	}
 }
 
@@ -361,4 +361,21 @@ body {
 .stack {
 	display: grid;
 	gap: var(--gap, 0.5rem);
+}
+
+.playbtn {
+	--_highlight-dark: #fff4;
+
+	grid-area: 1 / 1 / -1 / -1;
+	place-self: end;
+
+	margin: 0.5rem;
+	padding: 0.25rem;
+	border-radius: 50%;
+
+	&:hover {
+		& svg {
+			fill: #fff;
+		}
+	}
 }

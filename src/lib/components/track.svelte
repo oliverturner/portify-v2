@@ -7,26 +7,11 @@
 	import TrackCover from "./track-cover.svelte";
 	import TrackArtists from "./track-artists.svelte";
 	import VendorLinks from "./vendor-links.svelte";
-	import { addToast } from "$lib/components/toaster.svelte";
 
 	import { getTrackLinks } from "$lib/utils/track";
-	import { playTrack } from "$lib/utils/player";
+	import { onPlayBtnClick } from "$lib/utils/player";
 
 	export let track: AudioTrack;
-
-	async function onPlayBtnClick() {
-		const { status } = await playTrack(track.id);
-
-		if (status === 404) {
-			addToast({
-				data: {
-					title: "Heads up!",
-					description: "To listen, Spotify Connect needs the Spotify app to be playing",
-					color: "bg-red-500",
-				},
-			});
-		}
-	}
 
 	$: links = getTrackLinks(track);
 </script>
@@ -52,7 +37,7 @@
 		<VendorLinks {links} />
 	</div>
 
-	<button class="playbtn" on:click={onPlayBtnClick}>
+	<button class="playbtn" on:click={() => onPlayBtnClick(track.id)}>
 		<Icon id="icon-play-btn" />
 		<span class="sr-only">Play</span>
 	</button>
@@ -63,8 +48,10 @@
 		display: grid;
 		grid-template-columns: auto 1fr auto;
 		grid-template-areas: "cover info";
-		align-items: start;
+		/* align-items: start; */
+		align-items: center;
 
+		height: 100%;
 		background: var(--surface-5);
 	}
 
@@ -94,15 +81,5 @@
 
 		grid-area: 1 / 1 / -1 / -1;
 		place-self: end;
-
-		margin: 0.5rem;
-		padding: 0.25rem;
-		border-radius: 50%;
-
-		&:hover {
-			& svg {
-				fill: #fff;
-			}
-		}
 	}
 </style>

@@ -32,8 +32,6 @@
 						{/each}
 					</ul>
 				</dd>
-				<dt aria-label="Appears on"><Icon id="icon-album" /></dt>
-				<dd><a href="/app/albums/{album?.id}">{album?.name}</a></dd>
 				<dt aria-label="Release date"><Icon id="icon-calendar" /></dt>
 				<dd>{album?.release_date}</dd>
 			</dl>
@@ -44,9 +42,9 @@
 
 	<div class="content">
 		<ol class="content__items content__items--grouped">
-			{#each tracks as track (track.id)}
+			{#each tracks as track, index (track.id)}
 				<li class="content__item">
-					<GroupedTrack index={track.track_number} {track} {showArtists} />
+					<GroupedTrack index={index + 1} {track} {showArtists} />
 				</li>
 			{/each}
 		</ol>
