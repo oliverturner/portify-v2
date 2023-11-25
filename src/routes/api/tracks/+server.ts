@@ -9,7 +9,7 @@ import { mergeParams } from "$lib/utils/data.js";
 import { getEndpoint } from "$lib/utils/spotify.js";
 
 const getDefaultParams = () => ({
-	time_range: "short_term",
+	time_range: "long_term",
 	limit: 50,
 	offset: 0,
 });

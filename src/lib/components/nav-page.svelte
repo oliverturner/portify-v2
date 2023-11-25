@@ -58,17 +58,16 @@
 
 	:is(.page__nav, .page__content) {
 		overflow: hidden auto;
-		/* scrollbar-gutter: stable; */
 	}
 
 	.page__nav {
 		--_translate-x: -100%;
 		--_width: min(calc(100dvw - 92px), 300px);
-		--_height: calc(100% - var(--rail-mobile-h));
+		--_height: calc(100% - var(--app-header-h) - var(--rail-mobile-h));
 		--_bg: var(--surface-0);
 
 		position: fixed;
-		top: 0;
+		top: var(--app-header-h);
 		left: 0;
 		width: var(--_width);
 		height: var(--_height);

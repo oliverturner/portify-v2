@@ -24,8 +24,6 @@
 	</div>
 
 	<div class="info">
-		<TrackArtists artists={track.artists} />
-
 		<IconLink icon="icon-track" href="/app/tracks/{track.id}" title="Track">
 			<span>{track.name}</span>
 		</IconLink>
@@ -33,6 +31,8 @@
 		<IconLink icon="icon-album" href="/app/albums/{track.album.id}" title="Release">
 			<span>{track.album.name}</span>
 		</IconLink>
+
+		<TrackArtists artists={track.artists} />
 
 		<VendorLinks {links} />
 	</div>
@@ -48,7 +48,6 @@
 		display: grid;
 		grid-template-columns: auto 1fr auto;
 		grid-template-areas: "cover info";
-		/* align-items: start; */
 		align-items: center;
 
 		height: 100%;

@@ -92,7 +92,7 @@
 		--_bg: var(--surface-0);
 
 		position: fixed;
-		top: 0;
+		top: var(--app-header-h);
 		right: 0;
 		width: 240px;
 		height: var(--_height);

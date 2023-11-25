@@ -1,7 +1,7 @@
 import type { Page } from "$lib/typings/spotify";
 import type { AudioTrack } from "$lib/typings/app";
 
-import { writable } from "svelte/store";
+import { derived, writable } from "svelte/store";
 
 import { getInitialPage } from "$lib/utils/api";
 
@@ -21,8 +21,13 @@ export function createPageStore() {
 			const data = (await res.json()) as Page<AudioTrack>;
 
 			set(data);
-		}
+		},
 	};
 }
 
 export const tracksPage = createPageStore();
+
+export const isGrouped = derived(tracksPage, ($tracksPage) => {
+	const sampleAlbumId = $tracksPage.items[0]?.album.id;
+	return $tracksPage.items.every((track) => track.album.id === sampleAlbumId);
+});

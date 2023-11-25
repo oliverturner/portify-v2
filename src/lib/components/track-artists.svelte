@@ -25,6 +25,8 @@
 		& li {
 			display: inline;
 
+			color: var(--text-2);
+
 			&:not(:last-child)::after {
 				content: ", ";
 			}

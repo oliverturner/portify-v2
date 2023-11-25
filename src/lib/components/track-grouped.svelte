@@ -24,13 +24,13 @@
 	</div>
 
 	<div class="track__info">
-		{#if showArtists}
-			<TrackArtists artists={track.artists} />
-		{/if}
-
 		<IconLink icon="icon-track" href="/app/tracks/{track.id}">
 			<span>{track.name}</span>
 		</IconLink>
+
+		{#if showArtists}
+			<TrackArtists artists={track.artists} />
+		{/if}
 
 		<VendorLinks {links} />
 	</div>

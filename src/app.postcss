@@ -5,6 +5,7 @@
 	--app-header-h: 50px;
 	--rail-mobile-h: 72px;
 
+	/* Attribute on :root element */
 	&[color-scheme="dark"] {
 		--brand-hsl: var(--blue-8-hsl);
 		--brand: hsla(var(--brand-hsl) / 1);
@@ -20,16 +21,9 @@
 		--surface-4: #0006;
 		--surface-5: #0005;
 		--surface-6: #0003;
-		--surface-7: #0002;
 
-		--text-0: #fffe;
-		--text-1: #fffb;
-		--text-2: #fffa;
-		--text-3: #fff8;
-		--text-4: #fff6;
-		--text-5: #fff5;
-		--text-6: #fff3;
-		--text-7: #fff2;
+		--text-1: #fffc;
+		--text-2: hsl(var(--blue-3-hsl));
 
 		--border-7: #fffe;
 		--border-6: #fffb;
@@ -90,6 +84,13 @@ body {
 	text-wrap: balance;
 	letter-spacing: 0.125em;
 	font-weight: var(--font-weight);
+
+	& span {
+		text-transform: lowercase;
+		font-style: italic;
+		font-size: 0.9em;
+		letterspacing: initial;
+	}
 }
 
 :where(p) {
@@ -223,10 +224,6 @@ body {
 		margin: 0;
 	}
 
-	& > dt {
-		color: var(--text-2);
-	}
-
 	& a:hover {
 		text-decoration: underline;
 	}
@@ -350,7 +347,7 @@ body {
 .item__artists {
 	display: block;
 	font-size: 0.95em;
-	color: var(--text-4);
+	color: var(--text-2);
 }
 
 .muted {
