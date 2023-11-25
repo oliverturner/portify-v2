@@ -6,7 +6,7 @@
 
 {#if links}
 	<div class="links">
-		<Icon id="icon-shopping-bag" />
+		<Icon id="icon-link-external" />
 		<ul>
 			<li>
 				<a href={links.spotify} class="square" target="_blank">

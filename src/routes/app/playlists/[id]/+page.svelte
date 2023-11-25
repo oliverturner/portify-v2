@@ -7,14 +7,13 @@
 	import GroupedTrack from "$lib/components/track-grouped.svelte";
 	import Pagination from "$lib/components/pagination.svelte";
 	import { getInitialPage } from "$lib/utils/api";
-	import { tracksPage } from "./store";
+	import { tracksPage, isGrouped } from "./store";
 
 	export let data: PageData;
 
 	$: tracksPage.set(data.tracks ?? getInitialPage<AudioTrack>());
 
 	// TODO: set value in the store somehow
-	$: isGrouped = false;
 	$: imgUrl = data.playlist?.images?.[0]?.url;
 	$: title = data.playlist?.name;
 	$: showPagination = $tracksPage.total > $tracksPage.limit;
@@ -46,10 +45,10 @@
 
 <div class="content">
 	<!-- TODO use proper shorthand and componentisation -->
-	<ol class="content__items" class:content__items--grouped={isGrouped}>
+	<ol class="content__items" class:content__items--grouped={$isGrouped}>
 		{#each $tracksPage.items as track, index (track.id)}
 			<li class="content__item">
-				{#if isGrouped}
+				{#if $isGrouped}
 					<GroupedTrack index={index + 1} {track} />
 				{:else}
 					<Track {track} />
