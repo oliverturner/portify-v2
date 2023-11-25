@@ -109,7 +109,7 @@
 		}
 
 		@media (min-width: 768px) {
-			--_height: 100%;
+			--_height: calc(100dvh - var(--app-header-h));
 		}
 	}
 </style>
