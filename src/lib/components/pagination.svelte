@@ -36,7 +36,11 @@
 		</button>
 	</div>
 
-	<p class="pagination__status">Showing: {$range.start} - {$range.end} <span>of</span> {count}</p>
+	<p class="pagination__status">
+		Showing: {$range.start} - {$range.end}
+		<span class="sub">of</span>
+		{count}
+	</p>
 </nav>
 
 <style lang="postcss">
