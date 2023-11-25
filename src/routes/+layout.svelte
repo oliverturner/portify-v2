@@ -7,6 +7,7 @@
 	import Toaster from "$lib/components/toaster.svelte";
 
 	onNavigate((navigation) => {
+		// Hide mobile nav
 		pageNav.set(false);
 
 		if (!document.startViewTransition) return;
