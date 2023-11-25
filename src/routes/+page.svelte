@@ -12,18 +12,16 @@
 
 <main class="app__content">
 	<div class="page">
-		<a class="login bg" href="/login/spotify">
-			<div class="login__content">
-				<enhanced:img src="../../static/img/splash-1024.png" alt="Splash" />
-				<div class="textbox">
-					<img class="login__logo square" src="/img/logo-spotify.png" alt="Spotify logo" />
-					<Icon id="icon-arrow-up" />
-					<p class="title">Click!</p>
-				</div>
+		<a class="login" href="/login/spotify">
+			<enhanced:img class="login__hero" src="../../static/img/splash-1024.png" alt="Splash" />
+			<div class="textbox">
+				<img class="login__logo square" src="/img/logo-spotify.png" alt="Spotify logo" />
+				<Icon id="icon-arrow-up" />
+				<p class="title">Click!</p>
 			</div>
 		</a>
 
-		<div class="cta textbox bg">
+		<div class="cta textbox">
 			<p>
 				Logging in lets Portify add purchase links to the tracks in your Spotify playlists. Your
 				details are never stored or shared: the sole purpose of the app is to help you support the
@@ -51,67 +49,66 @@
 		object-fit: contain;
 	}
 
-	.bg {
-		background: var(--textboxBG);
-	}
-
 	.textbox {
+		display: grid;
+		gap: var(--contentGap);
+
 		padding: var(--size-4);
 		line-height: var(--font-lineheight-4);
+		text-align: start;
+
+		& img {
+			display: block;
+			margin-inline: auto;
+		}
 	}
 
 	.app__content {
-		--_content-w: min(468px, 100vw);
-		--_content-gap: var(--size-4);
-		--_padImage: var(--size-4);
-		--textboxBG: var(--surface-4);
+		--contentWidth: min(468px, 100vw);
+		--contentGap: var(--size-4);
+		--padImage: var(--size-4);
+		--bg: var(--surface-4);
 
 		min-height: 100%;
 		overflow: hidden auto;
 
 		@media (min-width: 768px) {
-			padding-block: var(--_content-gap);
+			padding-block: var(--contentGap);
 		}
 
 		@media (min-width: 1024px) {
-			place-content: center;
+			place-content: start center;
+
+			@media (min-height: 640px) {
+				place-content: center;
+			}
 		}
 	}
 
 	.page {
-		--_maxWidth: 768px;
-		--_marginInline: auto;
+		--_maxWidth: 468px;
 
 		display: grid;
-		gap: var(--_content-gap);
+		gap: var(--contentGap);
 
-		width: 100%;
 		max-width: var(--_maxWidth);
 		margin: 0 auto;
 
 		@media (min-width: 1024px) {
-			--_maxWidth: 1024px;
-			--_marginInline: 0;
+			--_maxWidth: min(1200px, 75vw);
 
-			grid-template-columns: 1fr 1fr;
+			grid-template-columns: 50% 50%;
 		}
 	}
 
 	.login {
-		width: var(--_content-w);
-		margin-inline: var(--_marginInline);
 		text-align: center;
+		background: var(--bg);
 
-		& > picture {
-			padding-inline: var(--_padImage);
-		}
-	}
-
-	.login__content {
 		& .textbox {
-			display: grid;
+			--contentGap: var(--size-2);
+
 			place-items: start center;
-			gap: var(--size-2);
 
 			line-height: 1;
 		}
@@ -128,20 +125,6 @@
 	}
 
 	.cta {
-		--_content-gap: var(--size-4);
-		--textboxBG: var(--surface-6);
-
-		display: grid;
-		gap: var(--_content-gap);
-
-		width: var(--_content-w);
-		margin-inline: var(--_marginInline);
-		text-align: start;
-
-		& img {
-			display: block;
-			/* max-width: 75%; */
-			margin-inline: auto;
-		}
+		background: var(--bg);
 	}
 </style>
