@@ -11,7 +11,9 @@
 		"strict": true,
 
 		"declaration": true,
-		"allowImportingTsExtensions": true
+		"allowImportingTsExtensions": true,
+
+		"types": ["vitest/globals"]
 	}
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
 	//
