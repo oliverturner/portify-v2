@@ -7,7 +7,7 @@
 </svelte:head>
 
 <header class="app__header">
-	<p class="title app__header__title">Portify</p>
+	<h1 class="app__header__title">Portify</h1>
 </header>
 
 <main class="app__content">

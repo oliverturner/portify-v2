@@ -23,5 +23,9 @@
 	// add support for autocomplete in JS or JS like files
 	"cssvar.extensions": ["css", "postcss", "svelte"],
 
-	"prettier.documentSelectors": ["**/*.svelte"]
+	"prettier.documentSelectors": ["**/*.svelte"],
+
+	"vitest.include": [
+		"**/__tests__/*.spec.ts",
+	]
 }

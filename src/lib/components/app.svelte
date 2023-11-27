@@ -8,7 +8,9 @@
 <header class="app__header">
 	<MenuBtn onClick={pageNav.toggle} />
 
-	<a href="/app/playlists" class="title app__header__title">Portify</a>
+	<a href="/app/playlists">
+		<h1 class="app__header__title">Portify</h1>
+	</a>
 
 	<div class="app__header__trail">
 		<slot name="avatar" />
