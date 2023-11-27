@@ -1,7 +1,7 @@
 # Portify V2
 [![Netlify Status](https://api.netlify.com/api/v1/badges/653f33f6-833d-4d65-8b21-73a7c6c55dee/deploy-status)](https://app.netlify.com/sites/portify-v2/deploys)
 
-![Screenshot](static/og-image.png)
+![Screenshot](static/og-image.jpg)
 
 ## About Portify
 
