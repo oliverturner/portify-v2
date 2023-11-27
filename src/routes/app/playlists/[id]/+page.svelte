@@ -44,7 +44,6 @@
 {/if}
 
 <div class="content">
-	<!-- TODO use proper shorthand and componentisation -->
 	<ol class="content__items" class:content__items--grouped={$isGrouped}>
 		{#each $tracksPage.items as track, index (track.id)}
 			<li class="content__item">
