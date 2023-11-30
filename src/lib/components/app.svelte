@@ -3,6 +3,7 @@
 
 	import MenuBtn from "./btn-menu.svelte";
 	import Preferences from "./preferences.svelte";
+	import Icon from "./icon.svelte";
 </script>
 
 <header class="app__header">
@@ -13,7 +14,18 @@
 	</a>
 
 	<div class="app__header__trail">
-		<slot name="avatar" />
+		<!--
+		<a href="/about">
+			<Icon id="icon-info" size="medium" />
+			<span class="sr-only">About</span>
+		</a>
+		<a href="https://github.com/oliverturner/portify-v2">
+			<Icon id="logo-github" size="medium" />
+			<span class="sr-only">Source on Github</span>
+		</a>
+		-->
+
+		<slot name="controls" />
 	</div>
 </header>
 
@@ -37,6 +49,10 @@
 
 <style lang="postcss">
 	.app__header__trail {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+
 		@media (min-width: 1024px) {
 			margin-left: auto;
 		}

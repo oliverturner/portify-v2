@@ -24,7 +24,7 @@
 </script>
 
 <App>
-	<svelte:fragment slot="avatar">
+	<svelte:fragment slot="controls">
 		<PrefsBtn onClick={prefsPanel.toggle}>
 			<Image src={data.avatar} alt="User avatar" />
 		</PrefsBtn>
