@@ -9,7 +9,12 @@
 	let loaded = false;
 
 	onMount(() => {
-		img.onload = () => (loaded = true);
+		const t = setTimeout(() => (loaded = true), 2000);
+
+		img.onload = () => {
+			clearTimeout(t);
+			loaded = true;
+		};
 	});
 </script>
 
