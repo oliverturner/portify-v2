@@ -81,7 +81,6 @@
 			padding: 0.75ch;
 			border: none;
 			white-space: nowrap;
-			font-weight: 400;
 			text-shadow: none;
 			background-color: var(--bg);
 			color: #000;
