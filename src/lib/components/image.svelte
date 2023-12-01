@@ -9,15 +9,15 @@
 	let loaded = false;
 
 	onMount(() => {
-		img.src = src ?? "/img/placeholder.svg";
-
 		img.onload = () => {
 			loaded = true;
 		};
 	});
 </script>
 
-<img {alt} class:square class:loaded loading="lazy" bind:this={img} />
+{#key src}
+	<img {src} {alt} class:square class:loaded loading="lazy" bind:this={img} />
+{/key}
 
 <style lang="postcss">
 	img {
