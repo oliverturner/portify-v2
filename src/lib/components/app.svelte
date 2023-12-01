@@ -26,7 +26,7 @@
 <header class="app__header">
 	<MenuBtn onClick={pageNav.toggle} />
 
-	<a href="/app/playlists">
+	<a href="/">
 		<h1 class="app__header__title">Portify</h1>
 	</a>
 
