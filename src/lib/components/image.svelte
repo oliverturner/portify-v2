@@ -1,18 +1,19 @@
 <script lang="ts">
+	import { onMount } from "svelte";
+
 	export let src: string | undefined = "";
 	export let alt: string;
 	export let square = true;
 
-	const onImageLoaded = () => {
-		clearTimeout(timeOut);
-		loaded = true;
-	};
+	let img: HTMLImageElement;
+	let loaded = false;
 
-	$: loaded = false;
-	$: timeOut = setTimeout(() => (loaded = true), 2000);
+	onMount(() => {
+		img.onload = () => (loaded = true);
+	});
 </script>
 
-<img {src} {alt} class:square class:loaded on:load={onImageLoaded} loading="lazy" />
+<img {src} {alt} class:square class:loaded loading="lazy" bind:this={img} />
 
 <style lang="postcss">
 	img {
