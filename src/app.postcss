@@ -1,5 +1,5 @@
 /* See https://github.com/argyleink/open-props/tree/main/src for details */
-@import "open-props/buttons";
+@import "open-props/buttons" layer(vendor);
 
 :root {
 	--app-header-h: 50px;
@@ -114,7 +114,13 @@ body {
 	padding: 1rem 0;
 }
 
+:where(label) {
+	cursor: pointer;
+}
+
 :where(button) {
+	font-family: inherit;
+	font-weight: inherit;
 	cursor: pointer;
 }
 

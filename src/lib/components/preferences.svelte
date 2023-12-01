@@ -3,11 +3,13 @@
 
 	import { enhance } from "$app/forms";
 	import { keyNotation } from "$lib/stores/prefs";
+	import IconLink from "./icon-link.svelte";
 
-	const notations: Record<KeyNotation, string> = {
-		camelot: "Camelot",
-		musical: "Musical",
-	};
+	type KeyDetails = { label: string; sample: string };
+	const notations: Record<KeyNotation, KeyDetails> = {
+		camelot: { label: "Camelot", sample: "1A" },
+		musical: { label: "Musical", sample: "A♭m" },
+	} as const;
 
 	const onNotationChange = (event: Event) => {
 		const target = event.target as HTMLInputElement;
@@ -19,9 +21,9 @@
 	<div class="preferences__controls">
 		<form method="post" action="?/preferences" use:enhance>
 			<fieldset>
-				<legend class="title">Musical notation</legend>
+				<legend class="title">Notation</legend>
 				<ul class="radioitems">
-					{#each Object.entries(notations) as [id, label] (id)}
+					{#each Object.entries(notations) as [id, details] (id)}
 						<li>
 							<input
 								id="notation-{id}"
@@ -31,7 +33,10 @@
 								on:change={onNotationChange}
 								checked={$keyNotation === id}
 							/>
-							<label for="notation-{id}"><span>{label}</span></label>
+							<label class="notation" for="notation-{id}">
+								<span>{details.label}</span>
+								<span class="notation__sample">{details.sample}</span>
+							</label>
 						</li>
 					{/each}
 				</ul>
@@ -40,6 +45,19 @@
 	</div>
 
 	<div class="preferences__footer">
+		<ul class="extras">
+			<li>
+				<IconLink href="/credits" icon="icon-heart">
+					<span>Credits</span>
+				</IconLink>
+			</li>
+			<li>
+				<IconLink href="https://github.com/oliverturner/portify-v2" icon="logo-github">
+					<span>Source on GitHub</span>
+				</IconLink>
+			</li>
+		</ul>
+
 		<form class="logout" method="post" action="?/logout" use:enhance>
 			<button class="logout__btn btn">Sign out</button>
 		</form>
@@ -54,17 +72,47 @@
 		height: 100%;
 	}
 
+	.radioitems {
+		& > li {
+			display: flex;
+			align-items: center;
+		}
+	}
+
+	.notation {
+		flex: 1;
+
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.notation__sample {
+		padding: 0.25rem;
+		border: 1px solid;
+		border-radius: 0.25rem;
+		font-size: small;
+		color: var(--brand);
+	}
+
 	.preferences__controls {
 	}
 
 	.preferences__footer {
+		display: grid;
+		gap: 2rem;
+	}
+
+	.extras {
+		display: grid;
+		gap: 1rem;
+
+		& a:hover {
+			text-decoration: underline;
+		}
 	}
 
 	.logout {
-		display: flex;
-	}
-
-	.logout__btn {
-		flex: 1;
+		display: grid;
 	}
 </style>

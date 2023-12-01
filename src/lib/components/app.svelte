@@ -1,25 +1,50 @@
 <script lang="ts">
+	import { page } from "$app/stores";
+
 	import { pageNav, prefsPanel } from "$lib/stores/ui";
 
 	import MenuBtn from "./btn-menu.svelte";
 	import Preferences from "./preferences.svelte";
+	import RailLinks from "$lib/components/rail-links.svelte";
+	import Image from "$lib/components/image.svelte";
+	import PrefsBtn from "$lib/components/btn-prefs.svelte";
+
+	export let avatar: string | undefined;
+
+	const links = [
+		{ icon: "icon-playlist", href: "/app/playlists", label: "Playlists" },
+		{ icon: "icon-artist", href: "/app/artists", label: "Artists" },
+		{ icon: "icon-album", href: "/app/albums", label: "Albums" },
+		{ icon: "icon-track", href: "/app/tracks", label: "Tracks" },
+	];
+
+	$: isLoggedIn = avatar;
+	$: currentPath = $page.url.pathname;
+	$: isLinkActive = (href: string) => currentPath.startsWith(href);
 </script>
 
 <header class="app__header">
 	<MenuBtn onClick={pageNav.toggle} />
 
-	<a href="/app/playlists">
+	<a href="/">
 		<h1 class="app__header__title">Portify</h1>
 	</a>
 
 	<div class="app__header__trail">
-		<slot name="avatar" />
+		{#if isLoggedIn}
+			<PrefsBtn onClick={prefsPanel.toggle}>
+				<Image src={avatar} alt="User avatar" />
+			</PrefsBtn>
+		{/if}
 	</div>
 </header>
 
 <div class="app__content">
 	<nav class="app__content__rail">
 		<div class="app__rail__lead">
+			{#if isLoggedIn}
+				<RailLinks {links} {isLinkActive} />
+			{/if}
 			<slot name="rail-lead" />
 		</div>
 
