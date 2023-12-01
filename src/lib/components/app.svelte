@@ -19,6 +19,7 @@
 	];
 
 	$: isLoggedIn = avatar;
+	$: rootUrl = isLoggedIn ? "/app/playlists" : "/";
 	$: currentPath = $page.url.pathname;
 	$: isLinkActive = (href: string) => currentPath.startsWith(href);
 </script>
@@ -26,7 +27,7 @@
 <header class="app__header">
 	<MenuBtn onClick={pageNav.toggle} />
 
-	<a href="/">
+	<a href={rootUrl}>
 		<h1 class="app__header__title">Portify</h1>
 	</a>
 
