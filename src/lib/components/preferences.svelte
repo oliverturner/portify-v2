@@ -7,8 +7,8 @@
 
 	type KeyDetails = { label: string; sample: string };
 	const notations: Record<KeyNotation, KeyDetails> = {
-		camelot: { label: "Camelot", sample: "3B" },
-		musical: { label: "Musical", sample: "C♯, D♭" },
+		camelot: { label: "Camelot", sample: "1A" },
+		musical: { label: "Musical", sample: "A♭m" },
 	} as const;
 
 	const onNotationChange = (event: Event) => {
@@ -89,10 +89,10 @@
 
 	.notation__sample {
 		padding: 0.25rem;
+		border: 1px solid;
 		border-radius: 0.25rem;
 		font-size: small;
-		background-color: oklch(69% 0.19 60);
-		color: #000;
+		color: var(--brand);
 	}
 
 	.preferences__controls {
