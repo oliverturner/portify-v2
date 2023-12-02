@@ -9,6 +9,8 @@
 	let loaded = false;
 
 	onMount(() => {
+		loaded = img.complete;
+
 		img.onload = () => {
 			loaded = true;
 		};
