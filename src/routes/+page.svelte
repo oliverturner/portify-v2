@@ -51,7 +51,7 @@
 </main>
 
 <style>
-	img {
+	.loaded {
 		width: 100%;
 		height: min-content;
 		object-fit: contain;
