@@ -15,13 +15,13 @@
 		<a class="login" href="/login/spotify">
 			<enhanced:img
 				class="login__hero loaded"
-				src="../../static/img/splash-1024.png"
+				src="../../static/img/landing/hero.png"
 				alt="Splash"
 			/>
 			<div class="textbox">
 				<enhanced:img
 					class="login__logo square loaded"
-					src="../../static/img/logo-spotify.png"
+					src="../../static/img/logos/spotify.png"
 					alt="Spotify logo"
 				/>
 				<Icon id="icon-arrow-up" />
@@ -36,7 +36,7 @@
 				artists you love.
 			</p>
 
-			<enhanced:img src="../../static/img/track.png" alt="Track" class="loaded" />
+			<enhanced:img src="../../static/img/landing/track.png" alt="Track" class="loaded" />
 
 			<p>
 				Portify uses Spotify's Web API to add details like the track's key and tempo, while clicking
