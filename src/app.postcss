@@ -108,6 +108,15 @@ body {
 	color: inherit;
 }
 
+:where(img) {
+	opacity: 0;
+	transition: opacity 1s;
+
+	&.loaded {
+		opacity: 1;
+	}
+}
+
 :where(fieldset) {
 	border: none;
 	margin: 0;

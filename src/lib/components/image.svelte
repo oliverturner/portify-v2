@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 
-	export let src: string | undefined;
+	export let src: string = "/img/placeholder.svg";
 	export let alt: string;
 	export let square = true;
 
@@ -20,14 +20,3 @@
 {#key src}
 	<img {src} {alt} class:square class:loaded loading="lazy" bind:this={img} />
 {/key}
-
-<style lang="postcss">
-	img {
-		opacity: 0;
-		transition: opacity 1s;
-
-		&.loaded {
-			opacity: 1;
-		}
-	}
-</style>
