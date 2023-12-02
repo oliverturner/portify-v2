@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Icon from "$lib/components/icon.svelte";
 </script>
 
@@ -13,9 +13,17 @@
 <main class="app__content">
 	<div class="page">
 		<a class="login" href="/login/spotify">
-			<enhanced:img class="login__hero" src="../../static/img/splash-1024.png" alt="Splash" />
+			<enhanced:img
+				class="login__hero loaded"
+				src="../../static/img/splash-1024.png"
+				alt="Splash"
+			/>
 			<div class="textbox">
-				<img class="login__logo square" src="/img/logo-spotify.png" alt="Spotify logo" />
+				<enhanced:img
+					class="login__logo square loaded"
+					src="../../static/img/logo-spotify.png"
+					alt="Spotify logo"
+				/>
 				<Icon id="icon-arrow-up" />
 				<p class="title">Click!</p>
 			</div>
@@ -28,7 +36,7 @@
 				artists you love.
 			</p>
 
-			<enhanced:img src="../../static/img/track.png" alt="Track" />
+			<enhanced:img src="../../static/img/track.png" alt="Track" class="loaded" />
 
 			<p>
 				Portify uses Spotify's Web API to add details like the track's key and tempo, while clicking
@@ -43,7 +51,7 @@
 </main>
 
 <style>
-	img {
+	.loaded {
 		width: 100%;
 		height: min-content;
 		object-fit: contain;
