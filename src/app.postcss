@@ -65,6 +65,8 @@ body {
 	--_img1: radial-gradient(at 50% 0%, var(--bg-grad-inner) 0px, transparent 75%);
 	--_img2: radial-gradient(at 50% 100%, var(--bg-grad-outer) 0px, transparent 75%);
 
+	line-height: 1.4rem;
+
 	background-color: rgb(17, 24, 39);
 	background-image: var(--_img1), var(--_img2);
 	background-position: center;
@@ -95,6 +97,11 @@ body {
 
 :where(p) {
 	margin: 0;
+	line-height: 1.6rem;
+
+	& + p {
+		margin-top: 1rem;
+	}
 }
 
 :where(ul, ol) {
