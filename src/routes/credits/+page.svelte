@@ -115,7 +115,7 @@
 		grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
 		gap: 1rem;
 
-		max-width: 1024px;
+		max-width: min(1024px, 100%);
 		margin: auto;
 
 		& h2 {
