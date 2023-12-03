@@ -1,7 +1,7 @@
 import type { Session } from "lucia";
 type Secrets = typeof import("$env/static/private");
 
-import prettyMS from "pretty-ms";
+// import prettyMS from "pretty-ms";
 
 import * as secrets from "$env/static/private";
 import { encodeBase64 } from "$lib/utils/encode";
@@ -47,7 +47,7 @@ function validateUserAccessToken({ user }: Session) {
 	const timeLeft = Math.floor(user.spotifyAccessExpiresAt - Date.now());
 	const tokenIsValid = timeLeft > 0;
 
-	console.log(`Token refreshing in ${prettyMS(timeLeft)}`);
+	// console.log(`Token refreshing in ${prettyMS(timeLeft)}`);
 
 	return tokenIsValid;
 }
