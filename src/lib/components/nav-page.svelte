@@ -1,6 +1,8 @@
 <script lang="ts">
-	import { pageNav } from "$lib/stores/ui";
 	import { onMount } from "svelte";
+
+	import { page } from "$app/stores";
+	import { pageNav } from "$lib/stores/ui";
 
 	let navScrollRoot: HTMLElement;
 	let navScrollSentinel: HTMLElement;
@@ -20,7 +22,7 @@
 	onMount(() => {
 		let observer = new IntersectionObserver(onNavScroll, {
 			root: navScrollRoot,
-			rootMargin: "0px 0px 100px 0px"
+			rootMargin: "0px 0px 100px 0px",
 		});
 
 		observer.observe(navScrollSentinel);
@@ -34,9 +36,11 @@
 			<li bind:this={navScrollSentinel}></li>
 		</ol>
 	</div>
-	<div class="page__content">
-		<slot />
-	</div>
+	{#key $page.url.pathname}
+		<div class="page__content">
+			<slot />
+		</div>
+	{/key}
 </div>
 
 <style lang="postcss">

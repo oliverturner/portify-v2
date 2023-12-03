@@ -41,7 +41,7 @@
 </header>
 
 <div class="app__content">
-	<nav class="app__content__rail">
+	<nav class="app__rail">
 		<div class="app__rail__lead">
 			{#if isLoggedIn}
 				<RailLinks {links} {isLinkActive} />
@@ -56,7 +56,7 @@
 
 	<slot />
 
-	<div class="app__content__prefs" class:displayed={$prefsPanel}>
+	<div class="app__prefs" class:displayed={$prefsPanel}>
 		<Preferences />
 	</div>
 </div>
@@ -88,7 +88,7 @@
 		z-index: 1;
 	}
 
-	.app__content__rail {
+	.app__rail {
 		--_h: var(--rail-mobile-h);
 		--_bg: var(--surface-0);
 		--_ink: var(--text-1);
@@ -114,7 +114,7 @@
 		}
 	}
 
-	.app__content__prefs {
+	.app__prefs {
 		--_height: calc(100dvh - var(--app-header-h) - var(--rail-mobile-h));
 		--_translateX: 100%;
 		--_bg: var(--surface-0);

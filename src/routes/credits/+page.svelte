@@ -10,8 +10,8 @@
 
 <App avatar={data.avatar}>
 	<div class="content">
-		<h2>Credits</h2>
 		<div class="credits">
+			<h2>Credits</h2>
 			<article class="credit credit--intro">
 				<p>
 					I made Portify not just to meet a practical need, but because I wanted to learn about new
@@ -19,8 +19,8 @@
 				</p>
 				<p>
 					All these libraries and frameworks share a theme in common: a focus on web standards and
-					values like performance and accessibility; elegant, intuitive APIs; and a fresh take on
-					the developer experience.
+					user-oriented values like performance and accessibility; elegant, intuitive APIs; and a
+					fresh take on the developer experience.
 				</p>
 				<p>
 					I'm immensely grateful to the authors for their work, and for making it available to the
@@ -38,7 +38,7 @@
 					<h3>Spotify TypeScript SDK</h3>
 				</header>
 				<p>
-					This build was spurred into existence by the announcement of the <a
+					This year's build was inspired by the announcement of the <a
 						href="https://developer.spotify.com/blog/2023-07-03-typescript-sdk"
 					>
 						Spotify TypeScript SDK
@@ -91,7 +91,12 @@
 				</header>
 			</article>
 
-			<article class="credit"><h3>Open Props</h3></article>
+			<article class="credit">
+				<header>
+					<img class="logo square loaded" alt="Open Props logo" src="/img/logos/open-props.svg" />
+					<h3>Open Props</h3>
+				</header>
+			</article>
 		</div>
 	</div>
 </App>
@@ -103,14 +108,19 @@
 
 		height: 100%;
 		overflow: hidden auto;
-		max-width: 1024px;
-		margin: auto;
 	}
 
 	.credits {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
 		gap: 1rem;
+
+		max-width: 1024px;
+		margin: auto;
+
+		& h2 {
+			grid-column: 1 / -1;
+		}
 	}
 
 	.credit {
