@@ -16,7 +16,7 @@ const trackFields = [
 	"duration_ms",
 	"artists(id,name)",
 	"album(id,name,images)",
-	"external_urls"
+	"external_urls",
 ].join(",");
 
 const getDefaultParams = () => ({
