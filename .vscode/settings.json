@@ -14,7 +14,7 @@
 		"./node_modules/open-props/theme.dark.switch.min.css",
 		"./node_modules/open-props/theme.light.switch.min.css",
 		"./node_modules/open-props/sizes.min.css",
-		"./node_modules/open-props/zindex.min.css",
+		"./node_modules/open-props/zindex.min.css"
 	],
 
 	// Do not ignore node_modules css files, which is ignored by default
@@ -23,9 +23,9 @@
 	// add support for autocomplete in JS or JS like files
 	"cssvar.extensions": ["css", "postcss", "svelte"],
 
+	"eslint.validate": ["javascript", "javascriptreact", "svelte"],
+
 	"prettier.documentSelectors": ["**/*.svelte"],
 
-	"vitest.include": [
-		"**/__tests__/*.spec.ts",
-	]
+	"vitest.include": ["**/__tests__/*.spec.ts"]
 }

@@ -1,4 +1,6 @@
 <script lang="ts">
+	/* eslint-disable svelte/no-at-html-tags */
+
 	import type { AudioTrack } from "$lib/typings/app";
 	import type { PageData } from "./$types";
 

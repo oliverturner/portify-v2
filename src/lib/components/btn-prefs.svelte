@@ -1,6 +1,4 @@
 <script lang="ts">
-	import Image from "./image.svelte";
-
 	export let onClick: () => void;
 </script>
 

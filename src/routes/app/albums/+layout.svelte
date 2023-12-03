@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { SavedAlbum } from "$lib/typings/spotify";
 	import type { LayoutData } from "./$types";
 
 	import { page } from "$app/stores";

@@ -1,20 +1,20 @@
 <script lang="ts">
-	import { getTrackAudio } from "$lib/utils/track";
+	// import { getTrackAudio } from "$lib/utils/track";
 	import rawNotation from "$lib/constants/raw-notation.json";
 
-	function reflectConfig() {
-		const tempo = 0;
-		const arr = Array.from({ length: 12 }, (_, key) => {
-			const minor = getTrackAudio({ mode: 0, key, tempo });
-			const major = getTrackAudio({ mode: 1, key, tempo });
-			return { minor, major };
-		});
+	// function reflectConfig() {
+	// 	const tempo = 0;
+	// 	const arr = Array.from({ length: 12 }, (_, key) => {
+	// 		const minor = getTrackAudio({ mode: 0, key, tempo });
+	// 		const major = getTrackAudio({ mode: 1, key, tempo });
+	// 		return { minor, major };
+	// 	});
 
-		return {
-			arr,
-			str: JSON.stringify(arr, null, 2),
-		};
-	}
+	// 	return {
+	// 		arr,
+	// 		str: JSON.stringify(arr, null, 2),
+	// 	};
+	// }
 
 	function generateConfig() {
 		const oklchMinor = (hueIndex: number) => `76% 0.12 ${(hueIndex * 30) % 360}`;

@@ -1,0 +1,20 @@
+# EXAMPLE USAGE:
+#
+#   Refer for explanation to following link:
+#   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
+#
+pre-push:
+  commands:
+    svelte-check:
+      tags: svelte
+      run: npm run svelte:check
+
+pre-commit:
+  parallel: true
+  commands:
+    eslint:
+      glob: "*.{js,ts,jsx,tsx,svelte}"
+      run: npx eslint {staged_files} && git add {staged_files}
+    format:
+      glob: "*.{js,ts,jsx,tsx,css,scss,json,md,yml,html,svelte}"
+      run: npx prettier -w {staged_files} && git add {staged_files}

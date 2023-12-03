@@ -6,7 +6,7 @@
 	};
 
 	const {
-		elements: { content, title, description, close },
+		elements: { content, title, description },
 		helpers,
 		states: { toasts },
 		actions: { portal },
@@ -70,15 +70,5 @@
 		width: content;
 		max-width: calc(100vw - 2rem);
 		padding: 1.6rem;
-	}
-
-	.toast__close-button {
-		position: absolute;
-		top: 0.5rem;
-		right: 0.5rem;
-
-		display: grid;
-		place-items: center;
-		border-radius: 1rem;
 	}
 </style>
