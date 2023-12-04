@@ -6,6 +6,10 @@
 	export let data: PageData;
 </script>
 
+<svelte:head>
+	<title>Credits | Portify</title>
+</svelte:head>
+
 <App avatar={data.avatar}>
 	<div class="content">
 		<div class="credits">
