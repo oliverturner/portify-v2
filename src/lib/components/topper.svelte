@@ -8,13 +8,13 @@
 </script>
 
 <div class="topper class:{type}">
-	<div class="topper__cover">
+	<div class="cover">
 		<slot name="cover">
 			<Image {src} alt="Cover art" />
 		</slot>
 	</div>
 
-	<div class="topper__content">
+	<div class="content">
 		<slot />
 	</div>
 </div>
@@ -25,12 +25,9 @@
 
 		display: grid;
 		align-items: end;
-		grid-template-areas:
-			"cover"
-			"content";
 
 		margin: 0;
-		background: var(--surface-5);
+		background: #0004;
 
 		@media (min-width: 768px) {
 			gap: 1rem;
@@ -39,16 +36,15 @@
 		}
 	}
 
-	.topper__cover {
+	.cover {
 		grid-area: cover;
-
-		display: flex;
-		justify-content: center;
 	}
 
-	.topper__content {
+	.content {
 		grid-area: content;
-		padding: 1rem;
+
+		position: relative;
+		background: var(--surface-1);
 
 		@media (min-width: 768px) {
 			background: none;

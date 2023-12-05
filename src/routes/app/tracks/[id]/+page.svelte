@@ -8,7 +8,6 @@
 	import TrackArtists from "$lib/components/track-artists.svelte";
 	import TrackCover from "$lib/components/track-cover.svelte";
 	import VendorLinks from "$lib/components/vendor-links.svelte";
-	import PlayBtn from "$lib/components/btn-play.svelte";
 	import { getTrackLinks } from "$lib/utils/track";
 
 	export let data: PageData;
@@ -42,10 +41,6 @@
 			</dl>
 
 			<VendorLinks {links} />
-
-			<div class="player">
-				<PlayBtn trackId={track.id} />
-			</div>
 		</div>
 	</Topper>
 
@@ -71,13 +66,3 @@
 		</ol>
 	</div>
 {/if}
-
-<style lang="postcss">
-	.player {
-		grid-area: 1 / 1 / -1 / -1;
-		place-self: end;
-
-		position: absolute;
-		margin-inline: 0.5rem;
-	}
-</style>

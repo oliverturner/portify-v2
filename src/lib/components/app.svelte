@@ -43,7 +43,9 @@
 <div class="app__content">
 	<nav class="app__rail">
 		<div class="app__rail__lead">
-			<RailLinks {links} {isLinkActive} />
+			{#if isLoggedIn}
+				<RailLinks {links} {isLinkActive} />
+			{/if}
 			<slot name="rail-lead" />
 		</div>
 
