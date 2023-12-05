@@ -14,15 +14,13 @@
 
 	{#if track.audio}
 		<figcaption class="meta">
-			<button
-				class="meta__key"
-				style="--bg: oklch({track.audio.oklch})"
-				on:click={keyNotation.toggle}
-			>
-				<span>
-					{track.audio.keys[$keyNotation]}
-				</span>
-			</button>
+			<p class="meta__key">
+				<button style="--bg: oklch({track.audio.oklch})" on:click={keyNotation.toggle}>
+					<span>
+						{track.audio.keys[$keyNotation]}
+					</span>
+				</button>
+			</p>
 			<p class="meta__bpm" class:compact>{track.audio.tempo} <span>bpm</span></p>
 		</figcaption>
 	{/if}
@@ -67,32 +65,29 @@
 		grid-area: meta;
 
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
 
 		position: relative;
-		padding: 0.5rem;
-		padding-right: 0;
 
 		& > * {
-			flex: 0 1 auto;
-
-			line-height: 1;
-			font-size: small;
+			padding: 0.5rem;
 		}
 	}
 
 	.meta__key {
-		padding: 0.75ch;
-		border: none;
-		white-space: nowrap;
-		text-shadow: none;
-		background-color: var(--bg);
-		color: #000;
+		flex: 1;
+
+		& > button {
+			padding: 0.75ch;
+			border: none;
+			white-space: nowrap;
+			text-shadow: none;
+			background-color: var(--bg);
+			color: #000;
+		}
 	}
 
 	.meta__bpm {
-		padding: 0.5rem;
 		border: 1px solid var(--border-2);
 		border-right: none;
 		border-radius: 0.5rem 0 0 0.5rem;

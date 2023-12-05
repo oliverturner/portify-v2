@@ -381,9 +381,12 @@ body {
 .playbtn {
 	--_highlight-dark: #fff4;
 
-	aspect-ratio: 1;
-	border-radius: 50%;
+	grid-area: 1 / 1 / -1 / -1;
+	place-self: end;
+
+	margin: 0.5rem;
 	padding: 0.25rem;
+	border-radius: 50%;
 
 	&:hover {
 		& svg {
