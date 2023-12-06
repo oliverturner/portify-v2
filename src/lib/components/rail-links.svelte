@@ -3,9 +3,10 @@
 
 	export let links: { icon: string; href: string; label: string }[];
 	export let isLinkActive: (href: string) => boolean;
+	export let isLoggedIn: boolean;
 </script>
 
-<nav class="rail__links">
+<nav class="rail__links" data-sveltekit-preload-data={isLoggedIn}>
 	{#each links as link}
 		<a class="rail__link title" class:active={isLinkActive(link.href)} href={link.href}>
 			<span class="rail__link__icon">
