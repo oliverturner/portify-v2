@@ -1,26 +1,29 @@
 import type { AuthRequest } from "lucia";
 import { getAccessToken } from "./token";
 
-// TODO: Set signal on session?
-
 export async function queryApiFn(authRequest: AuthRequest) {
 	const session = await authRequest.validate();
 	const accessToken = await getAccessToken(session);
 
 	return async function queryApi<T>(endpoint: string, options: RequestInit = {}) {
-		const res = await fetch(endpoint, {
-			...options,
-			headers: {
-				"cache-control": "public, max-age=3600",
-				Authorization: `Bearer ${accessToken}`,
-			},
-		});
+		try {
+			const res = await fetch(endpoint, {
+				...options,
+				headers: {
+					"cache-control": "public, max-age=3600",
+					Authorization: `Bearer ${accessToken}`,
+				},
+			});
 
-		if (res.ok === false) {
-			throw new Error("Failed to fetch data", { cause: res });
+			if (res.ok === false) {
+				throw new Error("Failed to fetch data", { cause: res });
+			}
+
+			return res.json() as Promise<T>;
+		} catch (error) {
+			console.error(error);
+			return null;
 		}
-
-		return res.json() as Promise<T>;
 	};
 }
 
