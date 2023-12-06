@@ -13,8 +13,14 @@ export const handle: Handle = async ({ event, resolve }) => {
 		return resolve(event);
 	}
 
-	event.locals.auth = auth.handleRequest(event);
-	const session = await event.locals.auth.validate();
+	let session = null;
+
+	try {
+		event.locals.auth = auth.handleRequest(event);
+		session = await event.locals.auth.validate();
+	} catch (error) {
+		console.error(error);
+	}
 
 	if (session) {
 		if (event.url.pathname.startsWith("/login") || event.url.pathname === "/app") {
