@@ -9,22 +9,28 @@ function isProtectedRoute(pathname: string) {
 }
 
 export const handle: Handle = async ({ event, resolve }) => {
-	event.locals.auth = auth.handleRequest(event);
-	const session = await event.locals.auth.validate();
-
-	if (session) {
-		if (
-			event.url.pathname.startsWith("/login") ||
-			event.url.pathname === "/app" ||
-			event.url.pathname === "/"
-		) {
-			throw redirect(303, "/app/playlists");
-		}
-	} else {
-		if (isProtectedRoute(event.url.pathname)) {
-			throw redirect(303, "/");
-		}
+	if (event.url.pathname === "/") {
+		return resolve(event);
 	}
 
-	return await resolve(event);
+	try {
+		event.locals.auth = auth.handleRequest(event);
+		const session = await event.locals.auth.validate();
+
+		if (session) {
+			if (event.url.pathname.startsWith("/login") || event.url.pathname === "/app") {
+				throw redirect(303, "/app/playlists");
+			}
+		} else {
+			if (isProtectedRoute(event.url.pathname)) {
+				throw redirect(303, "/");
+			}
+		}
+
+		return resolve(event);
+	} catch (error) {
+		console.error(error);
+
+		throw redirect(303, "/");
+	}
 };
