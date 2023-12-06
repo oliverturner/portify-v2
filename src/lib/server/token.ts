@@ -21,26 +21,32 @@ async function refreshUserAccessToken(secrets: Secrets, session: Session) {
 	body.set("grant_type", "refresh_token");
 	body.set("refresh_token", spotifyRefreshToken);
 
-	const res = await fetch("https://accounts.spotify.com/api/token", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/x-www-form-urlencoded",
-			Authorization: `Basic ${authToken}`,
-		},
-		body: body.toString(),
-	});
+	try {
+		const res = await fetch("https://accounts.spotify.com/api/token", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded",
+				Authorization: `Basic ${authToken}`,
+			},
+			body: body.toString(),
+		});
 
-	if (res.ok === false) {
-		throw new Error("Failed to refresh access token", { cause: res });
+		if (res.ok === false) {
+			throw new Error("Failed to refresh access token", { cause: res });
+		}
+
+		const data = await res.json();
+		const user = await auth.updateUserAttributes(userId, {
+			access_token: data.access_token,
+			access_expires_at: Date.now() + data.expires_in * 1000 - TOKEN_REFRESH_BUFFER,
+		});
+
+		return user.spotifyAccessToken;
+	} catch (error) {
+		console.error(error);
+
+		return null;
 	}
-
-	const data = await res.json();
-	const user = await auth.updateUserAttributes(userId, {
-		access_token: data.access_token,
-		access_expires_at: Date.now() + data.expires_in * 1000 - TOKEN_REFRESH_BUFFER,
-	});
-
-	return user.spotifyAccessToken;
 }
 
 function validateUserAccessToken({ user }: Session) {
@@ -73,7 +79,7 @@ export async function getAccessToken(session: Session | null) {
 	}
 
 	session.tokenRefreshing = refreshUserAccessToken(secrets, session);
-	accessToken = await session.tokenRefreshing;
+	accessToken = (await session.tokenRefreshing) ?? "unknown";
 	delete session.tokenRefreshing;
 
 	return accessToken;

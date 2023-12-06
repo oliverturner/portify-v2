@@ -27,7 +27,7 @@ export const auth = lucia({
 			spotifyAccessExpiresAt: data.access_expires_at,
 		};
 	},
-	getSessionAttributes: (): { tokenRefreshing?: Promise<string> } => ({}),
+	getSessionAttributes: (): { tokenRefreshing?: Promise<string | null> } => ({}),
 });
 
 export const spotifyAuth = spotify(auth, {

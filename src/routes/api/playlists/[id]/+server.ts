@@ -24,10 +24,15 @@ export async function GET({ locals, params, fetch, url }) {
 	const playlist = await queryApi<Playlist>(endpoint);
 
 	const res = await fetch(`/api/playlists/${params.id}/tracks?offset=0`);
-	const tracks = (await res.json()) as Page<AudioTrack>;
 
-	return json({
-		playlist,
-		tracks,
-	});
+	if (res.ok) {
+		const tracks = (await res.json()) as Page<AudioTrack>;
+
+		return json({
+			playlist,
+			tracks,
+		});
+	}
+
+	return json(null);
 }

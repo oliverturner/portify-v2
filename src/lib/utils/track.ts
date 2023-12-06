@@ -65,7 +65,7 @@ export async function injectAudio(queryApi: QueryApi, rawTracks: TrackItem[] | A
 	return playableTracks;
 }
 
-export function getTrackLinks(track: Track | SimplifiedTrack | undefined) {
+export function getTrackLinks(track: Track | SimplifiedTrack | null) {
 	if (!track) return;
 
 	const bandcampArtist = track.artists[0]?.name;

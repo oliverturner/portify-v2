@@ -1,4 +1,5 @@
 import type { AuthRequest } from "lucia";
+
 import { getAccessToken } from "./token";
 
 export async function queryApiFn(authRequest: AuthRequest) {
