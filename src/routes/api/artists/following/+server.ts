@@ -20,7 +20,7 @@ export async function GET({ locals, url }) {
 	const urlParams = mergeParams(getDefaultParams(), url);
 	const endpoint = getEndpoint(`me/following`, urlParams);
 
-	const { artists } = await queryApi<{ artists: Page<Artist> }>(endpoint);
+	const res = await queryApi<{ artists: Page<Artist> }>(endpoint);
 
-	return json(artists);
+	return json(res?.artists);
 }

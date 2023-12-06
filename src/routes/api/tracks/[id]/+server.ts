@@ -10,13 +10,13 @@ const apiParams = {
 	market: "from_token",
 };
 
-function getEndpoints(track: AudioTrack) {
+function getEndpoints(track: AudioTrack | null) {
 	const url = "recommendations";
 
 	return {
 		recommendedArtists: getEndpoint(url, {
 			...apiParams,
-			seed_artists: track.artists.map((artist) => artist.id),
+			seed_artists: track?.artists.map((artist) => artist.id),
 		}),
 		recommendedTracks: getEndpoint(url, { ...apiParams, seed_tracks: track?.id }),
 	};
@@ -35,9 +35,9 @@ export const GET = async ({ locals, params }) => {
 		]);
 
 		const [[track], recommendedArtists, recommendedTracks] = await Promise.all([
-			injectAudio(queryApi, [trackRaw]),
-			injectAudio(queryApi, recommendedArtistsRaw.tracks),
-			injectAudio(queryApi, recommendedTracksRaw.tracks),
+			injectAudio(queryApi, trackRaw ? [trackRaw] : []),
+			injectAudio(queryApi, recommendedArtistsRaw?.tracks ?? []),
+			injectAudio(queryApi, recommendedTracksRaw?.tracks ?? []),
 		]);
 
 		return json({

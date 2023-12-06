@@ -20,7 +20,7 @@ export async function GET({ locals, url }) {
 	if (!queryApi) return json(null);
 
 	const endpoint = getEndpoint("me/top/tracks", mergeParams(getDefaultParams(), url));
-	const page = await queryApi<Page<AudioTrack>>(endpoint);
+	const page = (await queryApi<Page<AudioTrack>>(endpoint)) ?? { items: [] };
 
 	page.items = await injectAudio(queryApi, page.items);
 

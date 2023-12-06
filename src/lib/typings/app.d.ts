@@ -1,6 +1,6 @@
 import type { AudioFeatures, SimplifiedTrack } from "$lib/typings/spotify";
 
-export type QueryApi = <T>(endpoint: string, options?: RequestInit) => Promise<T>;
+export type QueryApi = <T>(endpoint: string, options?: RequestInit) => Promise<T | null>;
 
 export type TrackAudioFeatures = Pick<AudioFeatures, "mode" | "tempo" | "key">;
 
