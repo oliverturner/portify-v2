@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import type { AuthRequest } from "lucia";
 
 import { getAccessToken } from "./token";
@@ -21,8 +23,8 @@ export async function queryApiFn(authRequest: AuthRequest) {
 			}
 
 			return res.json() as Promise<T>;
-		} catch (error) {
-			console.error(error);
+		} catch (error: any) {
+			console.error(`queryApi(${endpoint}): ${error.message}`);
 			return null;
 		}
 	};
