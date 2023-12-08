@@ -2,18 +2,18 @@
 	import type { AudioTrack } from "$lib/typings/app";
 
 	import Image from "./image.svelte";
-	import Icon from "./icon.svelte";
 	import IconLink from "./icon-link.svelte";
 	import TrackCover from "./track-cover.svelte";
 	import TrackArtists from "./track-artists.svelte";
 	import VendorLinks from "./vendor-links.svelte";
+	import PlayBtn from "./btn-play.svelte";
 
 	import { getTrackLinks } from "$lib/utils/track";
-	import { onPlayBtnClick } from "$lib/utils/player";
+	import { playTrack } from "$lib/utils/player";
 
 	export let track: AudioTrack;
 
-	$: links = getTrackLinks(track);
+	const links = getTrackLinks(track);
 </script>
 
 <article class="track">
@@ -37,27 +37,36 @@
 		<VendorLinks {links} />
 	</div>
 
-	<button class="playbtn" on:click={() => onPlayBtnClick(track.id)}>
-		<Icon id="icon-play-btn" />
-		<span class="sr-only">Play</span>
-	</button>
+	<div class="player">
+		<PlayBtn onClick={() => playTrack(track.id)} />
+	</div>
 </article>
 
 <style lang="postcss">
 	.track {
 		display: grid;
-		grid-template-columns: auto 1fr auto;
-		grid-template-areas: "cover info";
-		align-items: center;
+		grid-template-areas:
+			"cover"
+			"info";
 
-		height: 100%;
 		background: var(--surface-5);
+
+		@media (min-width: 420px) {
+			grid-template-columns: auto 1fr;
+			grid-template-areas: "cover info";
+
+			height: 100%;
+		}
 	}
 
 	.track__cover {
 		--wh: 10rem;
 
 		grid-area: cover;
+
+		& figure {
+			margin: auto;
+		}
 	}
 
 	.info {
@@ -75,10 +84,9 @@
 		}
 	}
 
-	.playbtn {
-		--_highlight-dark: #fff4;
-
+	.player {
 		grid-area: 1 / 1 / -1 / -1;
 		place-self: end;
+		position: absolute;
 	}
 </style>

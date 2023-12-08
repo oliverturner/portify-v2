@@ -1,6 +1,4 @@
 <script>
-	// src/routes/blog/[slug]/+page.svelte
-
 	import { page } from "$app/stores";
 </script>
 

@@ -1,8 +1,6 @@
 import type { AuthRequest } from "lucia";
 import { getAccessToken } from "./token";
 
-// TODO: Set signal on session?
-
 export async function queryApiFn(authRequest: AuthRequest) {
 	const session = await authRequest.validate();
 	const accessToken = await getAccessToken(session);
