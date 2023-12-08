@@ -55,8 +55,12 @@
 		z-index: 2;
 
 		@media (min-width: 768px) {
-			grid-template-columns: 260px 1fr;
+			grid-template-columns: var(--pageNavW, 200px) 1fr;
 			grid-template-areas: "nav content";
+		}
+
+		@media (min-width: 1024px) {
+			--pageNavW: 260px;
 		}
 	}
 

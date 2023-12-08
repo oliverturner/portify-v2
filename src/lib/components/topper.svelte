@@ -4,7 +4,7 @@
 	export let type: "artist" | "album" | "playlist" | "track";
 	export let imgUrl: string | undefined = undefined;
 
-	$: src = imgUrl ?? "/img/placeholder.svg";
+	const src = imgUrl ?? "/img/placeholder.svg";
 </script>
 
 <div class="topper class:{type}">
@@ -21,7 +21,8 @@
 
 <style lang="postcss">
 	.topper {
-		--wh: 12rem;
+		/* --topperAlignItems: center; */
+		--topperAlignItems: stretch;
 
 		margin: 0;
 		background: #0004;
@@ -30,18 +31,21 @@
 			display: grid;
 			grid-template-columns: 12rem 1fr;
 			grid-template-areas: "cover content";
-			align-items: end;
+			align-items: var(--topperAlignItems);
 		}
 	}
 
 	.topper__cover {
 		grid-area: cover;
 
-		display: grid;
-		justify-content: center;
+		& figure {
+			aspect-ratio: initial;
+			width: 100%;
+			height: 100%;
+		}
 
-		& img {
-			max-width: var(--wh);
+		& .subject {
+			display: block;
 		}
 	}
 
@@ -49,6 +53,7 @@
 		grid-area: content;
 
 		display: grid;
+		align-items: center;
 
 		position: relative;
 		padding: 1rem;
