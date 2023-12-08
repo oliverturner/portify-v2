@@ -54,7 +54,7 @@
 		overflow: hidden;
 		z-index: 2;
 
-		@media (min-width: 1024px) {
+		@media (min-width: 768px) {
 			grid-template-columns: 260px 1fr;
 			grid-template-areas: "nav content";
 		}
@@ -81,7 +81,7 @@
 		transform: translate3D(var(--_translate-x), 0, 0);
 		transition: transform 0.25s ease-in-out;
 
-		@media (min-width: 1024px) {
+		@media (min-width: 768px) {
 			--_width: initial;
 			--_height: initial;
 			--_bg: var(--surface-5);
