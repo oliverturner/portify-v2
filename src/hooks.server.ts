@@ -28,3 +28,13 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	return await resolve(event);
 };
+
+export const handleError = async (error: Error) => {
+	console.error(error);
+
+	return new Response(null, {
+		headers: {
+			Location: "/",
+		},
+	});
+};
