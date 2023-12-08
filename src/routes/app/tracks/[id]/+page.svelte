@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { AudioTrack } from "$lib/typings/app";
 	import type { PageData } from "./$types";
 
 	import Topper from "$lib/components/topper.svelte";
@@ -8,16 +9,19 @@
 	import TrackArtists from "$lib/components/track-artists.svelte";
 	import TrackCover from "$lib/components/track-cover.svelte";
 	import VendorLinks from "$lib/components/vendor-links.svelte";
+	import PlayBtn from "$lib/components/btn-play.svelte";
+
 	import { getTrackLinks } from "$lib/utils/track";
+	import { playTrack } from "$lib/utils/player";
 
 	export let data: PageData;
 
-	$: track = data.track;
-	$: artists = track?.artists ?? [];
-	$: album = track?.album;
-	$: tracksViaArtist = data.recommendedArtists ?? [];
-	$: tracksViaTrack = data.recommendedTracks ?? [];
-	$: links = getTrackLinks(track);
+	const track: AudioTrack = data.track;
+	const artists = track?.artists ?? [];
+	const album = track?.album;
+	const tracksViaArtist = data.recommendedArtists ?? [];
+	const tracksViaTrack = data.recommendedTracks ?? [];
+	const links = getTrackLinks(track);
 </script>
 
 <svelte:head>
@@ -27,7 +31,7 @@
 {#if track}
 	<Topper type="track">
 		<TrackCover {track} slot="cover">
-			<Image src={track.album.images[1].url} alt={track.name} />
+			<Image src={album?.images[1].url} alt={track.name} />
 		</TrackCover>
 
 		<div class="stack">
@@ -41,6 +45,10 @@
 			</dl>
 
 			<VendorLinks {links} />
+
+			<div class="player">
+				<PlayBtn onClick={() => playTrack(track.id)} />
+			</div>
 		</div>
 	</Topper>
 
@@ -66,3 +74,12 @@
 		</ol>
 	</div>
 {/if}
+
+<style>
+	.player {
+		grid-area: 1 / 1 / -1 / -1;
+		place-self: end;
+
+		position: absolute;
+	}
+</style>

@@ -1,11 +1,8 @@
 import { addToast } from "$lib/components/toaster.svelte";
 
-export async function playTrack(id: string) {
-	return fetch(`/api/playback/play/${id}`);
-}
-
-export async function onPlayBtnClick(trackId: string) {
-	const { status } = await playTrack(trackId);
+export async function playTrack(trackId: string) {
+	const endpoint = `/api/playback/play/${trackId}`;
+	const { status } = await fetch(endpoint);
 
 	if (status === 404) {
 		addToast({

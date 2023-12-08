@@ -13,6 +13,7 @@
 	$: tracks = album?.tracks?.items ?? [];
 	$: showArtists = tracksShareArtist(album) === false;
 	$: links = getAlbumLinks(album);
+	$: console.log(album.images);
 </script>
 
 <svelte:head>
@@ -20,7 +21,7 @@
 </svelte:head>
 
 {#if album}
-	<Topper type="album" imgUrl={album.images[0]?.url}>
+	<Topper type="album" imgUrl={album.images[1]?.url}>
 		<div class="stack">
 			<h2>{album.name}</h2>
 			<dl class="datatable">
