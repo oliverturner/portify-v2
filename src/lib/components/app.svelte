@@ -18,7 +18,7 @@
 		{ icon: "icon-track", href: "/app/tracks", label: "Tracks" },
 	];
 
-	$: isLoggedIn = avatar;
+	$: isLoggedIn = Boolean(avatar);
 	$: rootUrl = isLoggedIn ? "/app/playlists" : "/";
 	$: currentPath = $page.url.pathname;
 	$: isLinkActive = (href: string) => currentPath.startsWith(href);
@@ -43,9 +43,8 @@
 <div class="app__content">
 	<nav class="app__rail">
 		<div class="app__rail__lead">
-			{#if isLoggedIn}
-				<RailLinks {links} {isLinkActive} />
-			{/if}
+			<RailLinks {links} {isLinkActive} {isLoggedIn} />
+
 			<slot name="rail-lead" />
 		</div>
 

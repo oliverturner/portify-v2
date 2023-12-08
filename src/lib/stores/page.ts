@@ -18,14 +18,18 @@ export function createPageStore<T>(endpoint: string) {
 
 			const url = new URL(endpoint, window.location.origin);
 			const res = await fetch(getAppEndpoint(next, url));
-			const data = (await res.json()) as Page<T>;
 
-			update((state) => {
-				return {
-					...data,
-					items: [...state.items, ...(data.items ?? [])],
-				};
-			});
+			if (res.ok) {
+				const json = await res.json();
+				const data = json as Page<T>;
+
+				update((state) => {
+					return {
+						...data,
+						items: [...state.items, ...(data.items ?? [])],
+					};
+				});
+			}
 		},
 	};
 }

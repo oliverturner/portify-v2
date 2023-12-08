@@ -2,7 +2,7 @@ import { dev } from "$app/environment";
 import { spotifyAuth } from "$lib/server/lucia.js";
 
 export const GET = async ({ cookies, locals }) => {
-	const session = await locals.auth.validate();
+	const session = await locals.auth?.validate();
 
 	if (session) {
 		return new Response(null, {

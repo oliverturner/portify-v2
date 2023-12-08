@@ -37,9 +37,10 @@ export async function GET({ params, locals, url }) {
 			`playlists/${params.id}/tracks`,
 			mergeParams(getDefaultParams(), url),
 		);
-		const { items, ...page } = await queryApi<Page<PlaylistedTrack<TrackItem>>>(endpoint);
-		const trackItems = items.map(({ track }) => track);
-		const audioTracks = await injectAudio(queryApi, trackItems);
+		const res = await queryApi<Page<PlaylistedTrack<TrackItem>>>(endpoint);
+		const { items, ...page } = res ?? {};
+		const trackItems = items?.map(({ track }) => track);
+		const audioTracks = await injectAudio(queryApi, trackItems ?? []);
 		const tracks = { ...page, items: audioTracks };
 
 		return json(tracks);

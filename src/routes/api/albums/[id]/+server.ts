@@ -20,16 +20,18 @@ const getDefaultParams = () => ({
 
 // TODO: add `albums/${params.id}/tracks` endpoint
 export const GET = async ({ locals, params, url }) => {
-	const queryApi = await queryApiFn(locals.auth);
+	const queryApi = await queryApiFn(locals?.auth);
 
 	if (!queryApi) return json(null);
 
 	const endpoint = getEndpoint(`albums/${params.id}`, mergeParams(getDefaultParams(), url));
 	const album = await queryApi<Album>(endpoint);
 
-	const trackItems = (album?.tracks?.items ?? []) as AudioTrack[];
-	const audioTracks = await injectAudio(queryApi, trackItems);
-	album.tracks.items = audioTracks;
+	if (album) {
+		const trackItems = (album?.tracks?.items ?? []) as AudioTrack[];
+		const audioTracks = await injectAudio(queryApi, trackItems);
+		album.tracks.items = audioTracks;
+	}
 
 	return json(album);
 };

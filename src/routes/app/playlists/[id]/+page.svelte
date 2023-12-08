@@ -22,7 +22,7 @@
 
 	function onPageChange(props: { curr: number; next: number }) {
 		const offset = (props.next - 1) * $tracksPage.limit;
-		tracksPage.loadTracks(data.playlist.id, offset);
+		tracksPage.loadTracks(data.playlist?.id, offset);
 
 		return props.next;
 	}
@@ -35,8 +35,8 @@
 <Topper type="playlist" {imgUrl}>
 	<div class="stack">
 		<h2>{title}</h2>
-		{#if data.playlist.description}
-			<div>{@html data.playlist.description}</div>
+		{#if data.playlist?.description}
+			<div>{@html data.playlist?.description}</div>
 		{/if}
 	</div>
 </Topper>

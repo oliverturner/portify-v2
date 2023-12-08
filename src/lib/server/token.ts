@@ -62,7 +62,7 @@ export async function getAccessToken(session: Session | null) {
 		throw new Error("No session provided");
 	}
 
-	let accessToken = session.user.spotifyAccessToken;
+	let accessToken: string | null = session.user.spotifyAccessToken;
 
 	if (validateUserAccessToken(session)) {
 		return accessToken;
@@ -74,6 +74,11 @@ export async function getAccessToken(session: Session | null) {
 
 	session.tokenRefreshing = refreshUserAccessToken(secrets, session);
 	accessToken = await session.tokenRefreshing;
+
+	if (accessToken === null) {
+		throw new Error("Failed to refresh access token");
+	}
+
 	delete session.tokenRefreshing;
 
 	return accessToken;

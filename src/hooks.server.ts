@@ -9,15 +9,21 @@ function isProtectedRoute(pathname: string) {
 }
 
 export const handle: Handle = async ({ event, resolve }) => {
-	event.locals.auth = auth.handleRequest(event);
-	const session = await event.locals.auth.validate();
+	if (event.url.pathname === "/") {
+		return resolve(event);
+	}
+
+	let session = null;
+
+	try {
+		event.locals.auth = auth.handleRequest(event);
+		session = await event.locals.auth.validate();
+	} catch (error) {
+		console.error(error);
+	}
 
 	if (session) {
-		if (
-			event.url.pathname.startsWith("/login") ||
-			event.url.pathname === "/app" ||
-			event.url.pathname === "/"
-		) {
+		if (event.url.pathname.startsWith("/login") || event.url.pathname === "/app") {
 			throw redirect(303, "/app/playlists");
 		}
 	} else {
@@ -26,5 +32,16 @@ export const handle: Handle = async ({ event, resolve }) => {
 		}
 	}
 
-	return await resolve(event);
+	return resolve(event);
+};
+
+export const handleError = (error: Error) => {
+	console.error(error);
+
+	return new Response(null, {
+		status: 302,
+		headers: {
+			Location: "/",
+		},
+	});
 };

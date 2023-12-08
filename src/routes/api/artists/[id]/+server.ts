@@ -38,7 +38,7 @@ export const GET = async ({ locals, params }) => {
 
 		try {
 			const [artist, topTracks, albums, appearsOn, related] = await Promise.all(requests);
-			const tracks = await injectAudio(queryApi, topTracks.tracks);
+			const tracks = await injectAudio(queryApi, topTracks?.tracks ?? []);
 
 			return json({
 				artist,

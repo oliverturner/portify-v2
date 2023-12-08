@@ -8,10 +8,11 @@
 	import Track from "$lib/components/track.svelte";
 	import ContentItem from "$lib/components/content-item.svelte";
 	import VendorLinks from "$lib/components/vendor-links.svelte";
+	import type { Artist } from "$lib/typings/spotify";
 
 	export let data: PageData;
 
-	$: artist = data.artist ?? {};
+	$: artist = data.artist ?? ({} as Artist);
 	$: genres = artist?.genres ?? [];
 	$: topTracks = data.tracks ?? [];
 	$: albums = data.albums?.items ?? [];

@@ -7,8 +7,17 @@ import type { PageLoad } from "./$types";
 export const load: PageLoad = async ({ params, fetch }) => {
 	const res = await fetch(`/api/playlists/${params.id}`);
 
-	return res.json() as Promise<{
-		playlist: Playlist<TrackItem>;
-		tracks: Page<AudioTrack>;
-	}>;
+	try {
+		return res.json() as Promise<{
+			playlist: Playlist<TrackItem>;
+			tracks: Page<AudioTrack>;
+		}>;
+	} catch (error) {
+		console.error(error);
+
+		return {
+			playlist: null,
+			tracks: null,
+		};
+	}
 };

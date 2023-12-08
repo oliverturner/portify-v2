@@ -22,11 +22,11 @@ export async function getAudioFeatures({
 	const ids = [...uniqueIds].join(",");
 
 	const endpoint = getEndpoint("audio-features", { ids });
-	const { audio_features } = await queryApi<AudioFeaturesCollection>(endpoint);
+	const res = await queryApi<AudioFeaturesCollection>(endpoint);
 
 	const trackAudio: Record<string, TrackAudioFeatures> = {};
-	if (audio_features?.[0]) {
-		for (const feature of audio_features) {
+	if (res?.audio_features?.[0]) {
+		for (const feature of res?.audio_features ?? []) {
 			const { id, mode, tempo, key } = feature ?? {};
 			trackAudio[id] = { mode, tempo: Math.round(tempo), key };
 		}
@@ -65,7 +65,7 @@ export async function injectAudio(queryApi: QueryApi, rawTracks: TrackItem[] | A
 	return playableTracks;
 }
 
-export function getTrackLinks(track: Track | SimplifiedTrack | undefined) {
+export function getTrackLinks(track: Track | SimplifiedTrack | null) {
 	if (!track) return;
 
 	const bandcampArtist = track.artists[0]?.name;
