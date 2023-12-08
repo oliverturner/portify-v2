@@ -53,7 +53,7 @@
 	}
 
 	.track__meta {
-		--wh: 8rem;
+		--trackCoverWH: 8rem;
 
 		grid-area: meta;
 	}

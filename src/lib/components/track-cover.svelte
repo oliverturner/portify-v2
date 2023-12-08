@@ -38,8 +38,8 @@
 			"btn"
 			"meta";
 
-		width: var(--wh, 10rem);
-		height: var(--wh, 10rem);
+		width: var(--trackCoverWH, 10rem);
+		aspect-ratio: 1;
 		background: var(--surface-5);
 
 		&.compact {

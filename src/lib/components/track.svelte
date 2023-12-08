@@ -60,12 +60,12 @@
 	}
 
 	.track__cover {
-		--wh: 10rem;
+		--trackCoverWH: 100%;
 
 		grid-area: cover;
 
-		& figure {
-			margin: auto;
+		@media (min-width: 420px) {
+			--trackCoverWH: 10rem;
 		}
 	}
 
