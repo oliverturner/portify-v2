@@ -62,12 +62,12 @@ export const GET = async ({ url, cookies, locals }) => {
 		return new Response(null, {
 			status: 302,
 			headers: {
-				Location: "/app",
+				Location: "/app/playlists",
 			},
 		});
 	} catch (err) {
 		if (err instanceof Error) {
-			console.log(err.message);
+			console.error(err.message);
 		}
 
 		if (err instanceof OAuthRequestError) {

@@ -34,3 +34,14 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	return resolve(event);
 };
+
+export const handleError = (error: Error) => {
+	console.error(error);
+
+	return new Response(null, {
+		status: 302,
+		headers: {
+			Location: "/",
+		},
+	});
+};
