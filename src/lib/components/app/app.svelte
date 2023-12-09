@@ -3,11 +3,11 @@
 
 	import { pageNav, prefsPanel } from "$lib/stores/ui";
 
-	import MenuBtn from "./btn-menu.svelte";
-	import Preferences from "./preferences.svelte";
-	import RailLinks from "$lib/components/rail-links.svelte";
-	import Image from "$lib/components/image.svelte";
-	import PrefsBtn from "$lib/components/btn-prefs.svelte";
+	import Preferences from "../preferences.svelte";
+	import RailLinks from "../rail-links.svelte";
+	import Image from "../image.svelte";
+	import MenuBtn from "../btn-menu.svelte";
+	import PrefsBtn from "../btn-prefs.svelte";
 
 	export let avatar: string | undefined;
 

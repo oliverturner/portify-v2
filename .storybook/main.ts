@@ -6,6 +6,7 @@ const config: StorybookConfig = {
 		"@storybook/addon-links",
 		"@storybook/addon-essentials",
 		"@storybook/addon-interactions",
+		"storybook-addon-manual-mocks",
 	],
 	framework: {
 		name: "@storybook/sveltekit",
@@ -15,4 +16,5 @@ const config: StorybookConfig = {
 		autodocs: "tag",
 	},
 };
+
 export default config;
