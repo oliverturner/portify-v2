@@ -34,17 +34,19 @@
 			<Image src={album?.images[1].url} alt={track.name} />
 		</TrackCover>
 
-		<div class="stack">
-			<h2 class="title title--light">{track.name}</h2>
-			<TrackArtists {artists} />
-			<dl class="datatable">
-				<dt aria-label="Appears on"><Icon id="icon-album" /></dt>
-				<dd><a href="/app/albums/{album?.id}">{album?.name}</a></dd>
-				<dt aria-label="Release date"><Icon id="icon-calendar" /></dt>
-				<dd>{album?.release_date}</dd>
-			</dl>
+		<div class="row">
+			<div class="stack">
+				<h2 class="title title--light">{track.name}</h2>
+				<TrackArtists {artists} />
+				<dl class="datatable">
+					<dt aria-label="Appears on"><Icon id="icon-album" /></dt>
+					<dd><a href="/app/albums/{album?.id}">{album?.name}</a></dd>
+					<dt aria-label="Release date"><Icon id="icon-calendar" /></dt>
+					<dd>{album?.release_date}</dd>
+				</dl>
 
-			<VendorLinks {links} />
+				<VendorLinks {links} />
+			</div>
 
 			<div class="player">
 				<PlayBtn onClick={() => playTrack(track.id)} />
@@ -76,10 +78,16 @@
 {/if}
 
 <style>
+	.row {
+		display: flex;
+	}
+
+	.stack {
+		flex: 1;
+	}
+
 	.player {
 		grid-area: 1 / 1 / -1 / -1;
 		place-self: end;
-
-		position: absolute;
 	}
 </style>

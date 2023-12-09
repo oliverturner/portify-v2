@@ -87,6 +87,5 @@
 	.player {
 		grid-area: 1 / 1 / -1 / -1;
 		place-self: end;
-		position: absolute;
 	}
 </style>

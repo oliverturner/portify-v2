@@ -39,7 +39,8 @@
 			"meta";
 
 		width: var(--trackCoverWH, 10rem);
-		aspect-ratio: 1;
+		height: 100%;
+		overflow: hidden;
 		background: var(--surface-5);
 
 		&.compact {
