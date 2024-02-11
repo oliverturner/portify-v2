@@ -6,12 +6,12 @@ import { json } from "@sveltejs/kit";
 import { queryApiFn } from "$lib/server/api.js";
 import { mergeParams } from "$lib/utils/data.js";
 import { getEndpoint } from "$lib/utils/spotify.js";
+import { DEFAULT_PARAMS } from "$lib/constants.js";
 
 const getDefaultParams = () => ({
+	...DEFAULT_PARAMS,
 	fields: `id,name,description,images`,
 	market: "from_token",
-	limit: 50,
-	offset: 0,
 });
 
 export async function GET({ locals, params, fetch, url }) {

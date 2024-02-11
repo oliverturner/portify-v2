@@ -6,6 +6,7 @@ import { queryApiFn } from "$lib/server/api";
 import { mergeParams } from "$lib/utils/data.js";
 import { getEndpoint } from "$lib/utils/spotify.js";
 import { injectAudio } from "$lib/utils/track.js";
+import { DEFAULT_PARAMS } from "$lib/constants.js";
 
 const trackFields = [
 	"id",
@@ -20,8 +21,7 @@ const trackFields = [
 ].join(",");
 
 const getDefaultParams = () => ({
-	offset: 0,
-	limit: 50,
+	...DEFAULT_PARAMS,
 	market: "from_token",
 	fields: `limit,offset,total,next,previous,items(track(${trackFields}))`,
 });

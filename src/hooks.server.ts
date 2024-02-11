@@ -18,11 +18,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 			event.url.pathname === "/app" ||
 			event.url.pathname === "/"
 		) {
-			throw redirect(303, "/app/playlists");
+			redirect(303, "/app/playlists");
 		}
 	} else {
 		if (isProtectedRoute(event.url.pathname)) {
-			throw redirect(303, "/");
+			redirect(303, "/");
 		}
 	}
 
