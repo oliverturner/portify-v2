@@ -5,8 +5,9 @@ import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async ({ fetch, params }) => {
 	const res = await fetch(`/api/albums/${params.id}`);
+	const album: Album = await res.json();
 
 	return {
-		album: res.json() as Promise<Album>,
+		album,
 	};
 };

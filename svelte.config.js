@@ -1,6 +1,6 @@
 import sequence from "svelte-sequential-preprocessor";
 import adapter from "@sveltejs/adapter-netlify";
-import { vitePreprocess } from "@sveltejs/kit/vite";
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { preprocessMeltUI } from "@melt-ui/pp";
 
 /** @type {import('@sveltejs/kit').Config}*/
