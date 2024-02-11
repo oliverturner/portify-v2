@@ -5,11 +5,11 @@ import { json } from "@sveltejs/kit";
 import { mergeParams } from "$lib/utils/data.js";
 import { getEndpoint } from "$lib/utils/spotify.js";
 import { queryApiFn } from "$lib/server/api";
+import { DEFAULT_PARAMS } from "$lib/constants.js";
 
 const getDefaultParams = () => ({
+	...DEFAULT_PARAMS,
 	time_range: "short_term",
-	limit: 25,
-	offset: 0,
 });
 
 export async function GET({ locals, url }) {
